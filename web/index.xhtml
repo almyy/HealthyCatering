@@ -1,12 +1,26 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
+    
+            <p:outputLabel value="#{Frontpage.loginActivated}"/>
     <h:body>
-        Hello from Facelets
+        <h:form id="login" onsubmit="document.getElementById('login').action='j_security_check';" prependId="false" rendered="#{Frontpage.loginActivated}">
+          <h:panelGrid columns="2">
+             <p:outputLabel for="j_username" value="Username" />
+             <p:inputText id="j_username"/>            
+             <p:outputLabel for="j_password" value="Password"/>
+             <p:password id="j_password"/>
+             <p:commandButton id="submit" value="Login" ajax="false"/>
+          </h:panelGrid>
+        </h:form>
+        <h:form rendered="#{!Frontpage.loginActivated}" >
+            <p:commandButton action="#{Frontpage.setLoginActivated(true)}" onclick="submit();" value="Login" />
+        </h:form>
     </h:body>
 </html>
 
