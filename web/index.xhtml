@@ -18,11 +18,12 @@
              <p:outputLabel for="j_password" value="Password"/>
              <p:password id="j_password"/>
              <p:commandButton id="submit" value="Login" ajax="false"/>
+             <p><p:commandLink hreflang="/"/></p>
           </h:panelGrid>
         </h:form>
         <h:form rendered="#{!Frontpage.loginActivated}" >
             <p:commandButton action="#{Frontpage.setLoginActivated(true)}" onclick="submit();" value="Login" />
-        </h:form>
+       </h:form>      
     </h:body>
         </ui:define>
             </ui:composition>
