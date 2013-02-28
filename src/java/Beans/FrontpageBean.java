@@ -1,6 +1,8 @@
 package Beans;
 
 import java.io.Serializable;
+import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -12,7 +14,7 @@ public class FrontpageBean implements Serializable{
     public boolean isLoginActivated() {
         return loginActivated;
     }
-    public void setLoginActivated() {
-        loginActivated = !loginActivated;
+    public void setLoginActivated(boolean piss) {
+        loginActivated = piss;
     }
 }
