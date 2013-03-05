@@ -11,7 +11,9 @@
         </h:head>
         <ui:define name="content">
             <h:body>
-                <h:dataTable value="#{Worker.tabelldata}" var="OrderStatus">
+                <h:dataTable value="#{Worker.tabelldata}" var="OrderStatus" styleClass="orders"
+                             headerClass="ordersHeader" rowClasses="oddRow,evenRow" 
+                             columnClasses="orderId,textField" footerClass="footerRow" cellpadding="2" cellspacing="0">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
@@ -48,7 +50,9 @@
                         </f:facet>
                         #{OrderStatus.order.status}
                     </h:column>
-                    
+                    <f:facet name="footer">
+                        mømømø
+                    </f:facet>
                 </h:dataTable>
             </h:body>
         </ui:define>

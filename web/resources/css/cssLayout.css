@@ -37,3 +37,44 @@ div#menu {
     margin-top: 0px;
     margin-left: 0px;
 }
+.orders{
+    background-origin: border-box;
+    margin:0px;
+    padding:0px;
+}
+.ordersHeader{
+    height: 30px;
+    text-align: center;
+    font-style: italic; 
+    color: Snow; 
+    background: graytext;
+    margin:0px;
+}
+.footerRow{
+    height: 20px;
+    text-align: center;
+    font-style: italic; 
+    color: Snow; 
+    background: graytext;
+    margin:0px;
+}
+.oddRow{
+    height: 25px;
+    width: 151px;
+    text-align: center;
+    background: #DADADA;
+    margin:0px;
+    padding:0px;
+}
+.textField{
+    width: 160px;
+}
+.ordersId{
+    width: 50px;
+}
+.evenRow{
+    text-align: center;
+    background: white;
+    margin:0px;
+    padding:0px;
+}
