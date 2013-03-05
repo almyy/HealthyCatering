@@ -22,7 +22,7 @@
           </h:panelGrid>
         </h:form>
         <h:form rendered="#{!Frontpage.loginActivated}" >
-            <p:commandButton action="#{Frontpage.setLoginActivated(true)}" onclick="submit();" value="Login" />
+            <p:commandButton action="#{Frontpage.setLoginActivated(true)}" onclick="submit();" value="#{lang_auth.LogIn}" />
        </h:form>      
     </h:body>
         </ui:define>

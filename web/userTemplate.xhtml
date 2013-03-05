@@ -17,6 +17,10 @@
         <div id="top" class="title ui-widget-header ui-corner-all">
             <ui:insert name="top">
                 <h:graphicImage value="/resources/pictures/title.png"></h:graphicImage>
+                <h:form>
+                <p> <h:commandLink action="#{Lang.setEng()}"><h:graphicImage value = "resources/pictures/uk.png"/> </h:commandLink> 
+                    <h:commandLink action="#{Lang.setNo()}" ><h:graphicImage value = "resources/pictures/nor.png"/></h:commandLink></p>
+                </h:form>
             <div align="right">
                 <p:commandButton value="Home"></p:commandButton>
                 <p:commandButton value="Home"></p:commandButton>
