@@ -14,7 +14,7 @@ class registerBean implements Serializable {
     private String tempFirstName;
     private String tempSurname;
     private String tempEmail;
-    private String tempPhone;
+    private int tempPhone;
     
     public boolean validatePasswords() {
         if(tempPassword.equals(tempRepeatPass)) {
@@ -64,10 +64,10 @@ class registerBean implements Serializable {
     public void setTempEmail(String tempEmail) {
         this.tempEmail = tempEmail;
     }
-    public String getTempPhone() {
+    public int getTempPhone() {
         return tempPhone;
     }
-    public void setTempPhone(String tempPhone) {
+    public void setTempPhone(int tempPhone) {
         this.tempPhone = tempPhone;
     }
 }
