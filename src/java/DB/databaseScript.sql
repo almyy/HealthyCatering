@@ -25,7 +25,9 @@ CREATE TABLE PostalArea(
 );
 CREATE TABLE ROLES(
     roleName VARCHAR(20),
-    CONSTRAINT roles_pk PRIMARY KEY(roleName)
+    username VARCHAR(30),
+    CONSTRAINT roles_pk PRIMARY KEY(username,roleName)
+    CONSTRAINT roles_fk FOREIGN KEY(username) REFERENCES users(username)
 );
 CREATE TABLE users(
     username VARCHAR(20) NOT NULL,
@@ -35,10 +37,8 @@ CREATE TABLE users(
     address VARCHAR(40) NOT NULL,
     moblieNr INTEGER,
     postalCode INTEGER,
-    roleName VARCHAR(20),
     CONSTRAINT users_pk PRIMARY KEY(username),
     CONSTRAINT users_fk1 FOREIGN KEY(postalCode) REFERENCES postalArea(postalCode),
-    CONSTRAINT users_fk2 FOREIGN KEY(roleName) REFERENCES roles(roleName)
 );
 CREATE TABLE EMPLOYEE(
     username VARCHAR(20) NOT NULL,

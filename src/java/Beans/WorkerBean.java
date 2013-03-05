@@ -26,4 +26,7 @@ public class WorkerBean implements Serializable {
     public synchronized boolean isEmpty() {
         return !(tabelldata.size() > 0);
     }
+    public synchronized void update(){
+        
+    }
 }
