@@ -7,7 +7,7 @@
     <h:body>
         <ui:composition template="userTemplate.xhtml">
             <ui:define name="content">
-                <h:form method="post" action="j_security_check">
+                <form method="post" action="j_security_check">
                     <table>
                         <tr>
                             <td><h:outputText value="Username"/></td>
@@ -19,7 +19,7 @@
                         </tr>
                     </table>
                     <p><input type="submit" value="Login" /></p>
-                </h:form>
+                </form>
             </ui:define>
         </ui:composition>
     </h:body>
