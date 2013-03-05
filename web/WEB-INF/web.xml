@@ -24,20 +24,21 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/protected/passValid.xhtml</welcome-file>
     </welcome-file-list>
+     <context-param>
+      <param-name>javax.faces.PROJECT_STAGE</param-name>
+      <param-value>Development</param-value>
+   </context-param>
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected pages</web-resource-name>
             <url-pattern>/faces/protected/*</url-pattern>
-            <url-pattern>/protected/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>bruker</role-name>
-            <role-name>admin</role-name>
-            <role-name>chef</role-name>
-            <role-name>salesman</role-name>
             <role-name>customer</role-name>
+            <role-name>admin</role-name>
+            <role-name>worker</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>

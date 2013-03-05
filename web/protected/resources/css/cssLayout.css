@@ -1,0 +1,36 @@
+
+#div.fullwidth{
+    width: 100%;
+}
+
+div#header {
+    position:fixed;
+    background: URL('../pictures/headerbg.png');
+    top:0;
+    left:0;
+    right:0;
+    height:70px;
+}
+
+div#content {
+    position:absolute;
+    top:120px;
+    left:0;
+}
+div#lang {
+    position: absolute;
+    top:0;
+    right:0;
+}
+div#menu {
+    position: absolute;
+    float: right;
+    margin-top: 10px;
+    right: 100px;
+}
+
+#content {
+    position: relative;
+    margin-top: 0px;
+    margin-left: 0px;
+}
