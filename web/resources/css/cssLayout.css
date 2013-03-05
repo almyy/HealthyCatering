@@ -25,8 +25,11 @@ div#lang {
 div#menu {
     position: absolute;
     float: right;
-    margin-top: 10px;
+    margin-top:0;
     right: 100px;
+    padding: 20px;
+    background: URL('../pictures/menubg.png');
+    background-repeat: no-repeat;
 }
 
 #content {
