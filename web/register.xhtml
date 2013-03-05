@@ -7,12 +7,13 @@
     <head>
         <title>Register</title>
     </head>
-    <body>
+    <h:body>
         <h:form>
             <p:outputLabel value="Please fill in the following textfields."/>
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="3">
                 <p:outputLabel value="Username" />
-                <p:inputText value="#{Register.tempUsername}" validator="#{Register.validateUsername()}" maxlength="30" required="true"/>            
+                <p:inputText id="username" value="#{Register.tempUsername}" validator="#{Register.validateUsername}" maxlength="30" required="true"/>
+                <h:message for="username"/>
                 <p:outputLabel value="Password"/>
                 <p:password value="#{Register.tempPassword}" required="true"/>
                 <p:outputLabel value="Repeat password" />
@@ -27,10 +28,10 @@
                 <p:inputText value="#{Register.tempEmail}" required="true"/>
                 <p:outputLabel value="Phone number" />
                 <p:inputText value="#{Register.tempPhone}">
-                    <f:validateLongRange minimum ="8" maximum="8"/>
                 </p:inputText> 
-                <p:commandButton id="submit" value="Register" ajax="false"/>
+                
             </h:panelGrid>
-        </h:form>
-    </body>
+            <p:commandButton value="Register"/>
+            </h:form>
+    </h:body>
 </html>

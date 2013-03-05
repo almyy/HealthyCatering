@@ -7,12 +7,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 
 @ManagedBean
 @SessionScoped
 @Named("Register")
-class registerBean implements Serializable {
+class registerBean implements Serializable, Validator {
     private String tempUsername;
     private String tempPassword;
     private String tempRepeatPass;
@@ -37,7 +39,7 @@ class registerBean implements Serializable {
     public void validateUsername(FacesContext context, UIComponent component, Object value) {
         String message = "";
         String username = (String) value;
-        if(username == ,null || username.equals("")) {
+        if(username == null || username.equals("")) {
             ((UIInput)component).setValid(false);
             message = "Enter a username";
             context.addMessage(component.getClientId(context), new FacesMessage(message));
@@ -94,5 +96,10 @@ class registerBean implements Serializable {
     }
     public void setTempPhone(int tempPhone) {
         this.tempPhone = tempPhone;
+    }
+
+    @Override
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
