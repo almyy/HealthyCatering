@@ -10,33 +10,31 @@ div#header {
     left:0;
     right:0;
     height:70px;
+    z-index:900;
 }
 
 div#content {
     position:absolute;
-    top:120px;
+    top:80px;
     left:0;
 }
 div#lang {
-    position: absolute;
+    position: fixed;
     top:0;
     right:0;
+    z-index:1000;
 }
 div#menu {
-    position: absolute;
+    position: fixed;
     float: right;
     margin-top:0;
     right: 100px;
     padding: 20px;
     background: URL('../pictures/menubg.png');
     background-repeat: no-repeat;
+    z-index:1000;
 }
 
-#content {
-    position: relative;
-    margin-top: 0px;
-    margin-left: 0px;
-}
 .orders{
     background-origin: border-box;
     margin:0px;
