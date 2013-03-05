@@ -9,5 +9,5 @@ package Java;
  * @author Rino
  */
 public class Order {
-    private 
+    
 }

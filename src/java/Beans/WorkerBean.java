@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import Java.Order;
 /**
  *
  * @author Rino
@@ -16,5 +17,5 @@ import javax.inject.Named;
 @SessionScoped
 @Named("Chef")
 public class WorkerBean implements Serializable {
-    private List<OktStatus> tabelldata = Collections.synchronizedList(new ArrayList<OktStatus>());
+    private List<Order> tabelldata = Collections.synchronizedList(new ArrayList<Order>());
 }
