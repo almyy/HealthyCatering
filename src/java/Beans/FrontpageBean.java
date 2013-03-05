@@ -14,7 +14,7 @@ public class FrontpageBean implements Serializable{
     public boolean isLoginActivated() {
         return loginActivated;
     }
-    public void setLoginActivated(boolean piss) {
-        loginActivated = piss;
+    public void setLoginActivated(boolean ok) {
+        loginActivated = ok;
     }
 }
