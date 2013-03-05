@@ -10,12 +10,23 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import Java.Order;
+import Java.OrderStatus;
 /**
  *
  * @author Rino
  */
 @SessionScoped
-@Named("Chef")
+@Named("Worker")
 public class WorkerBean implements Serializable {
-    private List<Order> tabelldata = Collections.synchronizedList(new ArrayList<Order>());
+    private List<OrderStatus> tabelldata = Collections.synchronizedList(new ArrayList<OrderStatus>());
+    
+    public synchronized List<OrderStatus> getTabelldata() {
+        return tabelldata;
+    }
+    public synchronized boolean isEmpty() {
+        return !(tabelldata.size() > 0);
+    }
+    public synchronized void update(){
+        
+    }
 }
