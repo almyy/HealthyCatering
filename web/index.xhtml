@@ -4,29 +4,24 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:composition template="userTemplate.xhtml">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-        <ui:define name="content">
-            <p:outputLabel value="#{Frontpage.loginActivated}"/>
     <h:body>
-        <h:form id="login" onsubmit="document.getElementById('login').action='j_security_check';" prependId="false" rendered="#{Frontpage.loginActivated}">
-          <h:panelGrid columns="2">
-             <p:outputLabel for="j_username" value="Username" />
-             <p:inputText id="j_username"/>            
-             <p:outputLabel for="j_password" value="Password"/>
-             <p:password id="j_password"/>
-             <p:commandButton id="submit" value="Login" ajax="false"/>
-             <p><p:commandLink hreflang="/"/></p>
-          </h:panelGrid>
-        </h:form>
-        <h:form rendered="#{!Frontpage.loginActivated}" >
-            <p:commandButton action="#{Frontpage.setLoginActivated(true)}" onclick="submit();" value="Login" />
-       </h:form>      
+        <ui:composition template="userTemplate.xhtml">
+            <ui:define name="content">
+                <form method="post" action="j_security_check">
+                    <table>
+                        <tr>
+                            <td><h:outputText value="Username"/></td>
+                            <td><input type="text" name="j_username" /></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Password"/></td>
+                            <td><input type="password" name="j_password" /></td>
+                        </tr>
+                    </table>
+                    <p><input type="submit" value="Login" /></p>
+                </form>
+            </ui:define>
+        </ui:composition>
     </h:body>
-        </ui:define>
-            </ui:composition>
-    
 </html>
 

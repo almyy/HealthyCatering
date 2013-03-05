@@ -14,19 +14,27 @@
 
     <h:body>
 
-        <div id="top" class="title ui-widget-header ui-corner-all">
-            <ui:insert name="top">
+        <div id="header" class="fullwidth">
+            <div class="width-960">
                 <h:graphicImage value="/resources/pictures/title.png"></h:graphicImage>
-            <div align="right">
-                <p:commandButton value="Home"></p:commandButton>
-                <p:commandButton value="Home"></p:commandButton>
-                <p:commandButton value="Home"></p:commandButton>
-                <p:commandButton value="Home"></p:commandButton>
-            </div>
-        
-            </ui:insert>
-        </div>
 
+                
+            </div>
+        </div>
+        <div id="menu" class="menu">
+            <div align="right">
+                    <p:commandButton value="Home"></p:commandButton>
+                    <p:commandButton value="Menu"></p:commandButton>
+                    <p:commandButton value="Contact"></p:commandButton>
+                    <p:commandButton value="Profile"></p:commandButton>
+            </div>
+        </div>
+        <div id="lang" class="lang">
+            <h:form>
+                <p> <h:commandLink action="#{Lang.setEng()}"><h:graphicImage value = "resources/pictures/uk.png"/> </h:commandLink> 
+                    <h:commandLink action="#{Lang.setNo()}" ><h:graphicImage value = "resources/pictures/nor.png"/></h:commandLink></p>
+            </h:form>
+        </div>
         <div id="content">
             <ui:insert name="content">Content</ui:insert>
         </div>
