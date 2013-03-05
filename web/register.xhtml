@@ -2,19 +2,34 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <title>Register</title>
     </head>
     <body>
         <h:form>
+            <p:outputLabel value="Please fill in the following textfields."/>
             <h:panelGrid columns="2">
-                <p:outputLabel value="Please fill in the following textfields."/>
                 <p:outputLabel value="Username" />
-                <p:inputText value=""/>            
-                <p:outputLabel for="j_password" value="Password"/>
-                <p:password id="j_password"/>
-                <p:commandButton id="submit" value="Login" ajax="false"/>
+                <p:inputText value="#{Register.tempUsername}" validator="#{Register.validateUsername()}" maxlength="30" required="true"/>            
+                <p:outputLabel value="Password"/>
+                <p:password value="#{Register.tempPassword}" required="true"/>
+                <p:outputLabel value="Repeat password" />
+                <p:password value="#{Register.tempRepeatPass}" required="true"/>
+                <p:outputLabel value="First name" />
+                <p:inputText value="#{Register.tempFirstName}" required="true"/> 
+                <p:outputLabel value="Surname" />
+                <p:inputText value="#{Register.tempSurname}" required="true"/> 
+                <p:outputLabel value="Address" />
+                <p:inputText value="#{Register.tempAddress}"/>
+                <p:outputLabel value="E-mail" />
+                <p:inputText value="#{Register.tempEmail}" required="true"/>
+                <p:outputLabel value="Phone number" />
+                <p:inputText value="#{Register.tempPhone}">
+                    <f:validateLongRange minimum ="8" maximum="8"/>
+                </p:inputText> 
+                <p:commandButton id="submit" value="Register" ajax="false"/>
             </h:panelGrid>
         </h:form>
     </body>

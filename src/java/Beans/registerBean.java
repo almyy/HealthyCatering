@@ -2,8 +2,14 @@ package Beans;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+@ManagedBean
 @SessionScoped
 @Named("Register")
 class registerBean implements Serializable {
@@ -16,11 +22,30 @@ class registerBean implements Serializable {
     private String tempEmail;
     private int tempPhone;
     
-    public boolean validatePasswords() {
-        if(tempPassword.equals(tempRepeatPass)) {
-            return true;
+    public void validatePasswords(FacesContext context, UIComponent component, Object value) {
+        String message = "";
+        String password = (String) value;
+        if(!tempPassword.equals(password)) {
+            ((UIInput)component).setValid(false);
+            message = "The passwords doesn't match, please retype";
+            context.addMessage(component.getClientId(context), new FacesMessage(message));
         }
-        return false;
+        else {
+            tempRepeatPass = password;
+        }
+    }
+    public void validateUsername(FacesContext context, UIComponent component, Object value) {
+        String message = "";
+        String username = (String) value;
+        if(username == ,null || username.equals("")) {
+            ((UIInput)component).setValid(false);
+            message = "Enter a username";
+            context.addMessage(component.getClientId(context), new FacesMessage(message));
+        }
+        else {
+            tempUsername = username;
+        }
+        
     }
     public String getTempUsername() {
         return tempUsername;
