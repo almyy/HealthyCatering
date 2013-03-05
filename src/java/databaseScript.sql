@@ -99,7 +99,7 @@ CREATE TABLE Subscriptionplan(
     CONSTRAINT subscriptionplan_fk1 FOREIGN KEY(companyUserName) REFERENCES company(UserName)
 ); 
 CREATE TABLE orders(
-    orderId INTEGER NOT NULL,
+    orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     timeOfDelivery INT NOT NULL,
     deliveryAddress VARCHAR (50),
     status VARCHAR(15),
@@ -121,6 +121,7 @@ CREATE TABLE dish(
 );
 CREATE TABLE menu(
     menuId INTEGER NOT NULL,
+    menuName VARCHAR(30),
     CONSTRAINT menu_pk PRIMARY KEY(menuID)
 );
 CREATE TABLE dish_menu (
@@ -139,3 +140,58 @@ CREATE TABLE dishes_ordered(
     CONSTRAINT dishes_ordered_fk2 FOREIGN KEY(orderId) REFERENCES orders(orderID),
     CONSTRAINT dishes_ordered_pk PRIMARY KEY(orderId,dishId,menuId)
 );
+
+INSERT INTO Roles VALUES ('admin');
+INSERT INTO Roles VALUES ('customer');
+INSERT INTO Roles VALUES ('worker');
+
+INSERT INTO postalArea VALUES (7046,'Trondheim');
+INSERT INTO postalArea VALUES (7049,'Trondheim');
+INSERT INTO postalArea VALUES (7052,'Trondheim');
+INSERT INTO postalArea VALUES (7036,'Trondheim');
+
+INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3',46257954,7046,'customer');
+INSERT INTO users VALUES ('driver','asd123','sjåfør','sjåførsen','adresseveien 21', 457845512, 7049, 'admin');
+INSERT INTO users VALUES ('admin','asd123','admin','administratorsen','adresseveien 26', 457812412, 7049, 'admin');
+INSERT INTO users VALUES ('salesman','asd123','selger','selgersen','adresseveien 23', 457845512, 7049, 'admin');
+INSERT INTO users VALUES ('chef','asd123','kokk','administratorsen','adresseveien 26', 457824512, 7049, 'admin');
+INSERT INTO users VALUES ('bedrift','asd123','bedrift','bedriftersen','adresseveien 23', 457845132, 7049, 'admin');
+ 
+
+
+INSERT INTO CUSTOMER VALUES ('customer');
+INSERT INTO CUSTOMER VALUES ('bedrift');
+INSERT INTO private VALUES ('customer');
+INSERT INTO company VALUES ('bedrift');
+
+INSERT INTO EMPLOYEE VALUES ('admin', 1);
+INSERT INTO EMPLOYEE VALUES ('customer', 1);
+
+INSERT INTO administration VALUES ('admin');
+
+INSERT INTO worker VALUES ('driver');
+INSERT INTO worker VALUES ('salesman');
+INSERT INTO worker VALUES ('chef');
+
+INSERT INTO driver VALUES ('driver');
+INSERT INTO chef VALUES ('chef');
+INSERT INTO salesman VALUES ('salesman');
+
+INSERT INTO dish VALUES (1,'spaghetti');
+INSERT INTO dish VALUES (2,'laks');
+INSERT INTO dish VALUES (3, 'biff');
+INSERT INTO dish VALUES (4, 'GRÆNDIS');
+
+INSERT INTO menu VALUES (1,'privat');
+INSERT INTO menu VALUES (2,'bedrift');
+
+INSERT INTO dish_menu VALUES (1,1);
+INSERT INTO dish_menu VALUES (2,1);
+INSERT INTO dish_menu VALUES (4,1);
+
+INSERT INTO subscriptionplan VALUES(1,(DATE(2013-02-25)),(DATE(2016-02-26)),'bedrift');
+
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 'not delivered',(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 'not delivered',(DATE(2013-02-28)),'salesman','bedrift',1,7046);
+
+INSERT INTO dishes_ordered VALUES (1,1,1,2);
