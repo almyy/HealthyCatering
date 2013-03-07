@@ -51,6 +51,34 @@ public class Database {
         return orders;
         
 }
+       //FOR ADMIN
+        public ArrayList<Order> getOrderOverview(){
+        ArrayList<Order> orders = new ArrayList();
+        PreparedStatement sqlRead = null;
+        ResultSet res = null;
+        openConnection();
+        
+        try{
+            sqlRead = connection.prepareStatement("SELECT * FROM ORDERS");
+            res = sqlRead.executeQuery();
+            while(res.next()){
+                java.util.Date date = res.getDate("DATES");
+                    String deliveryAddress = res.getString("DELIVERYADDRESS");
+                    int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
+                    int status = res.getInt("STATUS");
+                    orders.add(new Order(date,timeOfDelivery,deliveryAddress,status));
+            }
+            
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+             Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(sqlRead);
+        }
+        return orders;
+    }
 
     public boolean logIn(user user) {
         PreparedStatement sqlLogIn = null;
