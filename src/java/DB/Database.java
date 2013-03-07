@@ -1,7 +1,6 @@
 package DB;
 
 import Java.Order;
-import Java.OrderStatus;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;

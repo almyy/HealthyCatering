@@ -2,7 +2,6 @@ package Java;
 /*
  * Class for generating orders from customerinput. 
  */
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -10,7 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Order {
 
     public enum Status {
-
         PENDING(1, "The order is waiting to be made"),
         UNDER_PREPARATION(2, "The order is currently being made by the chefs"),
         PENDING_DELIVERY(3, "The food is waiting for a driver"),
