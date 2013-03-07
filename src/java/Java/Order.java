@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Order {
 
-    public enum Status {
+    public enum Status{
         PENDING(1, "The order is waiting to be made"),
         UNDER_PREPARATION(2, "The order is currently being made by the chefs"),
         PENDING_DELIVERY(3, "The food is waiting for a driver"),
