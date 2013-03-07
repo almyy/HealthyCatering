@@ -16,7 +16,6 @@ public class Database {
     @Resource(name = "jdbc/hc_realm")
     private DataSource ds;
     private Connection connection;
-    private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
 
     public Database() {
         System.out.println("FARDIN!");
