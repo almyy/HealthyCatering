@@ -100,9 +100,9 @@ CREATE TABLE Subscriptionplan(
 ); 
 CREATE TABLE orders(
     orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
-    timeOfDelivery INT NOT NULL,
+    timeOfDelivery INTEGER NOT NULL,
     deliveryAddress VARCHAR (50),
-    status INT,
+    status INTEGER,
     dates date,
     userNameSalesman VARCHAR(20),
     userNameCustomer VARCHAR(20),

@@ -40,10 +40,11 @@ public class Database {
                 java.sql.Date date = res.getDate("DATES");
                 int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
-                String status = res.getString("STATUS");
-                orders.add(new Order(date, timeOfDelivery, deliveryAddress));
+                int status = res.getInt("STATUS");
+                orders.add(new Order(date, timeOfDelivery, deliveryAddress,status));
             }
         } catch (SQLException e) {
+                System.out.println("YOLO");
         } finally {
             Cleaner.closeConnection(connection);
             Cleaner.closeResSet(res);

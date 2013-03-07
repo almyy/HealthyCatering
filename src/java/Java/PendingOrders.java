@@ -16,7 +16,7 @@ public class PendingOrders {
     private ArrayList<Order> orders = new ArrayList();
     
     public PendingOrders(){
-        String query = "Select * from ASD.ORDERS where STATUS !='"+Order.Status.FINISHED+"'";
+        String query = "Select * from ASD.ORDERS where STATUS !='"+Order.Status.FINISHED.getCode()+"'";
         orders = database.getPendingOrders(query);
     }
     public ArrayList<Order> getOrders(){
