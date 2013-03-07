@@ -1,5 +1,7 @@
 package DB;
 
+import Java.Order;
+import Java.OrderStatus;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;
@@ -18,6 +20,7 @@ public class Database {
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
 
     public Database() {
+        System.out.println("FARDIN!");
         try {
             Context con = new InitialContext();
             ds = (DataSource) con.lookup("jdbc/hc_realm");
@@ -25,7 +28,29 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-
+    public ArrayList<Order> getPendingOrders(String query){ 
+        ArrayList<Order> orders = new ArrayList();
+        ResultSet res = null;
+        Statement stm = null;
+        openConnection();
+        try {
+            stm = connection.createStatement();
+            res = stm.executeQuery(query);
+            while (res.next()) {
+                java.sql.Date date = res.getDate("DATES");
+                int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
+                String deliveryAddress = res.getString("DELIVERYADDRESS");
+                orders.add(new Order(date, timeOfDelivery, deliveryAddress));
+            }
+        } catch (SQLException e) {
+        } finally {
+            Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(stm);
+        }
+        return orders;
+        
+}
 
     public boolean logIn(user user) {
         PreparedStatement sqlLogIn = null;

@@ -11,6 +11,7 @@
         </h:head>
         <ui:define name="content">
             <h:body>
+                #{Worker.update()}
                 <h:dataTable value="#{Worker.tabelldata}" var="OrderStatus" styleClass="orders"
                              headerClass="ordersHeader" rowClasses="oddRow,evenRow" 
                              columnClasses="orderId,textFiel" footerClass="footerRow" cellpadding="2" cellspacing="0">
