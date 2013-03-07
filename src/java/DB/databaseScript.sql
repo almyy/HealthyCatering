@@ -102,7 +102,7 @@ CREATE TABLE orders(
     orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     timeOfDelivery INT NOT NULL,
     deliveryAddress VARCHAR (50),
-    status VARCHAR(15),
+    status INT,
     dates date,
     userNameSalesman VARCHAR(20),
     userNameCustomer VARCHAR(20),
@@ -189,7 +189,7 @@ INSERT INTO dish_menu VALUES (4,1);
 
 INSERT INTO subscriptionplan VALUES(1,(DATE(2013-02-25)),(DATE(2016-02-26)),'bedrift');
 
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 'not delivered',(DATE(2013-02-28)),'salesman','customer',null,7046);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 'not delivered',(DATE(2013-02-28)),'salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 0,(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 1,(DATE(2013-02-28)),'salesman','bedrift',1,7046);
 
 INSERT INTO dishes_ordered VALUES (1,1,1,2);

@@ -1,21 +1,37 @@
-
 package Java;
 
 /**
  *
  * @author Rino
  */
-class Dish {
+public class Dish {
+
     private int dishId;
-    private String dishName; 
+    private String dishName;
     private double price;
-    
-    public Dish(int dishId,String dishName, double price){
+    private int count; 
+
+    public Dish(int dishId, String dishName, double price) {
         this.dishId = dishId;
         this.dishName = dishName;
         this.price = price;
+        count=1;
+    }
+    public Dish(int dishId, String dishName, double price,int count) {
+        this.dishId = dishId;
+        this.dishName = dishName;
+        this.price = price;
+        this.count = count; 
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
     public int getDishId() {
         return dishId;
     }
@@ -38,5 +54,8 @@ class Dish {
 
     public void setPrice(double price) {
         this.price = price;
-    }        
+    }
+    public String toString(){
+        return dishName;
+    }
 }

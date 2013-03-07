@@ -40,6 +40,7 @@ public class Database {
                 java.sql.Date date = res.getDate("DATES");
                 int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
+                String status = res.getString("STATUS");
                 orders.add(new Order(date, timeOfDelivery, deliveryAddress));
             }
         } catch (SQLException e) {

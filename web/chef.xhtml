@@ -9,12 +9,13 @@
         <h:head>
             <title>Facelet Title</title>
         </h:head>
-        <ui:define name="content">
+        <ui:define name="content" style="width:930px;margin-left:auto;margin-right:auto;">
             <h:body>
                 #{Worker.update()}
                 <h:dataTable value="#{Worker.tabelldata}" var="OrderStatus" styleClass="orders"
                              headerClass="ordersHeader" rowClasses="oddRow,evenRow" 
-                             columnClasses="orderId,textFiel" footerClass="footerRow" cellpadding="2" cellspacing="0">
+                             columnClasses="orderId,textFiel,textFiel,textFiel,textFiel,textFiel"
+                             footerClass="footerRow" cellpadding="2" cellspacing="0">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="ID"/>
@@ -50,6 +51,12 @@
                             <h:outputText value="Status"/>
                         </f:facet>
                         #{OrderStatus.order.status}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Price"/>
+                        </f:facet>
+                        #{OrderStatus.order.orderPrice}
                     </h:column>
                     <f:facet name="footer">
                         mømømø
