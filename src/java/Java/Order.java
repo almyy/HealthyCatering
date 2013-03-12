@@ -43,14 +43,12 @@ public class Order {
     private int status_numeric;
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
-    private static final AtomicInteger sequence = new AtomicInteger(); //making an unique id atomically.
 
     public Order() {
-        this.orderId = sequence.getAndIncrement();
+        
     }
 
     public Order(Date date, int timeOfDelivery, String deliveryAddress) {
-        this.orderId = sequence.getAndIncrement();
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
@@ -58,7 +56,6 @@ public class Order {
     }
 
     public Order(Date date, int timeOfDelivery, String deliveryAddress, int status) {
-        this.orderId = sequence.getAndIncrement();
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
@@ -95,6 +92,16 @@ public class Order {
     }
     public void setStatus(String status) {
         this.status = status;
+        if(status.equals(Status.PENDING.toString())){
+            this.status_numeric=1;
+        }
+        else if(status.equals(Status.UNDER_PREPARATION.toString())){
+            this.status_numeric=2;
+        }
+        else if(status.equals(Status.PENDING_DELIVERY.toString())){
+            this.status_numeric=3;
+        }
+       
     }
    
     public boolean addDish(Dish dish) {
@@ -138,5 +145,9 @@ public class Order {
 
     public void setTimeOfDelivery(int timeOfDelivery) {
         this.timeOfDelivery = timeOfDelivery;
+    }
+    
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }

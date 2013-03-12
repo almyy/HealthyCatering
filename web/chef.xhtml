@@ -11,6 +11,7 @@
         </h:head>
         <ui:define name="content">
             <h:body>
+                #{Worker.update()}
                 <!-- A form for making the page run the update-method every x seconds -->
                 <h:form>
                     <p:dataTable value="#{Worker.tabelldata}" var="OrderStatus" styleClass="orders" id="dataTable_id">
@@ -48,12 +49,12 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Status"/>
                             </f:facet>
-                            <p:outputLabel value="#{OrderStatus.order.statusNumeric}" rendered="#{!OrderStatus.toBeChanged}"/>
-                            <p:selectOneMenu rendered="#{OrderStatus.toBeChanged}" value="#{OrderStatus.order.statusNumeric}">
-                                <f:selectItem itemValue="1" itemLabel="PENDING"/>
-                                <f:selectItem itemValue="2" itemLabel="UNDER_PREPARATION"/>
-                                <f:selectItem itemValue="3" itemLabel="PENDING_DELIVERY"/>                               
-                            </p:selectOneMenu>                            
+                            <p:outputLabel value="#{OrderStatus.order.status}" rendered="#{!OrderStatus.toBeChanged}"/>
+                            <p:selectOneMenu rendered="#{OrderStatus.toBeChanged}" value="#{OrderStatus.order.status}">
+                                <f:selectItem itemValue="PENDING" itemLabel="PENDING" />
+                                <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="UNDER_PREPARATION"/>
+                                <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>
+                            </p:selectOneMenu>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -65,18 +66,17 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Change Status"/>
                             </f:facet>
-                            <p:commandButton value="Change" action="#{OrderStatus.setToBeChanged()}"/>
+                            <p:commandButton value="Change" action="#{OrderStatus.setToBeChanged}" update="dataTable_id"/>
                             <p:outputLabel value="#{OrderStatus.toBeChanged}"/>
                         </p:column>
                         <f:facet name="footer">
-                            mømømø
+                            <p:commandButton value="update" action="#{Worker.update}"/>
                         </f:facet>
                     </p:dataTable>
-                    <p:poll interval="10" listener="#{Worker.update()}" update="dataTable_id"/>
                 </h:form>
+
             </h:body>
         </ui:define>
     </ui:composition>%
 
 </html>
-

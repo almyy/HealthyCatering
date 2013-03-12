@@ -40,7 +40,10 @@ public class Database {
                 int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 int status = res.getInt("STATUS");
-                orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
+                int orderId = res.getInt("ORDERID");
+                Order orderToBeAdded = new Order(date, timeOfDelivery, deliveryAddress, status);
+                orderToBeAdded.setOrderId(orderId);
+                orders.add(orderToBeAdded);
             }
         } catch (SQLException e) {
         } finally {
@@ -60,12 +63,8 @@ public class Database {
             sqlRead = connection.prepareStatement("UPDATE ASD.ORDERS set STATUS=? where ORDERID=?");
             sqlRead.setInt(1, s.getStatusNumeric());
             sqlRead.setInt(2,s.getOrderId());
-            res = sqlRead.executeQuery();
-            if(res.next()){
-                System.out.println("FARRADINN!");
-            }
+            sqlRead.executeUpdate();
         }catch (Exception e){
-            System.out.println("fail");
             Cleaner.closeConnection(connection);
             Cleaner.closeResSet(res);
             Cleaner.closeSentence(sqlRead);
