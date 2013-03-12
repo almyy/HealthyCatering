@@ -35,7 +35,6 @@ public class Order {
             return this.toString();
         }
     }
-    private Status stats; 
     private int orderId;
     private Date date;
     private int timeOfDelivery;
@@ -57,10 +56,6 @@ public class Order {
         this.status = Status.NULL.toString();
     }
 
-    public Status getStats() {
-        return stats;
-    }
-    
     public Order(Date date, int timeOfDelivery, String deliveryAddress, int status) {
         this.orderId = sequence.getAndIncrement();
         this.date = date;
@@ -94,29 +89,7 @@ public class Order {
     public void setStatus(String status) {
         this.status = status;
     }
-    public void setStatusInt(int code){
-        switch (code) {
-            case 1:
-                this.status = Status.PENDING.toString();
-                break;
-            case 2:
-                this.status = Status.UNDER_PREPARATION.toString();
-                break;
-            case 3:
-                this.status = Status.PENDING_DELIVERY.toString();
-                break;
-            case 4:
-                this.status = Status.ON_THE_ROAD.toString();
-                break;
-            case 5:
-                this.status = Status.FINISHED.toString();
-                break;
-            case 6:
-                this.status = Status.MISSING.toString();
-                break;
-        }
-    }
-
+   
     public boolean addDish(Dish dish) {
         if (dish == null) {
             return false;
