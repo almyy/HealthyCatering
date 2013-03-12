@@ -23,4 +23,7 @@ public class PendingOrders {
     public ArrayList<Order> getOrders(){
         return orders; 
     }
+    public void updateDb(Order s){
+        database.updateOrder(s);
+    }
 }

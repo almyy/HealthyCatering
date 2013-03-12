@@ -35,13 +35,18 @@ public class WorkerBean implements Serializable {
 
     public synchronized void update() {
         ArrayList<Order> temp = overView.getOrders();
-        if (tabelldata.size() < temp.size()) {
+        if (tabelldata.size() != temp.size()) {
             for (int i = 0; i < temp.size(); i++) {
-                Order temporaryTestOrder = temp.get(i);
-                temporaryTestOrder.addDish(new Java.Dish(2, "laks", 100.95, 1));
-                temporaryTestOrder.addDish(new Java.Dish(3, "biff", 300.95, 4));
                 tabelldata.add(new OrderStatus(temp.get(i)));
             }
-        }
+        }else{
+            for(int i = 0; i < temp.size(); i++){
+                if(tabelldata.get(i).getToBeChanged()){
+                    overView.updateDb(tabelldata.get(i).getOrder());
+                    tabelldata.get(i).setToBeChangedFalse();
+                    System.out.println("Oppdatert!");
+                }
+            }
+        } 
     }
 }

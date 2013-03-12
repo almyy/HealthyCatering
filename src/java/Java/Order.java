@@ -82,7 +82,6 @@ public class Order {
                 break;
         }
     }
-
     public String getStatus() {
         return status;
     }

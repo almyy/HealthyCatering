@@ -38,7 +38,6 @@ public class OrderStatus {
     }
     public void setToBeChanged(){
         toBeChanged = !toBeChanged;
-        System.out.println("Works");
     }
     public void setToBeDeleted(boolean newToBeDeleted){
         toBeDeleted = newToBeDeleted; 

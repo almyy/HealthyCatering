@@ -1,6 +1,7 @@
 package DB;
 
 import Java.Order;
+import Java.OrderStatus;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;
@@ -18,7 +19,6 @@ public class Database {
     private Connection connection;
 
     public Database() {
-        System.out.println("FARDIN!");
         try {
             Context con = new InitialContext();
             ds = (DataSource) con.lookup("jdbc/hc_realm");
@@ -43,7 +43,6 @@ public class Database {
                 orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
             }
         } catch (SQLException e) {
-            System.out.println("YOLO");
         } finally {
             Cleaner.closeConnection(connection);
             Cleaner.closeResSet(res);
@@ -53,7 +52,25 @@ public class Database {
 
     }
     //FOR ADMIN
-
+    public void updateOrder(Order s){
+        PreparedStatement sqlRead = null;
+        ResultSet res = null;
+        openConnection();
+        try{
+            sqlRead = connection.prepareStatement("UPDATE ASD.ORDERS set STATUS=? where ORDERID=?");
+            sqlRead.setString(1, s.getStatus());
+            sqlRead.setInt(2,s.getOrderId());
+            res = sqlRead.executeQuery();
+            if(res.next()){
+                System.out.println("FARRADINN!");
+            }
+        }catch (Exception e){
+            System.out.println("fail");
+            Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(sqlRead);
+        }
+    }
     public ArrayList<Order> getOrderOverview() {
         ArrayList<Order> orders = new ArrayList();
         PreparedStatement sqlRead = null;
