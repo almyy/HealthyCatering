@@ -180,12 +180,12 @@ public class Database {
         return ok;
     }
 
-    public boolean userExist(User user) {
+    public boolean userExist(String username) {
         PreparedStatement sqlLogIn = null;
         openConnection();
         boolean exist = false;
         try {
-            sqlLogIn = connection.prepareStatement("SELECT * FROM BRUKER WHERE BRUKERNAVN = '" + user.getUsername() + "'");
+            sqlLogIn = connection.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
             ResultSet res = sqlLogIn.executeQuery();
             connection.commit();
             if (res.next()) {

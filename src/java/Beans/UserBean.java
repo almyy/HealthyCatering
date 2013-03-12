@@ -91,7 +91,7 @@ public class UserBean implements Serializable {
     }
 
     private boolean checkUser() {
-        if (!(database.userExist(user))) {
+        if (!(database.userExist(""))) {
             userOk = true;
             return true;
         } else {

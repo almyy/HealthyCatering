@@ -17,13 +17,14 @@ import Java.User;
 @ManagedBean(name="Register")
 public class registerBean implements Serializable {
     private User user = new User();
+    Database db = new Database();
 
     public void validateUsername(FacesContext context, UIComponent component, Object value) {
         String message = "";
         String username = (String) value;
-        if(username == null || username.equals("")) {
+        if(db.userExist(username) || username.length() < 5) {
             ((UIInput)component).setValid(false);
-            message = "Enter a username";
+            message = "The username already exists, or your username is shorter than 5 characters";
             context.addMessage(component.getClientId(context), new FacesMessage(message));
         }
     }
@@ -58,7 +59,6 @@ public class registerBean implements Serializable {
         return user;
     }
     public void apply() {
-        Database db = new Database();
         db.newUser(user);
     }
 }

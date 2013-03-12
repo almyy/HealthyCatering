@@ -12,12 +12,13 @@
         <ui:composition template="userTemplate.xhtml">
             <ui:define name="content">
                 <h:form>
-                    <h:panelGrid id="grid" columns="3" >
+                    <p:fieldset legend="Register">
+                    <p:panelGrid id="grid" columns="3" >
                         <f:facet name="header">
                             Please fill in the required information  
                         </f:facet> 
                         <p:outputLabel value="Username" />
-                        <p:inputText  id="username" value="#{Register.user.username}" validator="#{Register.validateUsername}"/>
+                        <p:inputText  id="username" value="#{Register.user.username}" validator="#{Register.validateUsername}" required="true" requiredMessage="Cannot be blank!"/>
                         <p:message for="username"/>
                         <p:outputLabel value="Password"/>
                         <p:password id="password" value="#{Register.user.password}" match="repPassword" required="true" requiredMessage="Cannot be blank!" label="Password 1"/>
@@ -50,8 +51,9 @@
                             <f:validateLength minimum="8" maximum="16"/>
                         </p:inputText> 
                         <p:message for="phone" showDetail="false" showSummary="true"/>
-                        <p:commandButton action="#{Register.apply()}" type="submit" id="submitButton" value="submit" update="grid" />
-                    </h:panelGrid>
+                    </p:panelGrid>
+                    <p:commandButton action="#{Register.apply()}" type="submit" id="submitButton" value="submit" update="grid" />
+                </p:fieldset>
                 </h:form>
             </ui:define>
         </ui:composition>
