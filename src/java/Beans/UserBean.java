@@ -6,7 +6,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.User;
+import Java.User;
 
 @Named
 @SessionScoped
