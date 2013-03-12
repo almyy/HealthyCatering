@@ -1,16 +1,14 @@
 package DB;
 
 import Java.Order;
-import Java.OrderStatus;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.User;
+import Java.
 
 public class Database {
 
