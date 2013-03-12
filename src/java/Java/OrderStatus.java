@@ -24,18 +24,21 @@ public class OrderStatus {
         toBeChanged = false;
         toBeDeleted = false; 
     }
-
+    public void setToBeChangedFalse(){
+        toBeChanged = false; 
+    }
     public Order getOrder() {
         return order;
     }
-    public synchronized boolean getToBeChanged(){
+    public boolean getToBeChanged(){
         return toBeChanged;
     }
-    public synchronized boolean getToBeDeleted(){
+    public boolean getToBeDeleted(){
         return toBeDeleted;
     }
     public void setToBeChanged(){
         toBeChanged = !toBeChanged;
+        System.out.println("Works");
     }
     public void setToBeDeleted(boolean newToBeDeleted){
         toBeDeleted = newToBeDeleted; 

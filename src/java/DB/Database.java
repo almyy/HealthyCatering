@@ -1,7 +1,6 @@
 package DB;
 
 import Java.Order;
-import Java.OrderStatus;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;
@@ -17,7 +16,6 @@ public class Database {
     @Resource(name = "jdbc/hc_realm")
     private DataSource ds;
     private Connection connection;
-    private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
 
     public Database() {
         System.out.println("FARDIN!");
@@ -40,9 +38,11 @@ public class Database {
                 java.sql.Date date = res.getDate("DATES");
                 int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
-                orders.add(new Order(date, timeOfDelivery, deliveryAddress));
+                int status = res.getInt("STATUS");
+                orders.add(new Order(date, timeOfDelivery, deliveryAddress,status));
             }
         } catch (SQLException e) {
+                System.out.println("YOLO");
         } finally {
             Cleaner.closeConnection(connection);
             Cleaner.closeResSet(res);
@@ -51,6 +51,34 @@ public class Database {
         return orders;
         
 }
+       //FOR ADMIN
+        public ArrayList<Order> getOrderOverview(){
+        ArrayList<Order> orders = new ArrayList();
+        PreparedStatement sqlRead = null;
+        ResultSet res = null;
+        openConnection();
+        
+        try{
+            sqlRead = connection.prepareStatement("SELECT * FROM ORDERS");
+            res = sqlRead.executeQuery();
+            while(res.next()){
+                java.util.Date date = res.getDate("DATES");
+                    String deliveryAddress = res.getString("DELIVERYADDRESS");
+                    int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
+                    int status = res.getInt("STATUS");
+                    orders.add(new Order(date,timeOfDelivery,deliveryAddress,status));
+            }
+            
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+             Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(sqlRead);
+        }
+        return orders;
+    }
 
     public boolean logIn(user user) {
         PreparedStatement sqlLogIn = null;

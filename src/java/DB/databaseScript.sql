@@ -100,9 +100,9 @@ CREATE TABLE Subscriptionplan(
 ); 
 CREATE TABLE orders(
     orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
-    timeOfDelivery INT NOT NULL,
+    timeOfDelivery INTEGER NOT NULL,
     deliveryAddress VARCHAR (50),
-    status VARCHAR(15),
+    status INTEGER,
     dates date,
     userNameSalesman VARCHAR(20),
     userNameCustomer VARCHAR(20),
@@ -189,7 +189,19 @@ INSERT INTO dish_menu VALUES (4,1);
 
 INSERT INTO subscriptionplan VALUES(1,(DATE(2013-02-25)),(DATE(2016-02-26)),'bedrift');
 
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 'not delivered',(DATE(2013-02-28)),'salesman','customer',null,7046);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 'not delivered',(DATE(2013-02-28)),'salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 4,(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (17,'adresseveien x', 2,(DATE(2013-02-28)),'salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (13,'adresseveien xg', 1,(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (21,'adresseveien x', 0,(DATE(2013-02-28)),'salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (22,'adresseveien f', 6,(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 5,(DATE(2013-02-28)),'salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 5,(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 1,(DATE(2013-02-28)),'salesman','bedrift',3,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (18,'adresseveien x', 3,(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (15,'adresseveien y', 6,(DATE(2013-02-28)),'salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (16,'adresseveien z', 2,(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (17,'adresseveien x', 2,(DATE(2013-02-28)),'salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (18,'adresseveien x', 3,(DATE(2013-02-28)),'salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 3,(DATE(2013-02-28)),'salesman','bedrift',1,7046);
 
 INSERT INTO dishes_ordered VALUES (1,1,1,2);
