@@ -127,6 +127,7 @@ CREATE TABLE menu(
 CREATE TABLE dish_menu (
     dishId INTEGER NOT NULL,
     menuId INTEGER NOT NULL,
+    price INTEGER NOT NULL,
     CONSTRAINT dish_menu_fk1 FOREIGN KEY(dishId) REFERENCES dish(dishId),
     CONSTRAINT dish_menu_fk2 FOREIGN KEY(menuId) REFERENCES menu(menuId),
     CONSTRAINT dish_menu_pk PRIMARY KEY(dishId,menuId)

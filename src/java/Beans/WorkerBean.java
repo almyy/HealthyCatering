@@ -1,7 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+*/
 package Beans;
 
 import Java.Order;
@@ -15,9 +15,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
- *
- * @author Rino
- */
+*
+* @author Rino
+*/
 @SessionScoped
 @Named("Worker")
 public class WorkerBean implements Serializable {
@@ -34,13 +34,16 @@ public class WorkerBean implements Serializable {
     }
 
     public synchronized void update() {
-        ArrayList<Order> temp = overView.getOrders();
+        ArrayList<Order> temp = overView.getFirstOrders();
         if (tabelldata.size() < temp.size()) {
+            tabelldata.clear();
             for (int i = 0; i < temp.size(); i++) {
-                Order temporaryTestOrder = temp.get(i);
-                temporaryTestOrder.addDish(new Java.Dish(2, "laks", 100.95, 1));
-                temporaryTestOrder.addDish(new Java.Dish(3, "biff", 300.95, 4));
                 tabelldata.add(new OrderStatus(temp.get(i)));
+            }
+        }
+        for(int i = 0; i < tabelldata.size();i++){
+            if(tabelldata.get(i).getOrder().getStatusNumeric()!=temp.get(i).getStatusNumeric()){
+                overView.updateDb(tabelldata.get(i).getOrder());
             }
         }
     }

@@ -44,8 +44,5 @@ public class Orders implements Serializable {
         for(int i = 0;i<list.size();i++){
             System.out.println(list.get(i).getOrderId());
         }
-    }
-    
-    
-
+    }  
 }

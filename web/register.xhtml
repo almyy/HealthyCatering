@@ -3,49 +3,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Register</title>
     </h:head>
-    <h:body>
-        <h:form>
-            <p:outputLabel value="Please fill in the following textfields."/>
-            <h:panelGrid columns="3">
-                <p:outputLabel value="Username" />
-                <p:inputText id="username" value="#{Register.tempUsername}" validator="#{Register.validateUsername}"/>
-                <h:message for="username" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="Password"/>
-                <p:password id="password" value="#{Register.tempPassword}" validator="#{Register.validatePasswords}" required="true"/>
-                <h:message for="password" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="Repeat password" />
-                <p:password id="repPassword" value="#{Register.tempRepeatPass}" validator="#{Register.validateRepPassword}" required="true"/>
-                <h:message for="repPassword" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="First name" />
-                <p:inputText id="fistName" value="#{Register.tempFirstName}" validator="#{Register.validate}" required="true"/> 
-                <h:message for="firstName" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="Surname" />
-                <p:inputText id="surname" value="#{Register.tempSurname}" validator="#{Register.validate}" required="true"/> 
-                <h:message for="surname" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="Address" />
-                <p:inputText id="address" value="#{Register.tempAddress}" validator="#{Register.validate}" required="true"/>
-                <h:message for="address" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="Postnumber"/>
-                <p:inputText id="postnumber" value="#{Register.tempPostnumber}" validator="#{Register.validatePostnumber}" required="true"/>
-                <h:message for="postnumber" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="City"/>
-                <p:inputText id="city" value="#{Register.tempCity}" validator="#{Register.validate}" required="true"/>
-                <h:message for="city" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="E-mail" />
-                <p:inputText id="email" validator="#{Register.validateEmail}" value="#{Register.tempEmail}" required="true"/>
-                <h:message for="email" showSummary="true" showDetail="false"/>
-                <p:outputLabel value="Phone number" />
-                <p:inputText id="phone" value="#{Register.tempPhone}">
-                    <f:validateLongRange minimum="8" maximum="16"/>
-                </p:inputText> 
-                <h:message for="phone" showSummary="true" showDetail="false"/>
-                
-            </h:panelGrid>
-            <p:commandButton value="Register"/>
-            </h:form>
-    </h:body>
+    <body>
+        <ui:composition template="userTemplate.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <p:fieldset legend="Register">
+                    <p:panelGrid id="grid" columns="3" >
+                        <f:facet name="header">
+                            Please fill in the required information  
+                        </f:facet> 
+                        <p:outputLabel value="Username" />
+                        <p:inputText  id="username" value="#{Register.user.username}" validator="#{Register.validateUsername}" required="true" requiredMessage="Cannot be blank!"/>
+                        <p:message for="username"/>
+                        <p:outputLabel value="Password"/>
+                        <p:password id="password" value="#{Register.user.password}" match="repPassword" required="true" requiredMessage="Cannot be blank!" label="Password 1"/>
+                        <p:message for="password" showSummary="true" showDetail="false"/>
+                        <p:outputLabel value="Repeat password" />
+                        <p:password id="repPassword" value="#{Register.user.repeatPass}" required="true" requiredMessage="Cannot be blank!" label="Password 2"/>
+                        <p:message for="repPassword" showSummary="true" showDetail="false"/>
+                        <p:outputLabel value="First name" />
+                        <p:inputText id="firstName" value="#{Register.user.firstName}" required="true" requiredMessage="Cannot be blank!"/> 
+                        <p:message for="firstName" showSummary="true" showDetail="false"/>
+                        <p:outputLabel value="Surname" />
+                        <p:inputText id="surname" value="#{Register.user.surname}" required="true" requiredMessage="Cannot be blank!"/> 
+                        <p:message for="surname" showSummary="true" showDetail="false"/>
+                        <p:outputLabel value="Address" />
+                        <p:inputText id="address"  value="#{Register.user.address}" required="true" requiredMessage="Cannot be blank!"/>
+                        <p:message for="address" showSummary="true" showDetail="false"/>
+                        <p:outputLabel value="Postnumber"/>
+                        <p:inputText id="postnumber" value="#{Register.user.postnumber}" label="Postnumber">
+                            <f:validateLongRange minimum="1000" maximum="99999"/>
+                        </p:inputText>
+                        <p:message for="postnumber" showSummary="true" showDetail="false"/>
+                        <p:outputLabel value="City"/>
+                        <p:inputText id="city" value="#{Register.user.city}" required="true" requiredMessage="Cannot be blank!"/>
+                        <p:message for="city" showSummary="true" showDetail="false"/>
+                        <p:outputLabel value="E-mail" />
+                        <p:inputText id="email" value="#{Register.user.email}" validator="#{Register.validateEmail}"/>
+                        <p:message for="email" showSummary="true" showDetail="false"/>
+                        <p:outputLabel value="Phone number" />
+                        <p:inputText id="phone" value="#{Register.user.phone}" required="true" requiredMessage="Cannot be blank!" validatorMessage="Not a valid phone number!">
+                            <f:validateLength minimum="8" maximum="16"/>
+                        </p:inputText> 
+                        <p:message for="phone" showDetail="false" showSummary="true"/>
+                    </p:panelGrid>
+                    <p:commandButton action="#{Register.apply()}" type="submit" id="submitButton" value="submit" update="grid" />
+                </p:fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
 </html>
