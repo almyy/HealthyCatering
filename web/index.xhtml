@@ -4,25 +4,28 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Index</title>
+    </h:head>
     <h:body>
         <ui:composition template="userTemplate.xhtml">
             <ui:define name="content">
                 <div id="login" class="login">
-                <form method="post" action="j_security_check">
-                    <table>
-                        <tr>
-                            <td><h:outputText value="Username"/></td>
-                            <td><input type="text" name="j_username" /></td>
-                        </tr>
-                        <tr>
-                            <td><h:outputText value="Password"/></td>
-                            <td><input type="password" name="j_password" /></td>
-                        </tr>
-                    </table>
-                    <p><input type="submit" value="Login" /></p>
-                    <p><p:commandLink value="Register" ></p:commandLink></p>
-                    <p><p:commandLink value="Forgot password?"></p:commandLink></p>
-                </form>
+                    <h:form id="login1" onsubmit="document.getElementById('login1').action='j_security_check';" prependId="false" >
+                        <table>
+                            <tr>
+                                <td><p:outputLabel value="Username"/></td>
+                                <td><p:inputText  id="j_username" /></td>
+                            </tr>
+                            <tr>
+                                <td><p:outputLabel value="Password"/></td>
+                                <td><p:inputText id="j_password" type="password" /></td>
+                            </tr>
+                        </table>
+                        <p><p:commandButton id="submit" value="Login" action="#{Frontpage.test()}" ajax="false"/></p>
+                        <p><p:commandLink value="Register" ></p:commandLink></p>
+                        <p><p:commandLink value="Forgot password?"></p:commandLink></p>
+                    </h:form>
                 </div>
             </ui:define>
         </ui:composition>
