@@ -10,7 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import user.user;
+import java.User;
 
 public class Database {
 
@@ -99,7 +99,7 @@ public class Database {
         return orders;
     }
 
-    public boolean logIn(user user) {
+    public boolean logIn(User user) {
         PreparedStatement sqlLogIn = null;
         openConnection();
         boolean ok = false;
@@ -122,7 +122,7 @@ public class Database {
         return ok;
     }
 
-    public boolean changePassword(user user) {
+    public boolean changePassword(User user) {
         PreparedStatement sqlLogIn = null;
         openConnection();
         boolean ok = false;
@@ -147,19 +147,25 @@ public class Database {
         return ok;
     }
 
-    public boolean newUser(user user) {
+    public boolean newUser(User user) {
         PreparedStatement sqlRegNewuser = null;
         PreparedStatement sqlRegNewRole = null;
         openConnection();
         boolean ok = false;
         try {
-            sqlRegNewuser = connection.prepareStatement("insert into BRUKER(BRUKERNAVN,PASSORD) values(?, ?)");
+            sqlRegNewuser = connection.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?)");
             sqlRegNewuser.setString(1, user.getUsername());
             sqlRegNewuser.setString(2, user.getPassword());
+            sqlRegNewuser.setString(3, user.getFirstName());
+            sqlRegNewuser.setString(4, user.getSurname());
+            sqlRegNewuser.setString(5, user.getAddress());
+            sqlRegNewuser.setString(6, user.getPhone());
+            sqlRegNewuser.setInt(7, user.getPostnumber());
             sqlRegNewuser.executeUpdate();
 
-            sqlRegNewRole = connection.prepareStatement("INSERT INTO ROLLE(BRUKERNAVN,ROLLE) VALUES(?,'bruker')");
-            sqlRegNewRole.setString(1, user.getUsername());
+            sqlRegNewRole = connection.prepareStatement("INSERT INTO roles VALUES(?,?)");
+            sqlRegNewRole.setString(1, "customer");
+            sqlRegNewRole.setString(2, user.getUsername());
             sqlRegNewRole.executeUpdate();
             connection.commit();
             ok = true;
@@ -176,7 +182,7 @@ public class Database {
         return ok;
     }
 
-    public boolean userExist(user user) {
+    public boolean userExist(User user) {
         PreparedStatement sqlLogIn = null;
         openConnection();
         boolean exist = false;
