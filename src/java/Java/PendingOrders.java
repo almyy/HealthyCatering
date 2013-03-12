@@ -5,6 +5,7 @@
 package Java;
 
 import DB.Database;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @author Rino
  */
 
-public class PendingOrders {
+public class PendingOrders implements Serializable{
     private Database database = new Database();
     private ArrayList<Order> orders = new ArrayList();
     

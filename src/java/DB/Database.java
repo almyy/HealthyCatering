@@ -58,7 +58,7 @@ public class Database {
         openConnection();
         try{
             sqlRead = connection.prepareStatement("UPDATE ASD.ORDERS set STATUS=? where ORDERID=?");
-            sqlRead.setString(1, s.getStatus());
+            sqlRead.setInt(1, s.getStatusNumeric());
             sqlRead.setInt(2,s.getOrderId());
             res = sqlRead.executeQuery();
             if(res.next()){

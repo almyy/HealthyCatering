@@ -40,6 +40,7 @@ public class Order {
     private int timeOfDelivery;
     private String deliveryAddress;
     private String status;
+    private int status_numeric;
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
     private static final AtomicInteger sequence = new AtomicInteger(); //making an unique id atomically.
@@ -61,6 +62,7 @@ public class Order {
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
+        status_numeric = status; 
         switch (status) {
             case 1:
                 this.status = Status.PENDING.toString();
@@ -84,6 +86,12 @@ public class Order {
     }
     public String getStatus() {
         return status;
+    }
+    public int getStatusNumeric(){
+        return status_numeric;
+    }
+    public void setStatus_numeric(int status_numeric) {
+        this.status_numeric = status_numeric;
     }
     public void setStatus(String status) {
         this.status = status;

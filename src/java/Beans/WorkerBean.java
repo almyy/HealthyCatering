@@ -39,14 +39,6 @@ public class WorkerBean implements Serializable {
             for (int i = 0; i < temp.size(); i++) {
                 tabelldata.add(new OrderStatus(temp.get(i)));
             }
-        }else{
-            for(int i = 0; i < temp.size(); i++){
-                if(tabelldata.get(i).getToBeChanged()){
-                    overView.updateDb(tabelldata.get(i).getOrder());
-                    tabelldata.get(i).setToBeChangedFalse();
-                    System.out.println("Oppdatert!");
-                }
-            }
-        } 
+        }
     }
 }
