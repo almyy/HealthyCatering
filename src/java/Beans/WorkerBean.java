@@ -19,15 +19,18 @@ import Java.PendingOrders;
 @SessionScoped
 @Named("Worker")
 public class WorkerBean implements Serializable {
+    
     private PendingOrders overView = new PendingOrders(); 
     private List<OrderStatus> tabelldata = Collections.synchronizedList(new ArrayList<OrderStatus>());
     
     public synchronized List<OrderStatus> getTabelldata() {
         return tabelldata;
     }
+    
     public synchronized boolean isEmpty() {
         return !(tabelldata.size() > 0);
     }
+    
     public synchronized void update(){
         ArrayList<Order> temp = overView.getOrders();
 

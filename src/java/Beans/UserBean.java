@@ -10,6 +10,7 @@ import user.user;
 
 @Named
 @SessionScoped
+
 public class UserBean implements Serializable {
 
     private user user = new user();
