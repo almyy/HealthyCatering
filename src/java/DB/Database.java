@@ -8,8 +8,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import user.user;
-import Java.Dish;
+import Java.User;
 
 public class Database {
 
@@ -119,32 +118,6 @@ public class Database {
         closeConnection();
         return ok;
     }
-    
-    public ArrayList<Dish> getDishes() {
-        PreparedStatement sentence = null;
-        openConnection();
-        ArrayList<Dish> dishes = new ArrayList<Dish>();
-        try {
-            sentence = connection.prepareStatement("select * from DISH");
-            ResultSet res = sentence.executeQuery();
-            connection.commit();
-            while (res.next()) {
-                int dishid = res.getInt("DISHID");
-                String dishname = res.getString("DISHNAME");
-                Dish newdish = new Dish(dishid, dishname, 0.0, 1);
-                dishes.add(newdish);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
-
-        } finally {
-            Cleaner.setAutoCommit(connection);
-            Cleaner.closeSentence(sentence);
-        }
-        closeConnection();
-        return dishes;
-    }
 
     public boolean changePassword(User user) {
         PreparedStatement sqlLogIn = null;
@@ -169,32 +142,6 @@ public class Database {
         }
         closeConnection();
         return ok;
-    }
-    
-    public String getRole(String username) {
-        PreparedStatement sqlLogIn = null;
-        openConnection();
-        String result = "";
-        try {
-            sqlLogIn = connection.prepareStatement("SELECT rolename from roles where username = ?");
-            sqlLogIn.setString(1, username);
-            ResultSet res = sqlLogIn.executeQuery();
-            connection.commit();
-            if(res.next()){
-            result = res.getString("rolename");
-            System.out.println("Rolle funnet: " + result);
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
-
-        } finally {
-            Cleaner.setAutoCommit(connection);
-            Cleaner.closeSentence(sqlLogIn);
-        }
-        closeConnection();
-        return result;
     }
 
     public boolean newUser(User user) {
