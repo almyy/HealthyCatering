@@ -2,15 +2,13 @@ package Java;
 /*
  * Class for generating orders from customerinput. 
  */
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Order {
 
-    public enum Status {
-
+    public enum Status{
         PENDING(1, "The order is waiting to be made"),
         UNDER_PREPARATION(2, "The order is currently being made by the chefs"),
         PENDING_DELIVERY(3, "The food is waiting for a driver"),
@@ -33,22 +31,24 @@ public class Order {
         public int getCode() {
             return code;
         }
+        public String getName(){
+            return this.toString();
+        }
     }
     private int orderId;
     private Date date;
     private int timeOfDelivery;
     private String deliveryAddress;
     private String status;
+    private int status_numeric;
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
-    private static final AtomicInteger sequence = new AtomicInteger(); //making an unique id atomically.
 
     public Order() {
-        this.orderId = sequence.getAndIncrement();
+        
     }
 
     public Order(Date date, int timeOfDelivery, String deliveryAddress) {
-        this.orderId = sequence.getAndIncrement();
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
@@ -56,10 +56,10 @@ public class Order {
     }
 
     public Order(Date date, int timeOfDelivery, String deliveryAddress, int status) {
-        this.orderId = sequence.getAndIncrement();
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
+        status_numeric = status; 
         switch (status) {
             case 1:
                 this.status = Status.PENDING.toString();
@@ -81,15 +81,29 @@ public class Order {
                 break;
         }
     }
-
     public String getStatus() {
         return status;
     }
-
+    public int getStatusNumeric(){
+        return status_numeric;
+    }
+    public void setStatus_numeric(int status_numeric) {
+        this.status_numeric = status_numeric;
+    }
     public void setStatus(String status) {
         this.status = status;
+        if(status.equals(Status.PENDING.toString())){
+            this.status_numeric=1;
+        }
+        else if(status.equals(Status.UNDER_PREPARATION.toString())){
+            this.status_numeric=2;
+        }
+        else if(status.equals(Status.PENDING_DELIVERY.toString())){
+            this.status_numeric=3;
+        }
+       
     }
-
+   
     public boolean addDish(Dish dish) {
         if (dish == null) {
             return false;
@@ -131,5 +145,9 @@ public class Order {
 
     public void setTimeOfDelivery(int timeOfDelivery) {
         this.timeOfDelivery = timeOfDelivery;
+    }
+    
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }

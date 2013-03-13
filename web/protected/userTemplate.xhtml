@@ -11,22 +11,18 @@
         <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
         <title></title>
     </h:head>
-    
+
     <h:body>
-        <div id="background" class="background">
-            
-        </div>
-        
+
         <div id="header" class="fullwidth">
                 <h:graphicImage value="/resources/pictures/title.png"></h:graphicImage>
         </div>
-        
         <div id="menu" class="menu">
             <div align="right">
-                    <p:commandButton value="Home" action="/faces/index.xhtml"></p:commandButton>
-                    <p:commandButton value="Menu" action="/faces/menu.xhtml"></p:commandButton>
-                    <p:commandButton value="Contact" action="/faces/contact.xhtml"></p:commandButton>
-                    <p:commandButton value="profile"></p:commandButton>
+                    <p:commandButton value="Home" action="test.xhtml"></p:commandButton>
+                    <p:commandButton value="Menu"></p:commandButton>
+                    <p:commandButton value="Contact"></p:commandButton>
+                    <p:commandButton value="Profile"></p:commandButton>
             </div>
         </div>
         <div id="lang" class="lang">
@@ -35,8 +31,7 @@
                     <h:commandLink action="#{Lang.setNo()}" ><h:graphicImage value = "resources/pictures/nor.png"/></h:commandLink></p>
             </h:form>
         </div>
-        
-        <div id="content" class="content">
+        <div id="content">
             <ui:insert name="content">Content</ui:insert>
         </div>
 
