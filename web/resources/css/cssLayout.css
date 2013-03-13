@@ -13,10 +13,28 @@ div#header {
     z-index:900;
 }
 
-div#content {
-    position:absolute;
-    top:80px;
+div#background {
+    position: fixed;
+    background: URL('../pictures/bg.jpg');
+    z-index: 100;
+    background-size:cover;
+    top:70px;
+    bottom:0;
     left:0;
+    right:0;
+}
+
+div#content {
+    background: URL('../pictures/contentbg.png');
+    background-repeat: repeat;
+    margin-left: 150px;
+    margin-right: 150px;
+    z-index:200;
+    position:absolute;
+    top:70px;
+    right:0;
+    left:0;
+    bottom:0;
 }
 div#lang {
     position: fixed;

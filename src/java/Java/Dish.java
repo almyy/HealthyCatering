@@ -15,7 +15,7 @@ public class Dish {
         this.dishId = dishId;
         this.dishName = dishName;
         this.price = price;
-        count=1;
+        this.count = 1;
     }
     public Dish(int dishId, String dishName, double price,int count) {
         this.dishId = dishId;

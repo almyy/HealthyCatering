@@ -11,7 +11,7 @@ import user.user;
 @Named
 @SessionScoped
 public class UserBean implements Serializable {
-
+    private String currentusername = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private user user = new user();
     private String newPassword;
     private String repeatPassword;
@@ -65,6 +65,10 @@ public class UserBean implements Serializable {
 
     public void setUserOk(boolean userOk) {
         this.userOk = userOk;
+    }
+    
+    public String getCurrentUser(){
+        return currentusername;
     }
 
     public String changePassword() {

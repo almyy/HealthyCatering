@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <title>Menu</title>
+    <ui:composition template="userTemplate.xhtml">
+        <ui:define name="content">
+            <h:form id="dishForm">  
+
+                <p:fieldset legend="Dishes">  
+                    <p:dataTable id="availableDishes" var="items" value="#{menuitems.items}">   
+
+                        <p:column headerText="Dish Name">  
+                            <h:outputText value="#{items.dishName}" />  
+                        </p:column>  
+
+                        <p:column headerText="Price">  
+                            <h:outputText value="#{items.price}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Count" style="width:18px">  
+                            <p:spinner id="spinnerBasic" value="#{items.count}" required="true" size="5"
+                                       min="1"/>  
+                        </p:column>
+                        
+                        <p:column headerText="Add" style="width:18px">
+                            <p:commandButton value="Add" oncomplete="submit()" action="#{menuitems.addDish()}">
+                                <f:setPropertyActionListener value="#{items}" target="#{menuitems.selectedDish}" />  
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>  
+                </p:fieldset>  
+
+                <p:fieldset id="selectedDishes" legend="Selected Dishes" style="margin-top:30px">  
+                    <p:outputPanel id="dropArea">  
+                        <h:outputText value="No dishes in order."  
+                                      rendered="#{empty menuitems.orderList}"  
+                                      style="font-size:15px;" />  
+
+                        <p:dataTable var="item" value="#{menuitems.orderList}"   
+                                     rendered="#{not empty menuitems.orderList}">  
+
+                            <p:column headerText="Count" style="width:18px" >  
+                                <h:outputText value="#{item.count}" />  
+                            </p:column>  
+
+                            <p:column headerText="Name">  
+                                <h:outputText value="#{item.dishName}" />  
+                            </p:column>  
+
+                            <p:column headerText="Price" style="width:25px">  
+                                <h:outputText value="#{item.price}" />  
+                            </p:column> 
+
+                            <p:column headerText="Remove" style="width:18px">  
+                                <p:commandButton value="Remove" oncomplete="submit()" actionListener="#{menuitems.removeDish(item)}">
+                                </p:commandButton>
+                            </p:column> 
+                        </p:dataTable>  
+                    </p:outputPanel>
+                    
+                </p:fieldset>   
+                <div align="right">
+                <p:commandButton value="Order"></p:commandButton>
+                </div>
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+
+</html>
+
