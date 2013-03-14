@@ -20,11 +20,12 @@ public class MenuItems implements Serializable{
     ArrayList<Dish> orderList = new ArrayList<Dish>();
     int count;
     private Dish selectedDish;
+    private double total_price;
     
     
     public ArrayList<Dish> fillTable(){
         try{
-       // return db.getDishes();
+          return db.getDishes();
         } catch(Exception e){
             System.out.println("Error");
         }
@@ -62,4 +63,16 @@ public class MenuItems implements Serializable{
     public void setCount(int count) {
         this.count = count;
     }
+
+    public double getTotal_price() {
+        for(int i=0; i<orderList.size(); i++){
+            total_price += orderList.get(i).getPrice();
+        }
+        return total_price;
+    }
+
+    public void setTotal_price(double total_price) {
+        this.total_price = total_price;
+    }
+    
 }

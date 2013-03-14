@@ -50,7 +50,7 @@ public class FrontpageBean implements Serializable {
             try {
                 ExternalContext externalContext = facesContext.getExternalContext();
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("customer")) {
-                    externalContext.redirect("faces/protected/chef.xhtml");
+                    externalContext.redirect("faces/protected/employee.xhtml");
                 }
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("worker")) {
                     externalContext.redirect("faces/protected/chef.xhtml");
