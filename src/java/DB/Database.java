@@ -54,7 +54,7 @@ public class Database {
         return orders;
     }
 
-        public boolean logIn(User user) {
+  /*      public boolean logIn(User user) {
         PreparedStatement sqlLogIn = null;
         openConnection();
         boolean ok = false;
@@ -76,7 +76,7 @@ public class Database {
         closeConnection();
         return ok;
     }
-    
+    */
     //FOR ADMIN
     public void updateOrder(Order s){
         PreparedStatement sqlRead = null;
