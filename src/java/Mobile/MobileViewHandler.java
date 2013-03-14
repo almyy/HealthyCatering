@@ -1,4 +1,4 @@
-package mobile;
+package Mobile;
 
 import java.util.Map;
 import javax.faces.application.ViewHandler;

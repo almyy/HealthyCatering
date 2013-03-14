@@ -50,10 +50,16 @@ public class FrontpageBean implements Serializable {
             try {
                 ExternalContext externalContext = facesContext.getExternalContext();
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("customer")) {
+                    externalContext.redirect("faces/protected/customer.xhtml");
+                }
+                if (facesContext.getExternalContext().getUserPrincipal().getName().equals("chef")) {
                     externalContext.redirect("faces/protected/chef.xhtml");
                 }
-                if (facesContext.getExternalContext().getUserPrincipal().getName().equals("worker")) {
-                    externalContext.redirect("faces/protected/chef.xhtml");
+                if (facesContext.getExternalContext().getUserPrincipal().getName().equals("salesmen")) {
+                    externalContext.redirect("faces/protected/salesmen.xhtml");
+                }
+                if (facesContext.getExternalContext().getUserPrincipal().getName().equals("driver")) {
+                    externalContext.redirect("faces/protected/driver.xhtml");
                 }
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("admin")) {
                     externalContext.redirect("faces/protected/admin.xhtml");
@@ -64,31 +70,24 @@ public class FrontpageBean implements Serializable {
         }
     }
 
-  /*  @PostConstruct
-    public void init() {
-        requestedURI = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
-
-        if (requestedURI == null) {
-            requestedURI = "register.xhtml";
-        }
-    }
-
-    public void submit() throws IOException {
-        // ...
-
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        if (facesContext != null) {
-            try {
-                ExternalContext externalContext = facesContext.getExternalContext();
-                request.login(username, password);
-                externalContext.redirect(requestedURI);
-            } catch (Exception e) {
-                System.out.println("Bad login");
-                        
-            }
-        }
-    } */
-
+    /*
+     * @PostConstruct public void init() { requestedURI = (String)
+     * FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
+     *
+     * if (requestedURI == null) { requestedURI = "register.xhtml"; } }
+     *
+     * public void submit() throws IOException { // ...
+     *
+     * FacesContext facesContext = FacesContext.getCurrentInstance(); if
+     * (facesContext != null) { try { ExternalContext externalContext =
+     * facesContext.getExternalContext(); request.login(username, password);
+     * externalContext.redirect(requestedURI); } catch (Exception e) {
+     * System.out.println("Bad login");
+     *
+     * }
+     * }
+     * }
+     */
     public boolean isLoginActivated() {
         return loginActivated;
     }

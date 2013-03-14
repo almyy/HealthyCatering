@@ -20,8 +20,5 @@
             <base-name>Language.auth</base-name>   
             <var>lang_auth</var> 
         </resource-bundle>
-        <view-handler>
-            mobile.MobileViewHandler
-        </view-handler>
     </application>
 </faces-config>

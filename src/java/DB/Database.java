@@ -1,5 +1,6 @@
 package DB;
 
+import logikk.Dish;
 import logikk.Order;
 import java.sql.*;
 import java.util.ArrayList;
