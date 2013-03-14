@@ -51,8 +51,31 @@ public class Database {
             Cleaner.closeSentence(stm);
         }
         return orders;
-
     }
+
+        public boolean logIn(User user) {
+        PreparedStatement sqlLogIn = null;
+        openConnection();
+        boolean ok = false;
+        try {
+            sqlLogIn = connection.prepareStatement("SELECT * FROM BRUKER WHERE BRUKERNAVN = '" + user.getUsername() + "' AND PASSORD = '" + user.getPassword() + "' ");
+            ResultSet res = sqlLogIn.executeQuery();
+            connection.commit();
+            if (res.next()) {
+                ok = true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sqlLogIn);
+        }
+        closeConnection();
+        return ok;
+    }
+    
     //FOR ADMIN
     public void updateOrder(Order s){
         PreparedStatement sqlRead = null;
@@ -96,29 +119,40 @@ public class Database {
         }
         return orders;
     }
+    
+    //FOR DRIVER
 
-    public boolean logIn(User user) {
-        PreparedStatement sqlLogIn = null;
+    public ArrayList<Order> getDriversList() {
+        ArrayList<Order> orders = new ArrayList();
+        PreparedStatement sqlRead = null;
+        ResultSet res = null;
         openConnection();
-        boolean ok = false;
         try {
-            sqlLogIn = connection.prepareStatement("SELECT * FROM BRUKER WHERE BRUKERNAVN = '" + user.getUsername() + "' AND PASSORD = '" + user.getPassword() + "' ");
-            ResultSet res = sqlLogIn.executeQuery();
-            connection.commit();
-            if (res.next()) {
-                ok = true;
+            sqlRead = connection.prepareStatement("SELECT * FROM ORDERS WHERE STATUS = ?");
+            sqlRead.setInt(1, Order.Status.ON_THE_ROAD.getCode());
+            res = sqlRead.executeQuery();
+            while (res.next()) {
+                java.util.Date date = res.getDate("DATES");
+                String deliveryAddress = res.getString("DELIVERYADDRESS");
+                int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
+                int status = res.getInt("STATUS");
+                orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
             }
+
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
-
         } finally {
-            Cleaner.setAutoCommit(connection);
-            Cleaner.closeSentence(sqlLogIn);
+            Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(sqlRead);
         }
-        closeConnection();
-        return ok;
+        return orders;
+
     }
+
+
+    
 
     public boolean changePassword(User user) {
         PreparedStatement sqlLogIn = null;

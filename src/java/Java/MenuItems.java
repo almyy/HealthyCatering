@@ -23,11 +23,12 @@ public class MenuItems implements Serializable {
     ArrayList<Dish> orderList = new ArrayList<Dish>();
     int count;
     private Dish selectedDish;
-
-    public ArrayList<Dish> fillTable() {
-        try {
-            return db.getDishes();
-        } catch (Exception e) {
+    
+    
+    public ArrayList<Dish> fillTable(){
+        try{
+       // return db.getDishes();
+        } catch(Exception e){
             System.out.println("Error");
         }
         return new ArrayList<Dish>();
