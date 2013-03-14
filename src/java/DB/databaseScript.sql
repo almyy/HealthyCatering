@@ -17,7 +17,6 @@ DROP TABLE roles;
 DROP TABLE users;
 DROP TABLE postalArea;
 
-
 CREATE TABLE PostalArea(
     postalCode INTEGER,
     postalArea VARCHAR(30) NOT NULL,

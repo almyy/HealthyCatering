@@ -51,8 +51,10 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>customer</role-name>
-            <role-name>worker</role-name>
+            <role-name>salesman</role-name>
             <role-name>admin</role-name>
+            <role-name>chef</role-name>
+            <role-name>driver</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
@@ -69,10 +71,18 @@
     </security-role>
     <security-role>
         <description/>
-        <role-name>worker</role-name>
+        <role-name>driver</role-name>
     </security-role>
     <security-role>
         <description/>
         <role-name>admin</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>chef</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>salesman</role-name>
     </security-role>
 </web-app>
