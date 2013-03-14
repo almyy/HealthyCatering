@@ -5,10 +5,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:composition template="serviceTemplate.xhtml">
-        <h:head>
-            <title>Facelet Title</title>
-        </h:head>
+    <title>Facelet Title</title>
+    <ui:composition template="../serviceTemplate.xhtml">
         <ui:define name="content">
             <h:body>
                 #{Worker.update()}
@@ -78,7 +76,7 @@
 
             </h:body>
         </ui:define>
-    </ui:composition>%
+    </ui:composition>
 
 </html>
 

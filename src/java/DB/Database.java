@@ -1,5 +1,6 @@
 package DB;
 
+import Java.Dish;
 import Java.Order;
 import java.sql.*;
 import java.util.ArrayList;
@@ -177,6 +178,32 @@ public class Database {
         }
         closeConnection();
         return ok;
+    }
+    
+    public ArrayList<Dish> getDishes() {
+        PreparedStatement sentence = null;
+        openConnection();
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
+        try {
+            sentence = connection.prepareStatement("select * from DISH");
+            ResultSet res = sentence.executeQuery();
+            connection.commit();
+            while (res.next()) {
+                int dishid = res.getInt("DISHID");
+                String dishname = res.getString("DISHNAME");
+                Dish newdish = new Dish(dishid, dishname, 0.0, 1);
+                dishes.add(newdish);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sentence);
+        }
+        closeConnection();
+        return dishes;
     }
 
     public boolean userExist(String username) {
