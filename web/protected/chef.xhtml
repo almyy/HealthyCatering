@@ -15,7 +15,7 @@
                 <!-- A form for making the page run the update-method every x seconds -->
                 <h:form>
                     <p:dataTable value="#{Worker.tabelldata}" var="OrderStatus" styleClass="orders" id="dataTable_id"
-                                 rowStyleClass="#{OrderStatus.order.status == 1 ? 'yellow' : OrderStatus.order.status eq '3' ? 'green':null}">
+                                 rowStyleClass="#{OrderStatus.order.status eq 1 ? 'yellow' : OrderStatus.order.status eq '3' ? 'green':null}">
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="ID"/>

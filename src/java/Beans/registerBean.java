@@ -10,7 +10,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import Java.User;
+import logikk.User;
 
 
 @SessionScoped

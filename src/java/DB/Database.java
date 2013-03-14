@@ -1,7 +1,6 @@
 package DB;
 
-import Java.Dish;
-import Java.Order;
+import logikk.Order;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;
@@ -9,7 +8,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import Java.User;
+import logikk.User;
 
 public class Database {
 
