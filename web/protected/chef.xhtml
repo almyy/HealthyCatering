@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:composition template="serviceTemplate.xhtml">
+    <ui:composition template="../serviceTemplate.xhtml">
         <h:head>
             <title>Facelet Title</title>
         </h:head>
@@ -66,14 +66,12 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Change Status"/>
                             </f:facet>
-                            <p:commandButton value="Change" action="#{OrderStatus.setToBeChanged()}" />
-                            <p:outputLabel value="#{OrderStatus.toBeChanged}"/>
+                            <p:commandButton value="Change" action="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
                         </p:column>
                         <f:facet name="footer">
                             mømømø
                         </f:facet>
                     </p:dataTable>
-                    <p:poll interval="10" listener="#{Worker.update()}" update="dataTable_id"/>
                 </h:form>
 
             </h:body>

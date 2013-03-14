@@ -24,7 +24,7 @@ public class MenuItems implements Serializable{
     
     public ArrayList<Dish> fillTable(){
         try{
-        return db.getDishes();
+       // return db.getDishes();
         } catch(Exception e){
             System.out.println("Error");
         }
