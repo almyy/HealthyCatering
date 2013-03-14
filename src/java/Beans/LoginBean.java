@@ -13,32 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 @ManagedBean
 @ConversationScoped
 @Named("Frontpage")
-public class FrontpageBean implements Serializable {
+public class LoginBean implements Serializable {
 
     private HttpServletResponse response;
     private boolean loginActivated = false;
     private HttpServletRequest request;
     private String requestedURI;
-    private String username;
-    private String password;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void test() {
+    public void redirect() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext != null) {
             try {
@@ -49,8 +31,8 @@ public class FrontpageBean implements Serializable {
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("chef")) {
                     externalContext.redirect("faces/protected/chef.xhtml");
                 }
-                if (facesContext.getExternalContext().getUserPrincipal().getName().equals("salesmen")) {
-                    externalContext.redirect("faces/protected/salesmen.xhtml");
+                if (facesContext.getExternalContext().getUserPrincipal().getName().equals("salesman")) {
+                    externalContext.redirect("faces/protected/salesman.xhtml");
                 }
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("driver")) {
                     externalContext.redirect("faces/protected/driver.xhtml");
@@ -82,11 +64,4 @@ public class FrontpageBean implements Serializable {
      * }
      * }
      */
-    public boolean isLoginActivated() {
-        return loginActivated;
-    }
-
-    public void setLoginActivated(boolean ok) {
-        loginActivated = ok;
-    }
 }

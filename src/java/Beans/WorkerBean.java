@@ -23,27 +23,27 @@ import javax.inject.Named;
 public class WorkerBean implements Serializable {
 
     private PendingOrders overView = new PendingOrders();
-    private List<OrderStatus> tabelldata = Collections.synchronizedList(new ArrayList<OrderStatus>());
+    private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
 
-    public synchronized List<OrderStatus> getTabelldata() {
-        return tabelldata;
+    public synchronized List<OrderStatus> getTabledata() {
+        return tabledata;
     }
 
     public synchronized boolean isEmpty() {
-        return !(tabelldata.size() > 0);
+        return !(tabledata.size() > 0);
     }
 
     public synchronized void update() {
         ArrayList<Order> temp = overView.getFirstOrders();
-        if (tabelldata.size() < temp.size()) {
-            tabelldata.clear();
+        if (tabledata.size() < temp.size()) {
+            tabledata.clear();
             for (int i = 0; i < temp.size(); i++) {
-                tabelldata.add(new OrderStatus(temp.get(i)));
+                tabledata.add(new OrderStatus(temp.get(i)));
             }
         }
-        for(int i = 0; i < tabelldata.size();i++){
-            if(tabelldata.get(i).getToBeChanged()){
-                overView.updateDb(tabelldata.get(i).getOrder());
+        for(int i = 0; i < tabledata.size();i++){
+            if(tabledata.get(i).getOrder().getStatusNumeric()!=temp.get(i).getStatusNumeric()){
+                overView.updateDb(tabledata.get(i).getOrder());
             }
         }
     }

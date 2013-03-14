@@ -18,7 +18,7 @@ import javax.inject.Named;
 @SessionScoped
 @Named("Driver")
 public class DriverBean implements Serializable {
-     private Orders orders = new Orders();
+    private Orders orders = new Orders();
     private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
     private Order tempOrder = new Order();
 
