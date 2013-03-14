@@ -37,8 +37,8 @@ public class LoginBean implements Serializable {
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("chef")) {
                     externalContext.redirect("faces/protected/chef.xhtml");
                 }
-                if (facesContext.getExternalContext().getUserPrincipal().getName().equals("salesmen")) {
-                    externalContext.redirect("faces/protected/salesmen.xhtml");
+                if (facesContext.getExternalContext().getUserPrincipal().getName().equals("salesman")) {
+                    externalContext.redirect("faces/protected/salesman.xhtml");
                 }
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("driver")) {
                     externalContext.redirect("faces/protected/driver.xhtml");
