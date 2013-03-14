@@ -45,13 +45,8 @@ public class FrontpageBean implements Serializable {
     }
 
     public void test() {
-    /*    requestedURI = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
-        if (requestedURI == null) {
-            requestedURI = "faces/protected/temp.xhtml";
-        } */
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext != null) {
-      //      System.out.println(facesContext.getExternalContext().getUserPrincipal());
             try {
                 ExternalContext externalContext = facesContext.getExternalContext();
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("customer")) {
