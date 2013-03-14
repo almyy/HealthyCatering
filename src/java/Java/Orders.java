@@ -23,6 +23,9 @@ public class Orders implements Serializable {
     public ArrayList<Order> getList() {
         return list;
     }
+    public ArrayList<Order>getDriversList(){ //Sjåførene skal kun ha ordrene som er merket "under way"
+        return database.getDriversList();
+    }
     public ArrayList<Order> getOrdersMonth(int month, int year){
         ArrayList<Order> Month = new ArrayList<Order>();
         for(int i = 0;i<list.size();i++){
