@@ -9,10 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import Java.Order;
-import Java.OrderStatus;
-import Java.Orders;
-import Java.PendingOrders;
+import logikk.Order;
+import logikk.OrderStatus;
+import logikk.Orders;
+import logikk.PendingOrders;
 import java.io.Serializable;
 
 /**

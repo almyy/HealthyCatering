@@ -1,4 +1,4 @@
-package Java;
+package logikk;
 
 import DB.Database;
 import java.io.Serializable;

@@ -4,9 +4,9 @@
 */
 package Beans;
 
-import Java.Order;
-import Java.OrderStatus;
-import Java.PendingOrders;
+import logikk.Order;
+import logikk.OrderStatus;
+import logikk.PendingOrders;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
