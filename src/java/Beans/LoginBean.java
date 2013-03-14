@@ -1,19 +1,13 @@
 package Beans;
 
 import java.io.IOException;
-import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import javax.faces.context.ExternalContext;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
 @ManagedBean
