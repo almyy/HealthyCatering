@@ -4,15 +4,16 @@
 */
 package Beans;
 
-import logikk.Order;
-import logikk.OrderStatus;
-import logikk.PendingOrders;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
+import logikk.Order;
+import logikk.OrderStatus;
+import logikk.PendingOrders;
 
 /**
 *
@@ -41,8 +42,11 @@ public class WorkerBean implements Serializable {
                 tabledata.add(new OrderStatus(temp.get(i)));
             }
         }
+    }
+    public void statusChanged(ValueChangeEvent e){
         for(int i = 0; i < tabledata.size();i++){
-            if(tabledata.get(i).getOrder().getStatusNumeric()!=temp.get(i).getStatusNumeric()){
+            if(tabledata.get(i).getToBeChanged()){
+                tabledata.get(i).getOrder().setStatus((String)e.getNewValue());
                 overView.updateDb(tabledata.get(i).getOrder());
             }
         }

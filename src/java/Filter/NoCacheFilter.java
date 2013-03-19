@@ -1,33 +1,54 @@
 package Filter;
 
-import java.io.IOException;
-import java.util.logging.LogRecord;
-import javax.faces.application.ResourceHandler;
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import javax.servlet.ServletException;
 
-@WebFilter(servletNames={"Faces Servlet"})
 public class NoCacheFilter implements Filter {
 
-   @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        if (!req.getRequestURI().startsWith(req.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER)) { // Skip JSF resources (CSS/JS/Images/etc)
-            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-            res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-            res.setDateHeader("Expires", 0); // Proxies.
-        }
-        chain.doFilter(request, response);
+    public void init(FilterConfig config) throws ServletException {
+        this.filterConfig = config;
+    }
+    private FilterConfig filterConfig;
+
+    public FilterConfig getFilterConfig() {
+        return this.filterConfig;
     }
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void setFilterConfig(FilterConfig filterConfig) {
+        this.filterConfig = filterConfig;
     }
 
-    @Override
     public void destroy() {
+        this.filterConfig = null;
+    }
+
+    public void doFilter(ServletRequest request,
+            ServletResponse response,
+            FilterChain chain) {
+        try {
+            if (response instanceof HttpServletResponse) {
+                HttpServletResponse httpresponse = (HttpServletResponse) response;
+                // Set the Cache-Control and Expires header
+                httpresponse.setHeader("Cache-Control", "no-cache");
+                httpresponse.setHeader("Expires", "0");
+                // Print out the URL we're filtering
+                String name = ((HttpServletRequest) request).getRequestURI();
+                System.out.println("No Cache Filtering: " + name);
+            }
+            chain.doFilter(request, response);
+        } catch (IOException e) {
+            System.out.println("IOException in NoCacheFilter");
+            e.printStackTrace();
+        } catch (ServletException e) {
+            System.out.println("ServletException in NoCacheFilter");
+            e.printStackTrace();
+        }
     }
 }
