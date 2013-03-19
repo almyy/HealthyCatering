@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    
+
     <ui:composition template="../serviceTemplate.xhtml">
         <h:head>
             <title>Facelet Title</title>
@@ -74,6 +74,7 @@
                             mømømø
                         </f:facet>
                     </p:dataTable>
+                    <p><p:commandLink value="Logout" action="#{Frontpage.logout()}"></p:commandLink></p>
                 </h:form>
 
             </h:body>

@@ -23,6 +23,14 @@
             30
         </session-timeout>
     </session-config>
+ <!--   <filter>
+        <filter-name>NoCacheFilter</filter-name>
+        <filter-class>filter.NoCacheFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>NoCacheFilter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping> -->
     <welcome-file-list>
         <welcome-file>faces/protected/passValid.xhtml</welcome-file>
     </welcome-file-list>
