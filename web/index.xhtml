@@ -5,13 +5,13 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Ind</title>
+        <title>In</title>
     </h:head>
     <h:body>
         <ui:composition template="userTemplate.xhtml">
             <ui:define name="content">
                 <div id="login" class="login">
-                    <h:form id="login1" onsubmit="document.getElementById('login1').action='j_security_check';" prependId="false" >
+                    <h:form id="login1" onsubmit="document.getElementById('login1').action='j_security_check';" prependId="false" rendered="#{!Frontpage.isLoggedIn()}">
                         <table>
                             <tr>
                                 <td><p:outputLabel value="Username"/></td>
@@ -23,7 +23,7 @@
                             </tr>
                         </table>
                         <p><p:commandButton id="submit" value="Login" ajax="false"/></p>
-                        <p><p:commandLink value="Register" action="register.xhtml"></p:commandLink></p>
+                        <p><p:commandLink value="Register" hreflang="./register.xhtml"></p:commandLink></p>
                         <p><p:commandLink value="Forgot password?"></p:commandLink></p>
                     </h:form>
                 </div>

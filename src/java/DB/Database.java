@@ -39,11 +39,11 @@ public class Database {
             res = stm.executeQuery(query);
             while (res.next()) {
                 java.sql.Date date = res.getDate("DATES");
-                int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
+                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 int status = res.getInt("STATUS");
                 int orderId = res.getInt("ORDERID");
-                Order orderToBeAdded = new Order(date, timeOfDelivery, deliveryAddress, status);
+                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status);
                 orderToBeAdded.setOrderId(orderId);
                 orders.add(orderToBeAdded);
             }
@@ -85,7 +85,7 @@ public class Database {
             while (res.next()) {
                 java.util.Date date = res.getDate("DATES");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
-                int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
+                Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
                 orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
             }
@@ -114,7 +114,7 @@ public class Database {
             while (res.next()) {
                 java.util.Date date = res.getDate("DATES");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
-                int timeOfDelivery = res.getInt("TIMEOFDELIVERY");
+                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
                 orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
             }

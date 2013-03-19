@@ -1,15 +1,18 @@
 package Beans;
 
 import DB.Database;
+import java.io.IOException;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.print.attribute.standard.Severity;
 import logikk.User;
 
 
@@ -25,23 +28,9 @@ public class registerBean implements Serializable {
         if(db.userExist(username) || username.length() < 5) {
             ((UIInput)component).setValid(false);
             message = "The username already exists, or your username is shorter than 5 characters";
-            context.addMessage(component.getClientId(context), new FacesMessage(message));
-        }
-    }
-    
-    public void validatePassword(FacesContext context, UIComponent component, Object value) {
-        String message = "";
-        String password = (String) value;
-        boolean hasNumber = false;
-        for(int i = 0; i < password.length(); i++) {
-            if(Character.isDigit(password.charAt(i))) {
-                hasNumber = true;
-            }
-        }
-        if(!hasNumber && password.length() < 8) {
-            ((UIInput)component).setValid(false);
-            message = "You need to have at least one number and the password must be atleast 8 characters long";
-            context.addMessage(component.getClientId(context), new FacesMessage(message));
+            FacesMessage fm = new FacesMessage(message);
+            fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+            context.addMessage(component.getClientId(context), fm);
         }
     }
     public void validateEmail(FacesContext context, UIComponent component, Object value) {
@@ -52,13 +41,19 @@ public class registerBean implements Serializable {
         } catch(AddressException ae) {
             ((UIInput)component).setValid(false);
             message = "Type a valid email address";
-            context.addMessage(component.getClientId(context), new FacesMessage(message));
+            FacesMessage fm = new FacesMessage(message);
+            fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+            context.addMessage(component.getClientId(context), fm);
         }
     }
     public User getUser() {
         return user;
     }
-    public void apply() {
+    public void apply() throws IOException {
         db.newUser(user);
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        if(externalContext != null) {
+            externalContext.redirect("faces/index.xhtml");
+        }
     }
 }

@@ -5,7 +5,6 @@
 package Beans;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -22,8 +21,8 @@ import logikk.PendingOrders;
  * @author Rino
  */
 @SessionScoped
-@Named("Worker")
-public class WorkerBean implements Serializable {
+@Named("Sales")
+public class SalesmanBean implements Serializable {
 
     private PendingOrders overView = new PendingOrders();
     private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
