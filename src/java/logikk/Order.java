@@ -85,6 +85,9 @@ public class Order {
             case 6:
                 this.status = Status.MISSING.toString();
                 break;
+            case 7:
+                this.status = Status.NEEDS_APPROVAL.toString();
+                break;
         }
     }
     
@@ -115,6 +118,9 @@ public class Order {
                 break;
             case 6:
                 this.status = Status.MISSING.toString();
+                break;
+            case 7:
+                this.status = Status.NEEDS_APPROVAL.toString();
                 break;
         }
     }
