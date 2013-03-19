@@ -36,7 +36,7 @@ public class SalesmanBean implements Serializable {
     }
 
     public synchronized void update() {
-        ArrayList<Order> temp = overView.getFirstOrdersChef();
+        ArrayList<Order> temp = overView.getFirstOrdersSalesmen();
         if (tabledata.size() < temp.size()) {
             tabledata.clear();
             for (int i = 0; i < temp.size(); i++) {
