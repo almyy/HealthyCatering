@@ -4,8 +4,6 @@ DROP TABLE orders;
 DROP TABLE subscriptionplan;
 DROP TABLE company;
 DROP TABLE CUSTOMER;
-DROP TABLE dish_menu;
-DROP TABLE menu;
 DROP TABLE dish;
 DROP TABLE salesman;
 DROP TABLE chef;
@@ -116,29 +114,15 @@ CREATE TABLE orders(
 CREATE TABLE dish(
     dishId INTEGER NOT NULL,
     dishName VARCHAR(50) NOT NULL,
+    dishPrice DECIMAL NOT NULL,
     CONSTRAINT dish_pk PRIMARY KEY(dishId)
-);
-CREATE TABLE menu(
-    menuId INTEGER NOT NULL,
-    menuName VARCHAR(30),
-    CONSTRAINT menu_pk PRIMARY KEY(menuID)
-);
-CREATE TABLE dish_menu (
-    dishId INTEGER NOT NULL,
-    menuId INTEGER NOT NULL,
-    price INTEGER NOT NULL,
-    CONSTRAINT dish_menu_fk1 FOREIGN KEY(dishId) REFERENCES dish(dishId),
-    CONSTRAINT dish_menu_fk2 FOREIGN KEY(menuId) REFERENCES menu(menuId),
-    CONSTRAINT dish_menu_pk PRIMARY KEY(dishId,menuId)
 );
 CREATE TABLE dishes_ordered(
     dishId INTEGER NOT NULL,
-    menuId INTEGER NOT NULL,
     orderId INTEGER NOT NULL,
     dishCount INTEGER NOT NULL,
-    CONSTRAINT dishes_ordered_fk1 FOREIGN KEY(dishId,menuId) REFERENCES dish_menu(dishId,menuId),
-    CONSTRAINT dishes_ordered_fk2 FOREIGN KEY(orderId) REFERENCES orders(orderID),
-    CONSTRAINT dishes_ordered_pk PRIMARY KEY(orderId,dishId,menuId)
+    CONSTRAINT dishes_ordered_fk FOREIGN KEY(orderId) REFERENCES orders(orderID),
+    CONSTRAINT dishes_ordered_pk PRIMARY KEY(orderId,dishId)
 );
 
 INSERT INTO postalArea VALUES (7046,'Trondheim');
@@ -177,17 +161,10 @@ INSERT INTO driver VALUES ('driver');
 INSERT INTO chef VALUES ('chef');
 INSERT INTO salesman VALUES ('salesman');
 
-INSERT INTO dish VALUES (1,'spaghetti');
-INSERT INTO dish VALUES (2,'laks');
-INSERT INTO dish VALUES (3, 'biff');
-INSERT INTO dish VALUES (4, 'GRÆNDIS');
-
-INSERT INTO menu VALUES (1,'privat');
-INSERT INTO menu VALUES (2,'bedrift');
-
-INSERT INTO dish_menu VALUES (1,1,100.00);
-INSERT INTO dish_menu VALUES (2,1,1337.00);
-INSERT INTO dish_menu VALUES (4,1,9001.00);
+INSERT INTO dish VALUES (1,'spaghetti',100.00);
+INSERT INTO dish VALUES (2,'laks',200.75);
+INSERT INTO dish VALUES (3, 'biff',358.00);
+INSERT INTO dish VALUES (4, 'GRÆNDIS',30.00);
 
 INSERT INTO subscriptionplan VALUES(1,(DATE(2013-02-25)),(DATE(2016-02-26)),'bedrift');
 
@@ -206,4 +183,4 @@ INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (18,'adresseveien x', 3,(DATE(2013-02-28)),'salesman','customer',null,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (19,'adresseveien x', 3,(DATE(2013-02-28)),'salesman','bedrift',1,7046);
 
-INSERT INTO dishes_ordered VALUES (1,1,1,2);
+INSERT INTO dishes_ordered VALUES (1,1,2);
