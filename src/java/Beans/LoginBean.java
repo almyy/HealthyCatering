@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean
 @ConversationScoped
@@ -19,12 +20,12 @@ public class LoginBean implements Serializable {
     private boolean loginActivated = false;
     private HttpServletRequest request;
     private String requestedURI;
+    private FacesContext facesContext = FacesContext.getCurrentInstance();
+    private ExternalContext externalContext = facesContext.getExternalContext();
 
     public void redirect() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext != null) {
             try {
-                ExternalContext externalContext = facesContext.getExternalContext();
                 if (facesContext.getExternalContext().getUserPrincipal().getName().equals("customer")) {
                     externalContext.redirect("faces/protected/customer.xhtml");
                 }
@@ -46,22 +47,13 @@ public class LoginBean implements Serializable {
         }
     }
 
-    /*
-     * @PostConstruct public void init() { requestedURI = (String)
-     * FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
-     *
-     * if (requestedURI == null) { requestedURI = "register.xhtml"; } }
-     *
-     * public void submit() throws IOException { // ...
-     *
-     * FacesContext facesContext = FacesContext.getCurrentInstance(); if
-     * (facesContext != null) { try { ExternalContext externalContext =
-     * facesContext.getExternalContext(); request.login(username, password);
-     * externalContext.redirect(requestedURI); } catch (Exception e) {
-     * System.out.println("Bad login");
-     *
-     * }
-     * }
-     * }
-     */
+    public void logout() {
+        HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
+        httpSession.invalidate();
+        try {
+            externalContext.redirect("index.xhtml");
+        } catch (IOException e) {
+            System.out.println("IOException");
+        }
+    }
 }
