@@ -15,6 +15,7 @@ public class Order {
         ON_THE_ROAD(4, "The food is currently on it's way"),
         FINISHED(5, "The order has been successfully delivered"),
         MISSING(6, "No one knows what happened to the order"),
+        NEEDS_APPROVAL(7,"A salesman must approve or disapprove this order"),
         NULL(0, "There is no registered order");
         private int code;
         private String description;

@@ -26,7 +26,7 @@ public class PendingOrders implements Serializable {
     }
 
     public ArrayList<Order> getFirstOrders() {//returns the session before chefs have changed the values
-        return database.getPendingOrders("Select * from ORDERS where STATUS !=5");
+        return database.getPendingOrders("Select * from ORDERS where STATUS !=5");//5 = FINISHED
     }
 
     public void updateDb(Order s) {
