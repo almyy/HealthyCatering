@@ -10,7 +10,21 @@ public class User {
     private String firstName;
     private String surname;
     private String email;
-    private String phone;
+    private int phone;
+    
+    public User(String username, String password, String firstname, String surname,
+        String address, int mobilenr, int postalcode){
+        this.username = username;
+        this.password = password;
+        this.firstName = firstname;
+        this.surname = surname;
+        this.address = address;
+        this.phone = mobilenr;
+        this.postnumber = postalcode;
+    }
+    public User(){
+        
+    }
     
     public String getUsername() {
         return username;
@@ -66,10 +80,10 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getPhone() {
+    public int getPhone() {
         return phone;
     }
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
     public String toString() {
