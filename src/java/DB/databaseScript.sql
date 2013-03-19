@@ -173,14 +173,14 @@ INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien xg', 1,'2013-03-27','salesman','customer',null,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien x', 0,'2013-03-29','salesman','bedrift',1,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien f', 6,'2013-03-30','salesman','customer',null,7046);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien x', 5,'2013-03-31','salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien x', 7,'2013-03-31','salesman','bedrift',1,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES ('11:02:00','adresseveien x', 4,'2013-03-22','salesman','customer',null,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES ('11:03:00','adresseveien x', 1,'2013-03-22','salesman','bedrift',1,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES ('12:02:00','adresseveien x', 3,'2013-03-22','salesman','customer',null,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES ('12:02:01','adresseveien y', 6,'2013-03-22','salesman','bedrift',1,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien z', 2,'2013-03-21','salesman','customer',null,7046);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien x', 2,'2013-03-20','salesman','bedrift',1,7046);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien x', 3,'2013-04-02','salesman','customer',null,7046);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien x', 3,'2013-06-07','salesman','bedrift',1,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien x', 7,'2013-04-02','salesman','customer',null,7046);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,dates,usernamesalesman,usernamecustomer,subscriptionid,postalcode) VALUES (TIME(CURRENT_TIMESTAMP),'adresseveien x', 7,'2013-06-07','salesman','bedrift',1,7046);
 
 INSERT INTO dishes_ordered VALUES (1,1,2);
