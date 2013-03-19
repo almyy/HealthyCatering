@@ -36,6 +36,7 @@ public class Order {
             return this.toString();
         }
     }
+    private Date fullDate;
     private int orderId;
     private Date date;
     private Time timeOfDelivery;
@@ -50,6 +51,8 @@ public class Order {
     }
 
     public Order(Date date, Time timeOfDelivery, String deliveryAddress) {
+        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
+                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
@@ -57,6 +60,8 @@ public class Order {
     }
 
     public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status) {
+        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
+                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
@@ -116,6 +121,10 @@ public class Order {
         return true;
     }
 
+    public Date getFullDate() {
+        return fullDate;
+    }
+    
     public ArrayList<Dish> getOrderedDish() {
         return orderedDish;
     }
