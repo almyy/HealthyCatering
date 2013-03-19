@@ -4,7 +4,6 @@ package logikk;
  */
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Order {
 
