@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import logikk.Dish;
 import logikk.Order;
+import logikk.Status;
 import logikk.User;
 
 public class Database {
@@ -87,7 +88,6 @@ public class Database {
                 orders.add(new Order(timeOfDelivery, deliveryAddress, status));
             }
 
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -106,7 +106,7 @@ public class Database {
         openConnection();
         try {
             sqlRead = connection.prepareStatement("SELECT * FROM ORDERS WHERE STATUS = ?");
-            sqlRead.setInt(1, Order.Status.ON_THE_ROAD.getCode());
+            sqlRead.setInt(1, Status.ON_THE_ROAD.getCode());
             res = sqlRead.executeQuery();
             while (res.next()) {
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
