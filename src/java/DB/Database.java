@@ -41,7 +41,7 @@ public class Database {
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 int status = res.getInt("STATUS");
                 int orderId = res.getInt("ORDERID");
-                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status);
+                Order orderToBeAdded = new Order(date, timeOfDelivery, deliveryAddress, status);
                 orderToBeAdded.setOrderId(orderId);
                 orders.add(orderToBeAdded);
             }
@@ -54,45 +54,35 @@ public class Database {
         return orders;
     }
 
-  /*      public boolean logIn(User user) {
-        PreparedStatement sqlLogIn = null;
-        openConnection();
-        boolean ok = false;
-        try {
-            sqlLogIn = connection.prepareStatement("SELECT * FROM BRUKER WHERE BRUKERNAVN = '" + user.getUsername() + "' AND PASSORD = '" + user.getPassword() + "' ");
-            ResultSet res = sqlLogIn.executeQuery();
-            connection.commit();
-            if (res.next()) {
-                ok = true;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
-
-        } finally {
-            Cleaner.setAutoCommit(connection);
-            Cleaner.closeSentence(sqlLogIn);
-        }
-        closeConnection();
-        return ok;
-    }
-    */
+    /*
+     * public boolean logIn(User user) { PreparedStatement sqlLogIn = null;
+     * openConnection(); boolean ok = false; try { sqlLogIn =
+     * connection.prepareStatement("SELECT * FROM BRUKER WHERE BRUKERNAVN = '" +
+     * user.getUsername() + "' AND PASSORD = '" + user.getPassword() + "' ");
+     * ResultSet res = sqlLogIn.executeQuery(); connection.commit(); if
+     * (res.next()) { ok = true; } } catch (SQLException e) {
+     * System.out.println(e.getMessage()); Cleaner.rollback(connection);
+     *
+     * } finally { Cleaner.setAutoCommit(connection);
+     * Cleaner.closeSentence(sqlLogIn); } closeConnection(); return ok; }
+     */
     //FOR ADMIN
-    public void updateOrder(Order s){
+    public void updateOrder(Order s) {
         PreparedStatement sqlRead = null;
         ResultSet res = null;
         openConnection();
-        try{
+        try {
             sqlRead = connection.prepareStatement("UPDATE ASD.ORDERS set STATUS=? where ORDERID=?");
             sqlRead.setInt(1, s.getStatusNumeric());
-            sqlRead.setInt(2,s.getOrderId());
+            sqlRead.setInt(2, s.getOrderId());
             sqlRead.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
             Cleaner.closeConnection(connection);
             Cleaner.closeResSet(res);
             Cleaner.closeSentence(sqlRead);
         }
     }
+
     public ArrayList<Order> getOrderOverview() {
         ArrayList<Order> orders = new ArrayList();
         PreparedStatement sqlRead = null;
@@ -120,9 +110,8 @@ public class Database {
         }
         return orders;
     }
-    
-    //FOR DRIVER
 
+    //FOR DRIVER
     public ArrayList<Order> getDriversList() {
         ArrayList<Order> orders = new ArrayList();
         PreparedStatement sqlRead = null;
@@ -151,9 +140,6 @@ public class Database {
         return orders;
 
     }
-
-
-    
 
     public boolean changePassword(User user) {
         PreparedStatement sqlLogIn = null;
@@ -214,7 +200,7 @@ public class Database {
         closeConnection();
         return ok;
     }
-    
+
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();
@@ -280,94 +266,27 @@ public class Database {
         System.out.println("Closing databaseconnection");
         Cleaner.closeConnection(connection);
     }
-    /*
-     public boolean regNew(user user) {
-     PreparedStatement sqlRegNew = null;
-     openConnection();
-     boolean ok = false;
-     try {
-     sqlRegNew = connection.prepareStatement("insert into trening(dato,varighet,kategorinavn,tekst,brukernavn) values(?, ?, ?,?,?)");
-     try {
-     sqlRegNew.setDate(1, new java.sql.Date(newWorkout.getDate().getTime()));
-     } catch (NullPointerException e) {
-     sqlRegNew.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
-     }
-     sqlRegNew.setInt(2, newWorkout.getDuration());
-     sqlRegNew.setString(3, newWorkout.getCategory());
-     sqlRegNew.setString(4, newWorkout.getText());
-     sqlRegNew.setString(5, user);
-     sqlRegNew.executeUpdate();
 
-     connection.commit();
-
-     ok = true;
-
-     } catch (SQLException e) {
-     System.out.println(e.getMessage());
-     Cleaner.rollback(connection);
-
-     } finally {
-     Cleaner.setAutoCommit(connection);
-     Cleaner.closeSentence(sqlRegNew);
-     }
-     closeConnection();
-     return ok;
-     }
-     */
-    /*
-     public boolean deleteWorkout(user user) {
-     boolean ok = false;
-     PreparedStatement sqlUpdWorkout = null;
-
-     System.out.println(workout.getNumber());
-     openConnection();
-     try {
-     sqlUpdWorkout = connection.prepareStatement("DELETE FROM TRENING WHERE oktnr = ?");
-     sqlUpdWorkout.setInt(1, workout.getNumber());
-     sqlUpdWorkout.executeUpdate();
-     connection.commit();
-     ok = true;
-
-     } catch (SQLException e) {
-     Cleaner.writeMessage(e, "deleteWorkout()");
-     } finally {
-     Cleaner.closeSentence(sqlUpdWorkout);
-     }
-     closeConnection();
-     return ok;
-
-
-
-     }
-
-     public boolean changeData(Workout workout) {
-     PreparedStatement sqlUpdWorkout = null;
-     boolean ok = false;
-     openConnection();
-     try {
-     //String sql = "update eksemplar set laant_av = '" + navn + "' where isbn = '" + isbn + "' and eks_nr = " + eksNr;
-     sqlUpdWorkout = connection.prepareStatement("update trening set dato = ?,varighet = ?,kategorinavn = ?, tekst = ? where oktnr = ? and brukernavn = ?");
-     try {
-     sqlUpdWorkout.setDate(1, new java.sql.Date(workout.getDate().getTime()));
-     } catch (NullPointerException e) {
-     sqlUpdWorkout.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
-     }
-     sqlUpdWorkout.setInt(2, workout.getDuration());
-     sqlUpdWorkout.setString(3, workout.getCategory());
-     sqlUpdWorkout.setString(4, workout.getText());
-     sqlUpdWorkout.setInt(5, workout.getNumber());
-     sqlUpdWorkout.setString(6, user);
-     ok = true;
-     sqlUpdWorkout.executeUpdate();
-     connection.commit();
-     } catch (SQLException e) {
-     Cleaner.writeMessage(e, "changeData()");
-     } finally {
-     Cleaner.closeSentence(sqlUpdWorkout);
-     }
-     closeConnection();
-     return ok;
-     }
-     * 
-     */
+    public boolean changeData(User user) {
+        PreparedStatement sqlUpdProfile = null;
+        boolean ok = false;
+        openConnection();
+        try {
+            sqlUpdProfile = connection.prepareStatement("update users firstname = ?,surname = ?, address = ?, moblienr = ?, postalcode = ?");
+            sqlUpdProfile.setString(2, user.getFirstName());
+            sqlUpdProfile.setString(3, user.getSurname());
+            sqlUpdProfile.setString(4, user.getAddress());
+            sqlUpdProfile.setString(5, user.getPhone());
+            sqlUpdProfile.setInt(6, user.getPostnumber());
+            ok = true;
+            sqlUpdProfile.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            Cleaner.writeMessage(e, "changeData()");
+        } finally {
+            Cleaner.closeSentence(sqlUpdProfile);
+        }
+        closeConnection();
+        return ok;
+    }
 }
