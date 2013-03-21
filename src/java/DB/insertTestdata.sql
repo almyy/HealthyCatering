@@ -29,10 +29,10 @@ INSERT INTO driver VALUES ('driver');
 INSERT INTO chef VALUES ('chef');
 INSERT INTO salesman VALUES ('salesman');
 
-INSERT INTO dish VALUES (1,'spaghetti',100.00);
-INSERT INTO dish VALUES (2,'laks',200.75);
-INSERT INTO dish VALUES (3, 'biff',358.00);
-INSERT INTO dish VALUES (4, 'GRÆNDIS',30.00);
+INSERT INTO dish(dishName,dishPrice) VALUES ('spaghetti',100.00);
+INSERT INTO dish VALUES ('laks',200.75);
+INSERT INTO dish VALUES ('biff',358.00);
+INSERT INTO dish VALUES ('GRÆNDIS',30.00);
 
 INSERT INTO subscriptionplan VALUES(1,(DATE(2013-02-25)),(DATE(2016-02-26)),'bedrift');
 
