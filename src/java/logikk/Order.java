@@ -2,9 +2,9 @@ package logikk;
 /*
  * Class for generating orders from customerinput. 
  */
-import java.util.ArrayList;
 import java.util.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class Order {
 
@@ -46,6 +46,7 @@ public class Order {
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
     private String description;
+    private int postalcode;
 
     public Order(){
         
@@ -91,7 +92,7 @@ public class Order {
         }
     }
     
-    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status, ArrayList<Dish> dishes, String description) {
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode) {
         fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
                 timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
         this.date = date;
@@ -100,6 +101,7 @@ public class Order {
         status_numeric = status; 
         this.orderedDish = dishes;
         this.description = description;
+        this.postalcode = postalcode;
         switch (status) {
             case 1:
                 this.status = Status.PENDING.toString();
@@ -206,5 +208,14 @@ public class Order {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(int postalcode) {
+        this.postalcode = postalcode;
+    }
+    
     
 }
