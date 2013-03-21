@@ -12,13 +12,11 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.print.attribute.standard.Severity;
 import logikk.User;
-
 
 @SessionScoped
 @ManagedBean(name="Register")
-public class registerBean implements Serializable {
+public class RegisterBean implements Serializable {
     private User user = new User();
     private Database db = new Database();
 
@@ -33,6 +31,7 @@ public class registerBean implements Serializable {
             context.addMessage(component.getClientId(context), fm);
         }
     }
+    
     public void validateEmail(FacesContext context, UIComponent component, Object value) {
         String message = "";
         try {
@@ -46,9 +45,11 @@ public class registerBean implements Serializable {
             context.addMessage(component.getClientId(context), fm);
         }
     }
+    
     public User getUser() {
         return user;
     }
+    
     public void apply() throws IOException {
         db.newUser(user);
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
