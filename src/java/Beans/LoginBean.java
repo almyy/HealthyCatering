@@ -20,6 +20,7 @@ public class LoginBean implements Serializable {
     public void redirect() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
+            
             if (externalContext.getUserPrincipal().getName().equals("customer")) {
                 externalContext.redirect("faces/protected/customer.xhtml");
             }
