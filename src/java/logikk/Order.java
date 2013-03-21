@@ -2,9 +2,8 @@ package logikk;
 /*
  * Class for generating orders from customerinput. 
  */
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
-import java.sql.Time;
 
 public class Order {
 
@@ -38,31 +37,25 @@ public class Order {
     }
     private Date fullDate;
     private int orderId;
-    private Date date;
-    private Time timeOfDelivery;
+    private Date timeOfDelivery;
     private String deliveryAddress;
     private String status;
     private int status_numeric;
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
     private String description;
+    private int postalcode;
 
     public Order(){
         
     }
-    public Order(Date date, Time timeOfDelivery, String deliveryAddress) {
-        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
-                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
-        this.date = date;
+    public Order(Date timeOfDelivery, String deliveryAddress) {
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         this.status = Status.NULL.toString();
     }
 
-    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status) {
-        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
-                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
-        this.date = date;
+    public Order(Date timeOfDelivery, String deliveryAddress, int status) {
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         status_numeric = status; 
@@ -91,15 +84,13 @@ public class Order {
         }
     }
     
-    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status, ArrayList<Dish> dishes, String description) {
-        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
-                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
-        this.date = date;
+    public Order(Date timeOfDelivery, String deliveryAddress, int status, ArrayList<Dish> dishes, String description) {
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         status_numeric = status; 
         this.orderedDish = dishes;
         this.description = description;
+        this.postalcode = postalcode;
         switch (status) {
             case 1:
                 this.status = Status.PENDING.toString();
@@ -167,10 +158,6 @@ public class Order {
         return orderedDish;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
     public double getOrderPrice() {
         return orderPrice;
     }
@@ -183,15 +170,11 @@ public class Order {
         return orderId;
     }
 
-    public Time getTimeOfDelivery() {
+    public Date getTimeOfDelivery() {
         return timeOfDelivery;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setTimeOfDelivery(Time timeOfDelivery) {
+    }   
+    
+    public void setTimeOfDelivery(Date timeOfDelivery) {
         this.timeOfDelivery = timeOfDelivery;
     }
     
@@ -206,5 +189,4 @@ public class Order {
     public void setDescription(String description) {
         this.description = description;
     }
-    
 }

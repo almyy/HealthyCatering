@@ -56,19 +56,6 @@ public class Database {
         return orders;
     }
 
-    /*
-     * public boolean logIn(User user) { PreparedStatement sqlLogIn = null;
-     * openConnection(); boolean ok = false; try { sqlLogIn =
-     * connection.prepareStatement("SELECT * FROM BRUKER WHERE BRUKERNAVN = '" +
-     * user.getUsername() + "' AND PASSORD = '" + user.getPassword() + "' ");
-     * ResultSet res = sqlLogIn.executeQuery(); connection.commit(); if
-     * (res.next()) { ok = true; } } catch (SQLException e) {
-     * System.out.println(e.getMessage()); Cleaner.rollback(connection);
-     *
-     * } finally { Cleaner.setAutoCommit(connection);
-     * Cleaner.closeSentence(sqlLogIn); } closeConnection(); return ok; }
-     */
-    //FOR ADMIN
     public void updateOrder(Order s) {
         PreparedStatement sqlRead = null;
         ResultSet res = null;
@@ -180,7 +167,7 @@ public class Database {
             sqlRegNewuser.setString(3, user.getFirstName());
             sqlRegNewuser.setString(4, user.getSurname());
             sqlRegNewuser.setString(5, user.getAddress());
-            sqlRegNewuser.setInt(6, user.getPhone());
+            sqlRegNewuser.setString(6, user.getPhone());
             sqlRegNewuser.setInt(7, user.getPostnumber());
             sqlRegNewuser.executeUpdate();
 
@@ -229,9 +216,7 @@ public class Database {
         closeConnection();
         return dishes;
     }
-    
-    
-    
+
 //    public boolean order(ArrayList<Dish> orderList){
 //        PreparedStatement statement = null;
 //        openConnection();
@@ -244,8 +229,6 @@ public class Database {
 //            statement.setInt();
 //        }
 //    }
-    
-
     public boolean userExist(String username) {
         PreparedStatement sqlLogIn = null;
         openConnection();
@@ -268,8 +251,8 @@ public class Database {
         closeConnection();
         return exist;
     }
-    
-    public User getUser(){
+
+    public User getUser() {
         PreparedStatement statement = null;
         openConnection();
         User newUser = new User();
@@ -283,7 +266,7 @@ public class Database {
                 String firstname = res.getString("firstname");
                 String surname = res.getString("surname");
                 String address = res.getString("address");
-                int mobilenr = res.getInt("moblienr");
+                String mobilenr = res.getString("mobilenr");
                 int postalcode = res.getInt("postalcode");
                 newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
             }
@@ -423,12 +406,14 @@ public class Database {
         boolean ok = false;
         openConnection();
         try {
-            sqlUpdProfile = connection.prepareStatement("update users firstname = ?,surname = ?, address = ?, moblienr = ?, postalcode = ?");
-            sqlUpdProfile.setString(2, user.getFirstName());
-            sqlUpdProfile.setString(3, user.getSurname());
-            sqlUpdProfile.setString(4, user.getAddress());
-            sqlUpdProfile.setString(5, user.getPhone());
-            sqlUpdProfile.setInt(6, user.getPostnumber());
+            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, postalcode = ?, password = ? where username = ?");
+            sqlUpdProfile.setString(1, user.getFirstName());
+            sqlUpdProfile.setString(2, user.getSurname());
+            sqlUpdProfile.setString(3, user.getAddress());
+            sqlUpdProfile.setString(4, user.getPhone());
+            sqlUpdProfile.setInt(5, user.getPostnumber());
+            sqlUpdProfile.setString(6, user.getPassword());
+            sqlUpdProfile.setString(7, currentUser);
             ok = true;
             sqlUpdProfile.executeUpdate();
             connection.commit();

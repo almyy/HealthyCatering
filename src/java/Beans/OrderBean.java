@@ -8,8 +8,12 @@ import DB.Database;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import logikk.Dish;
+import logikk.MenuItems;
+import logikk.Order;
 import logikk.User;
 
 /**
@@ -20,11 +24,22 @@ import logikk.User;
 @SessionScoped
 public class OrderBean implements Serializable{
     private Database db = new Database();
+    private MenuItems mi = new MenuItems();
+    private ArrayList<Dish> dishes = mi.getOrderList();
     private User user = db.getUser();
-    private int selected = 1;
     private Date deliverydate;
     private Time time;
+    private String description;
 
+    public boolean confirmOrder(){
+        if(deliverydate != null && user.getAddress() != null && user.getFirstName() != null && user.getSurname() != null && dishes.size() > 0){
+        Order order = new Order(deliverydate, time, user.getAddress(), 7, dishes, description, user.getPostnumber());
+        if(db.order(order)){
+            return true;
+            }
+        }
+        return false;
+    }
     public Time getTime() {
         return time;
     }
@@ -49,17 +64,12 @@ public class OrderBean implements Serializable{
         this.user = user;
     }
 
-    public int getSelected() {
-        return selected;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSelected(int selected) {
-        this.selected = selected;
+    public void setDescription(String description) {
+        this.description = description;
     }
     
-    
-    
-    
-    
-
 }
