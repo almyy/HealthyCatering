@@ -51,13 +51,7 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Status"/>
                             </f:facet>
-                            <p:outputLabel value="#{OrderStatus.order.status}" rendered="#{!OrderStatus.toBeChanged}"/>
-                            <p:selectOneMenu  rendered="#{OrderStatus.toBeChanged}" value="#{OrderStatus.order.status}"
-                                             onchange="submit" valueChangeListener="#{Salesmen.statusChanged}">
-                                <f:selectItem itemValue="PENDING" itemLabel="PENDING"/>
-                                <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="UNDER_PREPARATION"/>
-                                <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>                               
-                            </p:selectOneMenu>                            
+                            <p:outputLabel value="#{OrderStatus.order.status}"/>                           
                         </p:column>
                         <p:column>
                             <f:facet name="header">
