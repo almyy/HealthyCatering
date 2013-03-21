@@ -92,11 +92,10 @@ public class Order {
         }
     }
     
-    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode) {
+    public Order(Date date, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode) {
         fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
                 timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
         this.date = date;
-        this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         status_numeric = status; 
         this.orderedDish = dishes;
