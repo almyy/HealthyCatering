@@ -55,22 +55,22 @@ public class Database {
     }
 
     //FOR ADMIN
-    public void updateOrder(Order s){
+    public void updateOrder(Order s) {
         PreparedStatement sqlRead = null;
         ResultSet res = null;
         openConnection();
-        try{
+        try {
             sqlRead = connection.prepareStatement("UPDATE ASD.ORDERS set STATUS=? where ORDERID=?");
             sqlRead.setInt(1, s.getStatusNumeric());
-            sqlRead.setInt(2,s.getOrderId());
+            sqlRead.setInt(2, s.getOrderId());
             sqlRead.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
             Cleaner.closeConnection(connection);
             Cleaner.closeResSet(res);
             Cleaner.closeSentence(sqlRead);
         }
     }
-    
+
     public ArrayList<Order> getOrderOverview() {
         ArrayList<Order> orders = new ArrayList();
         PreparedStatement sqlRead = null;
@@ -97,7 +97,7 @@ public class Database {
         }
         return orders;
     }
-    
+
     //FOR DRIVER
     public ArrayList<Order> getDriversList() {
         ArrayList<Order> orders = new ArrayList();
@@ -187,6 +187,7 @@ public class Database {
         return ok;
     }
 //FOR MENU
+
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();
@@ -213,20 +214,66 @@ public class Database {
         closeConnection();
         return dishes;
     }
-    
-//    public boolean order(ArrayList<Dish> orderList){
-//        PreparedStatement statement = null;
-//        openConnection();
-//        boolean result = true;
-//        try {
-//            connection.setAutoCommit(false);
-//            statement = connection.prepareStatement("insert into orders(timeofdelivery,"+
-//                    " deliveryaddress, status, dates, usernamesalesman, usernamecustomer, subscriptionid, "+
-//                    "postalcode) values(?, ?, ?, ?, ?, ?, ?, ?)");
-//            statement.setInt();
-//        }
-//    }
-    
+
+    public boolean order(Order order) {
+        PreparedStatement statement = null;
+        PreparedStatement statement2 = null;
+        openConnection();
+        boolean result = false;
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement("insert into orders(timeofdelivery,"
+                    + " deliveryaddress, status, dates, postalcode) values(?, ?, ?, ?, ?)");
+            statement.setTime(1, order.getTimeOfDelivery());
+            statement.setString(2, order.getDeliveryAddress());
+            statement.setInt(3, 7);
+            statement.setDate(4, new java.sql.Date(order.getDate().getTime()));
+            statement.setInt(5, order.getPostalcode());
+            statement.executeQuery();
+            ResultSet keys = statement.getGeneratedKeys();
+            int key = keys.getInt(1);
+            System.out.println("Key: "+key);
+
+            for (int i = 0; i < order.getOrderedDish().size(); i++) {
+                statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount) values(?, ?, ?)");
+                statement2.setInt(1, getDishId(order.getOrderedDish().get(i).getDishName()));
+                statement2.setInt(2, key);
+                statement2.setInt(3, order.getOrderedDish().get(i).getCount());
+                System.out.println(order.getOrderedDish().get(i).getCount());
+            }
+            connection.commit();
+            result = true;
+        } catch (SQLException e) {
+            System.out.println(e);
+            Cleaner.rollback(connection);
+            result = false;
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
+        }
+        closeConnection();
+        return result;
+    }
+
+    public int getDishId(String dishname) {
+        PreparedStatement statement = null;
+        int result = 0;
+        try {
+            statement = connection.prepareStatement("SELECT dishid FROM dish WHERE dishname = ?");
+            statement.setString(1, dishname);
+            ResultSet res = statement.executeQuery();
+            if (res.next()) {
+                result = res.getInt(dishname);
+            } else {
+                result = -1;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        }
+        return result;
+    }
 
     public boolean userExist(String username) {
         PreparedStatement sqlLogIn = null;
@@ -250,8 +297,8 @@ public class Database {
         closeConnection();
         return exist;
     }
-    
-    public User getUser(){
+
+    public User getUser() {
         PreparedStatement statement = null;
         openConnection();
         User newUser = new User();

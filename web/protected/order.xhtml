@@ -27,7 +27,7 @@
                                 <h:outputText value="#{item.dishName}" />  
                             </p:column>  
 
-                            <p:column headerText="Unitprice" style="width:25px">  
+                            <p:column headerText="Unitprice" footerText="Total: #{menuitems.total_price}" style="width:25px">  
                                 <h:outputText value="#{item.price}" />  
                             </p:column> 
                         </p:dataTable>  
@@ -41,17 +41,17 @@
                             Details 
                         </f:facet> 
                         <p:outputLabel value="First name:"/>
-                        <p:inputText value="#{orderBean.user.firstName}"></p:inputText>
+                        <p:inputText value="#{orderBean.user.firstName}" required="true"></p:inputText>
                         <p:outputLabel value="Surname:"/>
-                        <p:inputText value="#{orderBean.user.surname}"></p:inputText>
+                        <p:inputText value="#{orderBean.user.surname}" required="true"></p:inputText>
                         <p:outputLabel value="Address:"/>
-                        <p:inputText value="#{orderBean.user.address}"></p:inputText>
+                        <p:inputText value="#{orderBean.user.address}" required="true"></p:inputText>
                         <p:outputLabel value="Postalcode:"/>
-                        <p:inputText value="#{orderBean.user.postnumber}"></p:inputText>
+                        <p:inputText value="#{orderBean.user.postnumber}" required="true"></p:inputText>
                         <p:outputLabel value="Phone number:"/>
-                        <p:inputText value="#{orderBean.user.phone}"></p:inputText>
+                        <p:inputText value="#{orderBean.user.phone}" required="true"></p:inputText>
                         <p:outputLabel value="Email:"/>
-                        <p:inputText value="#{orderBean.user.email}"></p:inputText>
+                        <p:inputText value="#{orderBean.user.email}" required="true"></p:inputText>
                     </p:panelGrid></p>
                 <p><p:outputLabel value="Date:"/></p>
                 <p><p:calendar effect="drop" value="#{orderBean.deliverydate}"/></p>
@@ -65,7 +65,6 @@
                         <f:selectItem itemLabel="15" itemValue="15" />
                         <f:selectItem itemLabel="16" itemValue="16" />
                         <f:selectItem itemLabel="17" itemValue="17" />
-                        <f:selectItem itemLabel="18" itemValue="18" />
                     </p:selectOneMenu>
                     <p:selectOneMenu value="#{orderBean.time.minutes}">
                         <f:selectItem itemLabel="00" itemValue="00" />
@@ -78,9 +77,9 @@
 
                 <p>Add description:</p>
                 <p><p:inputTextarea rows="5" cols="30" counter="counter" maxlength="100"       
-                                    counterTemplate="{0} characters remaining." /></p>
-                <p><h:outputText id="counter" /> </p>
-                <p:button value="Submit"></p:button>
+                                    counterTemplate="{0} characters remaining." value=""/></p>
+                <p><h:outputText id="counter"/></p>
+                <p:button value="Send" onclick="#{orderBean.confirmOrder()}"></p:button>
             </h:form>
         </ui:define>
     </ui:composition>

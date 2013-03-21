@@ -44,6 +44,7 @@ public class Order {
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
     private String description;
+    private int postalcode;
 
     public Order(){
         
@@ -89,6 +90,7 @@ public class Order {
         status_numeric = status; 
         this.orderedDish = dishes;
         this.description = description;
+        this.postalcode = postalcode;
         switch (status) {
             case 1:
                 this.status = Status.PENDING.toString();
