@@ -1,6 +1,5 @@
 package DB;
 
-import java.io.IOException;
 import logikk.Dish;
 import logikk.Order;
 import java.sql.*;
@@ -57,7 +56,6 @@ public class Database {
         return orders;
     }
 
-    //FOR ADMIN
     public void updateOrder(Order s) {
         PreparedStatement sqlRead = null;
         ResultSet res = null;
@@ -169,7 +167,7 @@ public class Database {
             sqlRegNewuser.setString(3, user.getFirstName());
             sqlRegNewuser.setString(4, user.getSurname());
             sqlRegNewuser.setString(5, user.getAddress());
-            sqlRegNewuser.setInt(6, user.getPhone());
+            sqlRegNewuser.setString(6, user.getPhone());
             sqlRegNewuser.setInt(7, user.getPostnumber());
             sqlRegNewuser.executeUpdate();
 
@@ -191,7 +189,6 @@ public class Database {
         closeConnection();
         return ok;
     }
-//FOR MENU
 
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
@@ -220,66 +217,18 @@ public class Database {
         return dishes;
     }
 
-    public boolean order(Order order) {
-        PreparedStatement statement = null;
-        PreparedStatement statement2 = null;
-        openConnection();
-        boolean result = false;
-        try {
-            connection.setAutoCommit(false);
-            statement = connection.prepareStatement("insert into orders(timeofdelivery,"
-                    + " deliveryaddress, status, dates, postalcode) values(?, ?, ?, ?, ?)");
-            statement.setTime(1, order.getTimeOfDelivery());
-            statement.setString(2, order.getDeliveryAddress());
-            statement.setInt(3, 7);
-            statement.setDate(4, new java.sql.Date(order.getDate().getTime()));
-            statement.setInt(5, order.getPostalcode());
-            statement.executeQuery();
-            ResultSet keys = statement.getGeneratedKeys();
-            int key = keys.getInt(1);
-            System.out.println("Key: "+key);
-
-            for (int i = 0; i < order.getOrderedDish().size(); i++) {
-                statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount) values(?, ?, ?)");
-                statement2.setInt(1, getDishId(order.getOrderedDish().get(i).getDishName()));
-                statement2.setInt(2, key);
-                statement2.setInt(3, order.getOrderedDish().get(i).getCount());
-                System.out.println(order.getOrderedDish().get(i).getCount());
-            }
-            connection.commit();
-            result = true;
-        } catch (SQLException e) {
-            System.out.println(e);
-            Cleaner.rollback(connection);
-            result = false;
-        } finally {
-            Cleaner.setAutoCommit(connection);
-            Cleaner.closeSentence(statement);
-        }
-        closeConnection();
-        return result;
-    }
-
-    public int getDishId(String dishname) {
-        PreparedStatement statement = null;
-        int result = 0;
-        try {
-            statement = connection.prepareStatement("SELECT dishid FROM dish WHERE dishname = ?");
-            statement.setString(1, dishname);
-            ResultSet res = statement.executeQuery();
-            if (res.next()) {
-                result = res.getInt(dishname);
-            } else {
-                result = -1;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
-
-        }
-        return result;
-    }
-
+//    public boolean order(ArrayList<Dish> orderList){
+//        PreparedStatement statement = null;
+//        openConnection();
+//        boolean result = true;
+//        try {
+//            connection.setAutoCommit(false);
+//            statement = connection.prepareStatement("insert into orders(timeofdelivery,"+
+//                    " deliveryaddress, status, dates, usernamesalesman, usernamecustomer, subscriptionid, "+
+//                    "postalcode) values(?, ?, ?, ?, ?, ?, ?, ?)");
+//            statement.setInt();
+//        }
+//    }
     public boolean userExist(String username) {
         PreparedStatement sqlLogIn = null;
         openConnection();
@@ -317,7 +266,7 @@ public class Database {
                 String firstname = res.getString("firstname");
                 String surname = res.getString("surname");
                 String address = res.getString("address");
-                int mobilenr = res.getInt("moblienr");
+                String mobilenr = res.getString("mobilenr");
                 int postalcode = res.getInt("postalcode");
                 newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
             }
@@ -333,27 +282,6 @@ public class Database {
         return newUser;
     }
 
-    public double getTurnover(java.util.Date from, java.util.Date to) {
-        double turnover = 0;
-        PreparedStatement statement = null;
-        java.sql.Date fromDate = new java.sql.Date(from.getTime());
-        java.sql.Date toDate = new java.sql.Date(to.getTime());
-        openConnection();
-        try {
-            statement = connection.prepareStatement("SELECT ");
-            ResultSet res = statement.executeQuery();
-            connection.commit();
-            while(res.next()) {
-                turnover += res.getInt("price");
-            }
-        } catch(SQLException e) {
-            
-        } finally {
-            
-        }
-        return turnover;
-    }
-
     private void openConnection() {
         try {
             if (ds == null) {
@@ -365,9 +293,34 @@ public class Database {
             Cleaner.writeMessage(e, "Construktor");
         }
     }
-    
+
     private void closeConnection() {
         System.out.println("Closing databaseconnection");
         Cleaner.closeConnection(connection);
+    }
+
+    public boolean changeData(User user) {
+        PreparedStatement sqlUpdProfile = null;
+        boolean ok = false;
+        openConnection();
+        try {
+            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, postalcode = ?, password = ? where username = ?");
+            sqlUpdProfile.setString(1, user.getFirstName());
+            sqlUpdProfile.setString(2, user.getSurname());
+            sqlUpdProfile.setString(3, user.getAddress());
+            sqlUpdProfile.setString(4, user.getPhone());
+            sqlUpdProfile.setInt(5, user.getPostnumber());
+            sqlUpdProfile.setString(6, user.getPassword());
+            sqlUpdProfile.setString(7, currentUser);
+            ok = true;
+            sqlUpdProfile.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            Cleaner.writeMessage(e, "changeData()");
+        } finally {
+            Cleaner.closeSentence(sqlUpdProfile);
+        }
+        closeConnection();
+        return ok;
     }
 }

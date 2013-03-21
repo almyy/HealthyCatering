@@ -57,7 +57,6 @@ public class LoginBean implements Serializable {
 
     public boolean isLoggedIn() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        System.out.println(externalContext.getRemoteUser() + "Stygg");
         if (externalContext.getRemoteUser() != null) {
             return true;
         }
