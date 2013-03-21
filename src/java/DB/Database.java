@@ -333,6 +333,27 @@ public class Database {
         return newUser;
     }
 
+    public double getTurnover(java.util.Date from, java.util.Date to) {
+        double turnover = 0;
+        PreparedStatement statement = null;
+        java.sql.Date fromDate = new java.sql.Date(from.getTime());
+        java.sql.Date toDate = new java.sql.Date(to.getTime());
+        openConnection();
+        try {
+            statement = connection.prepareStatement("SELECT ");
+            ResultSet res = statement.executeQuery();
+            connection.commit();
+            while(res.next()) {
+                turnover += res.getInt("price");
+            }
+        } catch(SQLException e) {
+            
+        } finally {
+            
+        }
+        return turnover;
+    }
+
     private void openConnection() {
         try {
             if (ds == null) {
@@ -344,7 +365,7 @@ public class Database {
             Cleaner.writeMessage(e, "Construktor");
         }
     }
-
+    
     private void closeConnection() {
         System.out.println("Closing databaseconnection");
         Cleaner.closeConnection(connection);
