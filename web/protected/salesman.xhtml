@@ -5,17 +5,16 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-
+    
     <ui:composition template="../serviceTemplate.xhtml">
         <h:head>
             <title>Facelet Title</title>
         </h:head>
         <ui:define name="content">
             <h:body>
-                #{Worker.update()}
-                <!-- A form for making the page run the update-method every x seconds -->
+                #{Sales.update()}
                 <h:form>
-                    <p:dataTable value="#{Worker.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id"
+                    <p:dataTable value="#{Sales.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id"
                                  rowStyleClass="#{OrderStatus.order.status eq 1 ? 'yellow' : OrderStatus.order.status eq '3' ? 'green':null}">
                         
                         <p:column>
@@ -54,7 +53,7 @@
                             </f:facet>
                             <p:outputLabel value="#{OrderStatus.order.status}" rendered="#{!OrderStatus.toBeChanged}"/>
                             <p:selectOneMenu  rendered="#{OrderStatus.toBeChanged}" value="#{OrderStatus.order.status}"
-                                             onchange="submit" valueChangeListener="#{Worker.statusChanged}">
+                                             onchange="submit" valueChangeListener="#{Salesmen.statusChanged}">
                                 <f:selectItem itemValue="PENDING" itemLabel="PENDING"/>
                                 <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="UNDER_PREPARATION"/>
                                 <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>                               
@@ -70,18 +69,17 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Change Status"/>
                             </f:facet>
-                            #{Worker.update()}
+                            #{Sales.update()}
                             <p:commandButton value="Change" action="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
                         </p:column>
                         <f:facet name="footer">
                         </f:facet>
                     </p:dataTable>
-                    <p><p:commandLink value="Logout" action="#{Frontpage.logout()}"></p:commandLink></p>
                 </h:form>
 
             </h:body>
         </ui:define>
-    </ui:composition>%
+    </ui:composition>
 
 </html>
 

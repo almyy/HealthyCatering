@@ -2,13 +2,86 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    
-        <title>Order</title>
-        <ui:composition template="../userTemplate.xhtml">
-            <ui:define name="content">
-                Ready to order
-            </ui:define>
-        </ui:composition>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <title>Order</title>
+    <ui:composition template="../userTemplate.xhtml">
+        <ui:define name="content">
+            <h:form id="form">
+                <p:fieldset id="selectedDishes" legend="Order list" style="margin-top:30px">  
+                    <p:outputPanel id="dropArea">  
+                        <h:outputText value="No dishes in order."  
+                                      rendered="#{empty menuitems.orderList}"  
+                                      style="font-size:15px;" />  
+
+                        <p:dataTable var="item" value="#{menuitems.orderList}"   
+                                     rendered="#{not empty menuitems.orderList}">  
+
+                            <p:column headerText="Count" style="width:18px" >  
+                                <h:outputText value="#{item.count}" />  
+                            </p:column>  
+
+                            <p:column headerText="Name">  
+                                <h:outputText value="#{item.dishName}" />  
+                            </p:column>  
+
+                            <p:column headerText="Unitprice" footerText="Total: #{menuitems.total_price}" style="width:25px">  
+                                <h:outputText value="#{item.price}" />  
+                            </p:column> 
+                        </p:dataTable>  
+                    </p:outputPanel>
+
+                    
+                </p:fieldset> 
+
+                <p><p:panelGrid id="panel" columns="2">
+                        <f:facet name="header">  
+                            Details 
+                        </f:facet> 
+                        <p:outputLabel value="First name:"/>
+                        <p:inputText value="#{orderBean.user.firstName}" required="true"></p:inputText>
+                        <p:outputLabel value="Surname:"/>
+                        <p:inputText value="#{orderBean.user.surname}" required="true"></p:inputText>
+                        <p:outputLabel value="Address:"/>
+                        <p:inputText value="#{orderBean.user.address}" required="true"></p:inputText>
+                        <p:outputLabel value="Postalcode:"/>
+                        <p:inputText value="#{orderBean.user.postnumber}" required="true"></p:inputText>
+                        <p:outputLabel value="Phone number:"/>
+                        <p:inputText value="#{orderBean.user.phone}" required="true"></p:inputText>
+                        <p:outputLabel value="Email:"/>
+                        <p:inputText value="#{orderBean.user.email}" required="true"></p:inputText>
+                    </p:panelGrid></p>
+                <p><p:outputLabel value="Date:"/></p>
+                <p><p:calendar effect="drop" value="#{orderBean.deliverydate}"/></p>
+                <p><p:outputLabel value="Time:"/></p>
+                <p><p:selectOneMenu value="#{orderBean.time.hours}">
+                        <f:selectItem itemLabel="10" itemValue="10" />
+                        <f:selectItem itemLabel="11" itemValue="11" />
+                        <f:selectItem itemLabel="12" itemValue="12" />
+                        <f:selectItem itemLabel="13" itemValue="13" />
+                        <f:selectItem itemLabel="14" itemValue="14" />
+                        <f:selectItem itemLabel="15" itemValue="15" />
+                        <f:selectItem itemLabel="16" itemValue="16" />
+                        <f:selectItem itemLabel="17" itemValue="17" />
+                    </p:selectOneMenu>
+                    <p:selectOneMenu value="#{orderBean.time.minutes}">
+                        <f:selectItem itemLabel="00" itemValue="00" />
+                        <f:selectItem itemLabel="10" itemValue="10" />
+                        <f:selectItem itemLabel="20" itemValue="20" />
+                        <f:selectItem itemLabel="30" itemValue="30" />
+                        <f:selectItem itemLabel="40" itemValue="40" />
+                        <f:selectItem itemLabel="50" itemValue="50" />    
+                    </p:selectOneMenu></p>
+
+                <p>Add description:</p>
+                <p><p:inputTextarea rows="5" cols="30" counter="counter" maxlength="100"       
+                                    counterTemplate="{0} characters remaining." value=""/></p>
+                <p><h:outputText id="counter"/></p>
+                <p:button value="Send" onclick="#{orderBean.confirmOrder()}"></p:button>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </html>
 

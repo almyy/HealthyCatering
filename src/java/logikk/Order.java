@@ -2,8 +2,9 @@ package logikk;
 /*
  * Class for generating orders from customerinput. 
  */
-import java.util.ArrayList;
 import java.util.Date;
+import java.sql.Time;
+import java.util.ArrayList;
 
 public class Order {
 
@@ -35,27 +36,33 @@ public class Order {
             return this.toString();
         }
     }
+    private Date fullDate;
     private int orderId;
     private Date date;
-    private int timeOfDelivery;
+    private Time timeOfDelivery;
     private String deliveryAddress;
     private String status;
     private int status_numeric;
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
+    private String description;
+    private int postalcode;
 
-    public Order() {
+    public Order(){
         
     }
-
-    public Order(Date date, int timeOfDelivery, String deliveryAddress) {
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress) {
+        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
+                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         this.status = Status.NULL.toString();
     }
 
-    public Order(Date date, int timeOfDelivery, String deliveryAddress, int status) {
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status) {
+        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
+                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
@@ -79,8 +86,47 @@ public class Order {
             case 6:
                 this.status = Status.MISSING.toString();
                 break;
+            case 7:
+                this.status = Status.NEEDS_APPROVAL.toString();
+                break;
         }
     }
+    
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode) {
+        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
+                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
+        this.date = date;
+        this.timeOfDelivery = timeOfDelivery;
+        this.deliveryAddress = deliveryAddress;
+        status_numeric = status; 
+        this.orderedDish = dishes;
+        this.description = description;
+        this.postalcode = postalcode;
+        switch (status) {
+            case 1:
+                this.status = Status.PENDING.toString();
+                break;
+            case 2:
+                this.status = Status.UNDER_PREPARATION.toString();
+                break;
+            case 3:
+                this.status = Status.PENDING_DELIVERY.toString();
+                break;
+            case 4:
+                this.status = Status.ON_THE_ROAD.toString();
+                break;
+            case 5:
+                this.status = Status.FINISHED.toString();
+                break;
+            case 6:
+                this.status = Status.MISSING.toString();
+                break;
+            case 7:
+                this.status = Status.NEEDS_APPROVAL.toString();
+                break;
+        }
+    }
+ 
     public String getStatus() {
         return status;
     }
@@ -115,6 +161,10 @@ public class Order {
         return true;
     }
 
+    public Date getFullDate() {
+        return fullDate;
+    }
+    
     public ArrayList<Dish> getOrderedDish() {
         return orderedDish;
     }
@@ -135,7 +185,7 @@ public class Order {
         return orderId;
     }
 
-    public int getTimeOfDelivery() {
+    public Time getTimeOfDelivery() {
         return timeOfDelivery;
     }
 
@@ -143,11 +193,29 @@ public class Order {
         this.date = date;
     }
 
-    public void setTimeOfDelivery(int timeOfDelivery) {
+    public void setTimeOfDelivery(Time timeOfDelivery) {
         this.timeOfDelivery = timeOfDelivery;
     }
     
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(int postalcode) {
+        this.postalcode = postalcode;
+    }
+    
+    
 }
