@@ -4,6 +4,7 @@ package logikk;
  */
 import java.util.ArrayList;
 import java.util.Date;
+import java.sql.Time;
 
 public class Order {
 
@@ -35,9 +36,10 @@ public class Order {
             return this.toString();
         }
     }
+    private Date fullDate;
     private int orderId;
     private Date date;
-    private int timeOfDelivery;
+    private Time timeOfDelivery;
     private String deliveryAddress;
     private String status;
     private int status_numeric;
@@ -48,14 +50,18 @@ public class Order {
         
     }
 
-    public Order(Date date, int timeOfDelivery, String deliveryAddress) {
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress) {
+        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
+                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         this.status = Status.NULL.toString();
     }
 
-    public Order(Date date, int timeOfDelivery, String deliveryAddress, int status) {
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status) {
+        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
+                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
         this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
@@ -115,6 +121,10 @@ public class Order {
         return true;
     }
 
+    public Date getFullDate() {
+        return fullDate;
+    }
+    
     public ArrayList<Dish> getOrderedDish() {
         return orderedDish;
     }
@@ -135,7 +145,7 @@ public class Order {
         return orderId;
     }
 
-    public int getTimeOfDelivery() {
+    public Time getTimeOfDelivery() {
         return timeOfDelivery;
     }
 
@@ -143,7 +153,7 @@ public class Order {
         this.date = date;
     }
 
-    public void setTimeOfDelivery(int timeOfDelivery) {
+    public void setTimeOfDelivery(Time timeOfDelivery) {
         this.timeOfDelivery = timeOfDelivery;
     }
     
