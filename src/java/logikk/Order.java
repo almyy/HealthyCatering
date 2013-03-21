@@ -45,11 +45,11 @@ public class Order {
     private int status_numeric;
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
+    private String description;
 
-    public Order() {
+    public Order(){
         
     }
-
     public Order(Date date, Time timeOfDelivery, String deliveryAddress) {
         fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
                 timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
@@ -85,8 +85,46 @@ public class Order {
             case 6:
                 this.status = Status.MISSING.toString();
                 break;
+            case 7:
+                this.status = Status.NEEDS_APPROVAL.toString();
+                break;
         }
     }
+    
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status, ArrayList<Dish> dishes, String description) {
+        fullDate = new Date(date.getYear(),date.getMonth(),date.getDate(),
+                timeOfDelivery.getHours(),timeOfDelivery.getMinutes(),timeOfDelivery.getSeconds());
+        this.date = date;
+        this.timeOfDelivery = timeOfDelivery;
+        this.deliveryAddress = deliveryAddress;
+        status_numeric = status; 
+        this.orderedDish = dishes;
+        this.description = description;
+        switch (status) {
+            case 1:
+                this.status = Status.PENDING.toString();
+                break;
+            case 2:
+                this.status = Status.UNDER_PREPARATION.toString();
+                break;
+            case 3:
+                this.status = Status.PENDING_DELIVERY.toString();
+                break;
+            case 4:
+                this.status = Status.ON_THE_ROAD.toString();
+                break;
+            case 5:
+                this.status = Status.FINISHED.toString();
+                break;
+            case 6:
+                this.status = Status.MISSING.toString();
+                break;
+            case 7:
+                this.status = Status.NEEDS_APPROVAL.toString();
+                break;
+        }
+    }
+ 
     public String getStatus() {
         return status;
     }
@@ -160,4 +198,13 @@ public class Order {
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
 }

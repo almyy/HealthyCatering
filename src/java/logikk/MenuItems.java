@@ -1,10 +1,13 @@
 package logikk;
 
 import DB.Database;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -13,7 +16,7 @@ import javax.inject.Named;
  */
 @Named("menuitems")
 @SessionScoped
-public class MenuItems implements Serializable{
+public class MenuItems implements Serializable {
 
     Database db = new Database();
     ArrayList<Dish> items = fillTable();
@@ -21,38 +24,39 @@ public class MenuItems implements Serializable{
     int count;
     private Dish selectedDish;
     private double total_price;
-    
-    
-    public ArrayList<Dish> fillTable(){
-        try{
-          return db.getDishes();
-        } catch(Exception e){
+
+    public ArrayList<Dish> fillTable() {
+        try {
+            return db.getDishes();
+        } catch (Exception e) {
             System.out.println("Error");
         }
         return new ArrayList<Dish>();
     }
-    
-    public Dish getSelectedDish(){
+
+    public Dish getSelectedDish() {
         return selectedDish;
     }
-    
-    public void setSelectedDish(Dish dish){
+
+    public void setSelectedDish(Dish dish) {
         this.selectedDish = dish;
     }
-    public void addDish(){
+
+    public void addDish() {
         Dish newDish = new Dish(selectedDish.getDishId(), selectedDish.getDishName(), selectedDish.getPrice(),
                 selectedDish.getCount());
         orderList.add(newDish);
     }
-    
-    public void removeDish(Dish dish){
+
+    public void removeDish(Dish dish) {
         orderList.remove(dish);
     }
-    
+
     public ArrayList<Dish> getItems() {
         return items;
     }
-    public ArrayList<Dish> getOrderList(){
+
+    public ArrayList<Dish> getOrderList() {
         return orderList;
     }
 
@@ -65,8 +69,9 @@ public class MenuItems implements Serializable{
     }
 
     public double getTotal_price() {
-        for(int i=0; i<orderList.size(); i++){
-            total_price += orderList.get(i).getPrice();
+        total_price = 0.0;
+        for (int i = 0; i < orderList.size(); i++) {
+            total_price += orderList.get(i).getPrice() * orderList.get(i).getCount();
         }
         return total_price;
     }
@@ -74,5 +79,22 @@ public class MenuItems implements Serializable{
     public void setTotal_price(double total_price) {
         this.total_price = total_price;
     }
-    
+
+    public void order() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext != null) {
+            ExternalContext externalContext = facesContext.getExternalContext();
+            try {
+                if (facesContext.getExternalContext()
+                        .getUserPrincipal().getName().equals("customer")) {
+                    externalContext.redirect("faces/protected/order.xhtml");
+                }
+                else{
+                    externalContext.redirect("faces/index.xhtml");
+                }
+            } catch (IOException e) {
+                System.out.println("IOException");
+            }
+        }
+    }
 }
