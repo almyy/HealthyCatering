@@ -1,9 +1,9 @@
-INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3',46257954,7046);
-INSERT INTO users VALUES ('driver','asd123','sjåfør','sjåførsen','adresseveien 21', 457845512, 7049 );
-INSERT INTO users VALUES ('admin','asd123','admin','administratorsen','adresseveien 26', 457812412, 7049);
-INSERT INTO users VALUES ('salesman','asd123','selger','selgersen','adresseveien 23', 457845512, 7049);
-INSERT INTO users VALUES ('chef','asd123','kokk','administratorsen','adresseveien 26', 457824512, 7049);
-INSERT INTO users VALUES ('bedrift','asd123','bedrift','bedriftersen','adresseveien 23', 457845132, 7049);
+INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3','46257954',7046);
+INSERT INTO users VALUES ('driver','asd123','sjåfør','sjåførsen','adresseveien 21', '457845512', 7049 );
+INSERT INTO users VALUES ('admin','asd123','admin','administratorsen','adresseveien 26', '457812412', 7049);
+INSERT INTO users VALUES ('salesman','asd123','selger','selgersen','adresseveien 23', '457845512', 7049);
+INSERT INTO users VALUES ('chef','asd123','kokk','administratorsen','adresseveien 26', '457824512', 7049);
+INSERT INTO users VALUES ('bedrift','asd123','bedrift','bedriftersen','adresseveien 23', '457845132', 7049);
  
 INSERT INTO Roles VALUES ('admin','admin');
 INSERT INTO Roles VALUES ('customer','customer');
@@ -29,10 +29,10 @@ INSERT INTO driver VALUES ('driver');
 INSERT INTO chef VALUES ('chef');
 INSERT INTO salesman VALUES ('salesman');
 
-INSERT INTO dish VALUES (1,'spaghetti',100.00);
-INSERT INTO dish VALUES (2,'laks',200.75);
-INSERT INTO dish VALUES (3, 'biff',358.00);
-INSERT INTO dish VALUES (4, 'GRÆNDIS',30.00);
+INSERT INTO dish(dishName,dishPrice) VALUES ('spaghetti',100.00);
+INSERT INTO dish VALUES ('laks',200.75);
+INSERT INTO dish VALUES ('biff',358.00);
+INSERT INTO dish VALUES ('GRÆNDIS',30.00);
 
 INSERT INTO subscriptionplan VALUES(1,(DATE(2013-02-25)),(DATE(2016-02-26)),'bedrift');
 

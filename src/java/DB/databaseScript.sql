@@ -45,7 +45,7 @@ CREATE TABLE users(
     firstname VARCHAR(40),
     surname VARCHAR(40),
     address VARCHAR(40) NOT NULL,
-    moblieNr INTEGER,
+    moblieNr VARCHAR(20),
     postalCode SMALLINT,
     CONSTRAINT users_pk PRIMARY KEY(username),
     CONSTRAINT users_fk1 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)

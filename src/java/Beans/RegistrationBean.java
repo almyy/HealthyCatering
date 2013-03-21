@@ -16,7 +16,7 @@ import logikk.User;
 
 @SessionScoped
 @ManagedBean(name="Register")
-public class RegisterBean implements Serializable {
+public class RegistrationBean implements Serializable {
     private User user = new User();
     private Database db = new Database();
 

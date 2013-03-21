@@ -31,15 +31,15 @@ public class OrderBean implements Serializable{
     private Time time;
     private String description;
 
-    public boolean confirmOrder(){
+    /*public boolean confirmOrder(){
         if(deliverydate != null && user.getAddress() != null && user.getFirstName() != null && user.getSurname() != null && dishes.size() > 0){
-        Order order = new Order(deliverydate, time, user.getAddress(), 7, dishes, description, user.getPostnumber());
+       // Order order = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber());
         if(db.order(order)){
             return true;
             }
         }
         return false;
-    }
+    }*/
     public Time getTime() {
         return time;
     }
