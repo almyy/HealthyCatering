@@ -112,7 +112,7 @@ CREATE TABLE orders(
     CONSTRAINT orders_fk4 FOREIGN KEY(postalcode) REFERENCES postalArea(postalCode)
 );
 CREATE TABLE dish(
-    dishId INTEGER NOT NULL,
+    dishId INTEGER GENERATED ALWAYS AS IDENTITY,
     dishName VARCHAR(50) NOT NULL,
     dishPrice DECIMAL NOT NULL,
     CONSTRAINT dish_pk PRIMARY KEY(dishId)
@@ -161,10 +161,10 @@ INSERT INTO driver VALUES ('driver');
 INSERT INTO chef VALUES ('chef');
 INSERT INTO salesman VALUES ('salesman');
 
-INSERT INTO dish VALUES (1,'spaghetti',100.00);
-INSERT INTO dish VALUES (2,'laks',200.75);
-INSERT INTO dish VALUES (3, 'biff',358.00);
-INSERT INTO dish VALUES (4, 'GRÆNDIS',30.00);
+INSERT INTO dish(dishName,dishPrice) VALUES ('spaghetti',100.00);
+INSERT INTO dish(dishName,dishPrice) VALUES ('laks',200.75);
+INSERT INTO dish(dishName,dishPrice) VALUES ('biff',358.00);
+INSERT INTO dish(dishName,dishPrice) VALUES ('GRÆNDIS',30.00);
 
 INSERT INTO subscriptionplan VALUES(1,(DATE(2013-02-25)),(DATE(2016-02-26)),'bedrift');
 

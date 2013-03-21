@@ -230,6 +230,8 @@ public class Database {
         return dishes;
     }
     
+    
+    
 //    public boolean order(ArrayList<Dish> orderList){
 //        PreparedStatement statement = null;
 //        openConnection();
@@ -314,6 +316,108 @@ public class Database {
         Cleaner.closeConnection(connection);
     }
 
+    public boolean regDish(Dish dish){
+        PreparedStatement sqlRegNew = null;
+        openConnection();
+        boolean ok = false;
+        try {
+            sqlRegNew = connection.prepareStatement("insert into dish(dishid,dishname,dishprice) values(?, ?, ?)");
+            sqlRegNew.setInt(1, dish.getDishId());
+            sqlRegNew.setString(2, dish.getDishName());
+            sqlRegNew.setDouble(3, dish.getPrice());
+            sqlRegNew.executeUpdate();
+
+            connection.commit();
+
+            /*
+             * Transaksjon slutt
+             */
+            ok = true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sqlRegNew);
+        }
+        closeConnection();
+        return ok;
+    }
+    public boolean deleteDish(Dish dish) {
+        boolean ok = false;
+        PreparedStatement sqlDel = null;
+        openConnection();
+        try {
+            sqlDel = connection.prepareStatement("DELETE FROM DISH WHERE dishid = ?");
+            sqlDel.setInt(1, dish.getDishId());
+            sqlDel.executeUpdate();
+            connection.commit();
+            ok = true;
+
+        } catch (SQLException e) {
+            Cleaner.writeMessage(e, "deleteWorkout()");
+        } finally {
+            Cleaner.closeSentence(sqlDel);
+        }
+        closeConnection();
+        return ok;
+
+
+
+    }
+    
+     public boolean changeDishData(Dish dish) {
+        PreparedStatement sqlUpdDish = null;
+        boolean ok = false;
+        openConnection();
+        try {
+            //String sql = "update eksemplar set laant_av = '" + navn + "' where isbn = '" + isbn + "' and eks_nr = " + eksNr;
+            sqlUpdDish = connection.prepareStatement("update dish set dishname = ?,dishprice = ? where dishid = ?");
+            sqlUpdDish.setString(1, dish.getDishName());
+            sqlUpdDish.setDouble(2, dish.getPrice());
+            sqlUpdDish.setInt(3, dish.getDishId());
+          
+            ok = true;
+            sqlUpdDish.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            Cleaner.writeMessage(e, "changeData()");
+        } finally {
+            Cleaner.closeSentence(sqlUpdDish);
+        }
+        closeConnection();
+        return ok;
+    }
+     
+      public ArrayList<Dish> getAdminDishes() {
+        PreparedStatement sentence = null;
+        openConnection();
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
+        try {
+            sentence = connection.prepareStatement("select * from DISH");
+            ResultSet res = sentence.executeQuery();
+            connection.commit();
+            while (res.next()) {
+                int dishid = res.getInt("DISHID");
+                String dishname = res.getString("DISHNAME");
+                double dishprice = res.getDouble("DISHPRICE");
+                Dish newdish = new Dish(dishname, dishprice);
+                newdish.setDishId(dishid);
+                dishes.add(newdish);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sentence);
+        }
+        closeConnection();
+        return dishes;
+    }
     public boolean changeData(User user) {
         PreparedStatement sqlUpdProfile = null;
         boolean ok = false;

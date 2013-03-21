@@ -23,39 +23,51 @@ public class Dish {
         this.price = price;
         this.count = count; 
     }
+    public Dish(String dishName, double price){
+        this.dishName = dishName;
+        this.price = price;
+    }
 
-    public int getCount() {
+    public Dish() {
+    }
+    
+
+    public synchronized int getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public synchronized void setCount(int count) {
         this.count = count;
     }
     
-    public int getDishId() {
+    public synchronized int getDishId() {
         return dishId;
     }
 
-    public String getDishName() {
+    public synchronized String getDishName() {
         return dishName;
     }
 
-    public double getPrice() {
+    public synchronized double getPrice() {
         return price;
     }
 
-    public void setDishId(int dishId) {
+    public synchronized void setDishId(int dishId) {
         this.dishId = dishId;
     }
 
-    public void setDishName(String dishName) {
+    public synchronized void setDishName(String dishName) {
         this.dishName = dishName;
     }
 
-    public void setPrice(double price) {
+    public synchronized void setPrice(double price) {
         this.price = price;
     }
     public String toString(){
         return dishName;
+    }
+    public synchronized void reset(){
+        dishName = null;
+        price = 0;
     }
 }
