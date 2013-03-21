@@ -29,11 +29,11 @@ public class Orders implements Serializable {
     public ArrayList<Order> getOrdersMonth(int month, int year){
         ArrayList<Order> Month = new ArrayList<Order>();
         for(int i = 0;i<list.size();i++){
-            if(list.get(i).getDate() !=null){
+            if(list.get(i).getTimeOfDelivery() !=null){
                    if(month == 13){
                     Month.add(list.get(i));
                 }
-                if (list.get(i).getDate().getMonth() + 1 == month && list.get(i).getDate().getYear() + 1900 == year) {
+                if (list.get(i).getTimeOfDelivery().getMonth() + 1 == month && list.get(i).getTimeOfDelivery().getYear() + 1900 == year) {
                     Month.add(list.get(i));
                 }
             }

@@ -15,7 +15,6 @@ import javax.inject.Named;
 import logikk.Order;
 import logikk.OrderStatus;
 import logikk.PendingOrders;
-
 /**
  *
  * @author Rino
@@ -49,7 +48,7 @@ public class WorkerBean implements Serializable {
     private void quickSortDate(int low, int high) {
         int i = low;
         int j = high;
-        Date pivot = tabledata.get(low + (high - low) / 2).getOrder().getFullDate();
+        Date pivot = tabledata.get(low + (high - low) / 2).getOrder().getTimeOfDelivery();
         while (i <= j) {
             while (tabledata.get(i).getOrder().getTimeOfDelivery().before(pivot)) {
                 i++;

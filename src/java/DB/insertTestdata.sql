@@ -1,9 +1,9 @@
-INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3',46257954,7046);
-INSERT INTO users VALUES ('driver','asd123','sjåfør','sjåførsen','adresseveien 21', 457845512, 7049 );
-INSERT INTO users VALUES ('admin','asd123','admin','administratorsen','adresseveien 26', 457812412, 7049);
-INSERT INTO users VALUES ('salesman','asd123','selger','selgersen','adresseveien 23', 457845512, 7049);
-INSERT INTO users VALUES ('chef','asd123','kokk','administratorsen','adresseveien 26', 457824512, 7049);
-INSERT INTO users VALUES ('bedrift','asd123','bedrift','bedriftersen','adresseveien 23', 457845132, 7049);
+INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3','46257954',7046);
+INSERT INTO users VALUES ('driver','asd123','sjåfør','sjåførsen','adresseveien 21', '457845512', 7049 );
+INSERT INTO users VALUES ('admin','asd123','admin','administratorsen','adresseveien 26', '457812412', 7049);
+INSERT INTO users VALUES ('salesman','asd123','selger','selgersen','adresseveien 23', '457845512', 7049);
+INSERT INTO users VALUES ('chef','asd123','kokk','administratorsen','adresseveien 26', '457824512', 7049);
+INSERT INTO users VALUES ('bedrift','asd123','bedrift','bedriftersen','adresseveien 23', '457845132', 7049);
  
 INSERT INTO Roles VALUES ('admin','admin');
 INSERT INTO Roles VALUES ('customer','customer');
