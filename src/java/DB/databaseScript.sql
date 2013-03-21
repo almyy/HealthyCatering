@@ -130,7 +130,7 @@ CREATE TABLE orders(
     CONSTRAINT orders_fk4 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)
 );
 CREATE TABLE dish(
-    dishId INTEGER NOT NULL,
+     dishId INTEGER GENERATED ALWAYS AS IDENTITY,
     dishName VARCHAR(50) NOT NULL,
     dishPrice DECIMAL NOT NULL,
     CONSTRAINT dish_pk PRIMARY KEY(dishId)
