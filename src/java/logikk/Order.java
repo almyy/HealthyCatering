@@ -115,7 +115,11 @@ public class Order {
                 break;
         }
     }
- 
+
+    public int getPostalcode() {
+        return postalcode;
+    }
+    
     public String getStatus() {
         return status;
     }

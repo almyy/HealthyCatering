@@ -223,12 +223,11 @@ public class Database {
         try {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("insert into orders(timeofdelivery,"
-                    + " deliveryaddress, status, dates, postalcode) values(?, ?, ?, ?, ?)");
-            statement.setTime(1, order.getTimeOfDelivery());
+                    + " deliveryaddress, status, postalcode) values(?, ?, ?, ?, ?)");
+            statement.setDate(1, order.getTimeOfDelivery());
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
-            statement.setDate(4, new java.sql.Date(order.getDate().getTime()));
-            statement.setInt(5, order.getPostalcode());
+            statement.setInt(4, order.getPostalcode());
             statement.executeQuery();
             ResultSet keys = statement.getGeneratedKeys();
             int key = keys.getInt(1);
