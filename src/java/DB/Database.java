@@ -164,7 +164,7 @@ public class Database {
             sqlRegNewuser.setString(3, user.getFirstName());
             sqlRegNewuser.setString(4, user.getSurname());
             sqlRegNewuser.setString(5, user.getAddress());
-            sqlRegNewuser.setInt(6, user.getPhone());
+            sqlRegNewuser.setString(6, user.getPhone());
             sqlRegNewuser.setInt(7, user.getPostnumber());
             sqlRegNewuser.executeUpdate();
 
@@ -231,7 +231,7 @@ public class Database {
             statement.executeQuery();
             ResultSet keys = statement.getGeneratedKeys();
             int key = keys.getInt(1);
-            System.out.println("Key: "+key);
+            System.out.println("Key: " + key);
 
             for (int i = 0; i < order.getOrderedDish().size(); i++) {
                 statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount) values(?, ?, ?)");
@@ -311,7 +311,7 @@ public class Database {
                 String firstname = res.getString("firstname");
                 String surname = res.getString("surname");
                 String address = res.getString("address");
-                int mobilenr = res.getInt("moblienr");
+                String mobilenr = res.getString("moblienr");
                 int postalcode = res.getInt("postalcode");
                 newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
             }
@@ -342,5 +342,30 @@ public class Database {
     private void closeConnection() {
         System.out.println("Closing databaseconnection");
         Cleaner.closeConnection(connection);
+    }
+
+    public boolean changeData(User user) {
+        PreparedStatement sqlUpdProfile = null;
+        boolean ok = false;
+        openConnection();
+        try {
+            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, postalcode = ?, password = ? where username = ?");
+            sqlUpdProfile.setString(1, user.getFirstName());
+            sqlUpdProfile.setString(2, user.getSurname());
+            sqlUpdProfile.setString(3, user.getAddress());
+            sqlUpdProfile.setString(4, user.getPhone());
+            sqlUpdProfile.setInt(5, user.getPostnumber());
+            sqlUpdProfile.setString(6, user.getPassword());
+            sqlUpdProfile.setString(7, currentUser);
+            ok = true;
+            sqlUpdProfile.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            Cleaner.writeMessage(e, "changeData()");
+        } finally {
+            Cleaner.closeSentence(sqlUpdProfile);
+        }
+        closeConnection();
+        return ok;
     }
 }
