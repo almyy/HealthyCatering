@@ -5,10 +5,9 @@
 package Beans;
 
 import java.io.Serializable;
-import java.sql.Time;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
@@ -52,10 +51,10 @@ public class WorkerBean implements Serializable {
         int j = high;
         Date pivot = tabledata.get(low + (high - low) / 2).getOrder().getFullDate();
         while (i <= j) {
-            while (tabledata.get(i).getOrder().getFullDate().before(pivot)) {
+            while (tabledata.get(i).getOrder().getTimeOfDelivery().before(pivot)) {
                 i++;
             }
-            while (tabledata.get(j).getOrder().getFullDate().after(pivot)) {
+            while (tabledata.get(j).getOrder().getTimeOfDelivery().after(pivot)) {
                 j--;
             }
             if (i <= j) {

@@ -44,6 +44,12 @@ public class SalesmanBean implements Serializable {
             }
             quickSortDate(0,tabledata.size()-1);
         }
+        for (int i = 0; i < tabledata.size(); i++) {
+            if (tabledata.get(i).getToBeChanged()) {
+                tabledata.get(i).getOrder().setStatus("PENDING");
+                overView.updateDb(tabledata.get(i).getOrder());
+            }
+        }
     }
 
     private void quickSortDate(int low, int high) {
@@ -72,14 +78,5 @@ public class SalesmanBean implements Serializable {
         OrderStatus temp = tabledata.get(i);
         tabledata.set(i, tabledata.get(j));
         tabledata.set(j,temp);
-    }
-
-    public void statusChanged(ValueChangeEvent e) {
-        for (int i = 0; i < tabledata.size(); i++) {
-            if (tabledata.get(i).getToBeChanged()) {
-                tabledata.get(i).getOrder().setStatus((String) e.getNewValue());
-                overView.updateDb(tabledata.get(i).getOrder());
-            }
-        }
     }
 }

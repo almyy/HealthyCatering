@@ -1,7 +1,5 @@
 package DB;
 
-import logikk.Dish;
-import logikk.Order;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;
@@ -10,8 +8,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import logikk.User;
 import logikk.Dish;
+import logikk.Order;
+import logikk.User;
 
 public class Database {
 
@@ -38,12 +37,11 @@ public class Database {
             stm = connection.createStatement();
             res = stm.executeQuery(query);
             while (res.next()) {
-                java.sql.Date date = res.getDate("DATES");
-                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
+                java.sql.Date timeOfDelivery = res.getDate("TIMEOFDELIVERY");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 int status = res.getInt("STATUS");
                 int orderId = res.getInt("ORDERID");
-                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status);
+                Order orderToBeAdded = new Order(timeOfDelivery, deliveryAddress, status);
                 orderToBeAdded.setOrderId(orderId);
                 orders.add(orderToBeAdded);
             }
@@ -83,11 +81,10 @@ public class Database {
             sqlRead = connection.prepareStatement("SELECT * FROM ASD.ORDERS");
             res = sqlRead.executeQuery();
             while (res.next()) {
-                java.util.Date date = res.getDate("DATES");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
-                Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
+                java.sql.Date timeOfDelivery = res.getDate("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
-                orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
+                orders.add(new Order(timeOfDelivery, deliveryAddress, status));
             }
 
 
@@ -112,11 +109,10 @@ public class Database {
             sqlRead.setInt(1, Order.Status.ON_THE_ROAD.getCode());
             res = sqlRead.executeQuery();
             while (res.next()) {
-                java.util.Date date = res.getDate("DATES");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
-                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
+                java.sql.Date timeOfDelivery = res.getDate("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
-                orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
+                orders.add(new Order(timeOfDelivery, deliveryAddress, status));
             }
 
 

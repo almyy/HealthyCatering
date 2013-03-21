@@ -18,7 +18,7 @@ public class PendingOrders implements Serializable {
     private ArrayList<Order> orders = new ArrayList();
 
     public PendingOrders() {
-
+        
     }
 
     public ArrayList<Order> getOrders() {
