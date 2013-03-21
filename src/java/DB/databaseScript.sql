@@ -26,7 +26,7 @@ CREATE TABLE users(
     firstname VARCHAR(40),
     surname VARCHAR(40),
     address VARCHAR(40) NOT NULL,
-    moblieNr INTEGER,
+    mobileNr VARCHAR(40),
     postalCode INTEGER,
     CONSTRAINT users_pk PRIMARY KEY(username),
     CONSTRAINT users_fk1 FOREIGN KEY(postalCode) REFERENCES postalArea(postalCode)
@@ -130,12 +130,12 @@ INSERT INTO postalArea VALUES (7049,'Trondheim');
 INSERT INTO postalArea VALUES (7052,'Trondheim');
 INSERT INTO postalArea VALUES (7036,'Trondheim');
 
-INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3',46257954,7046);
-INSERT INTO users VALUES ('driver','asd123','sjåfør','sjåførsen','adresseveien 21', 457845512, 7049 );
-INSERT INTO users VALUES ('admin','asd123','admin','administratorsen','adresseveien 26', 457812412, 7049);
-INSERT INTO users VALUES ('salesman','asd123','selger','selgersen','adresseveien 23', 457845512, 7049);
-INSERT INTO users VALUES ('chef','asd123','kokk','administratorsen','adresseveien 26', 457824512, 7049);
-INSERT INTO users VALUES ('bedrift','asd123','bedrift','bedriftersen','adresseveien 23', 457845132, 7049);
+INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3','46257954',7046);
+INSERT INTO users VALUES ('driver','asd123','sjåfør','sjåførsen','adresseveien 21', '457845512', 7049 );
+INSERT INTO users VALUES ('admin','asd123','admin','administratorsen','adresseveien 26', '457812412', 7049);
+INSERT INTO users VALUES ('salesman','asd123','selger','selgersen','adresseveien 23', '457845512', 7049);
+INSERT INTO users VALUES ('chef','asd123','kokk','administratorsen','adresseveien 26', '457824512', 7049);
+INSERT INTO users VALUES ('bedrift','asd123','bedrift','bedriftersen','adresseveien 23', '457845132', 7049);
  
 INSERT INTO Roles VALUES ('admin','admin');
 INSERT INTO Roles VALUES ('customer','customer');
