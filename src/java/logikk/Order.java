@@ -1,43 +1,18 @@
 package logikk;
 /*
- * Class for generating orders from customerinput. 
+ * Class for generating orders from customerinput.
  */
-import java.sql.Date;
+
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Order {
 
-    public enum Status{
-        PENDING(1, "The order is waiting to be made"),
-        UNDER_PREPARATION(2, "The order is currently being made by the chefs"),
-        PENDING_DELIVERY(3, "The food is waiting for a driver"),
-        ON_THE_ROAD(4, "The food is currently on it's way"),
-        FINISHED(5, "The order has been successfully delivered"),
-        MISSING(6, "No one knows what happened to the order"),
-        NEEDS_APPROVAL(7,"A salesman must approve or disapprove this order"),
-        NULL(0, "There is no registered order");
-        private int code;
-        private String description;
-
-        private Status(int code, String description) {
-            this.code = code;
-            this.description = description;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public int getCode() {
-            return code;
-        }
-        public String getName(){
-            return this.toString();
-        }
-    }
     private Date fullDate;
     private int orderId;
-    private Date timeOfDelivery;
+    private Date date;
+    private Time timeOfDelivery;
     private String deliveryAddress;
     private String status;
     private int status_numeric;
@@ -46,19 +21,25 @@ public class Order {
     private String description;
     private int postalcode;
 
-    public Order(){
-        
+    public Order() {
     }
-    public Order(Date timeOfDelivery, String deliveryAddress) {
+
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress) {
+        fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
+                timeOfDelivery.getHours(), timeOfDelivery.getMinutes(), timeOfDelivery.getSeconds());
+        this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         this.status = Status.NULL.toString();
     }
 
-    public Order(Date timeOfDelivery, String deliveryAddress, int status) {
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status) {
+        fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
+                timeOfDelivery.getHours(), timeOfDelivery.getMinutes(), timeOfDelivery.getSeconds());
+        this.date = date;
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
-        status_numeric = status; 
+        status_numeric = status;
         switch (status) {
             case 1:
                 this.status = Status.PENDING.toString();
@@ -85,36 +66,37 @@ public class Order {
     }
     
     public Order(Date timeOfDelivery, String deliveryAddress, ArrayList<Dish> dishes, String description, int postalcode) {
-        this.timeOfDelivery = timeOfDelivery;
+        this.timeOfDelivery = timeOfDelivery.;
         this.deliveryAddress = deliveryAddress;
         this.orderedDish = dishes;
         this.description = description;
         this.postalcode = postalcode;
     }
- 
+
     public String getStatus() {
         return status;
     }
-    public int getStatusNumeric(){
+
+    public int getStatusNumeric() {
         return status_numeric;
     }
+
     public void setStatus_numeric(int status_numeric) {
         this.status_numeric = status_numeric;
     }
+
     public void setStatus(String status) {
         this.status = status;
-        if(status.equals(Status.PENDING.toString())){
-            this.status_numeric=1;
+        if (status.equals(Status.PENDING.toString())) {
+            this.status_numeric = 1;
+        } else if (status.equals(Status.UNDER_PREPARATION.toString())) {
+            this.status_numeric = 2;
+        } else if (status.equals(Status.PENDING_DELIVERY.toString())) {
+            this.status_numeric = 3;
         }
-        else if(status.equals(Status.UNDER_PREPARATION.toString())){
-            this.status_numeric=2;
-        }
-        else if(status.equals(Status.PENDING_DELIVERY.toString())){
-            this.status_numeric=3;
-        }
-       
+
     }
-   
+
     public boolean addDish(Dish dish) {
         if (dish == null) {
             return false;
@@ -129,9 +111,13 @@ public class Order {
     public Date getFullDate() {
         return fullDate;
     }
-    
+
     public ArrayList<Dish> getOrderedDish() {
         return orderedDish;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public double getOrderPrice() {
@@ -146,14 +132,18 @@ public class Order {
         return orderId;
     }
 
-    public Date getTimeOfDelivery() {
+    public Time getTimeOfDelivery() {
         return timeOfDelivery;
-    }   
-    
-    public void setTimeOfDelivery(Date timeOfDelivery) {
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setTimeOfDelivery(Time timeOfDelivery) {
         this.timeOfDelivery = timeOfDelivery;
     }
-    
+
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
