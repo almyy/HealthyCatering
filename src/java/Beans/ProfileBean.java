@@ -17,9 +17,20 @@ import logikk.User;
 @ManagedBean(name = "Profile")
 @SessionScoped
 public class ProfileBean implements Serializable {
+
     private User user = new User();
     private Database db = new Database();
-
+    private UIComponent uic;
+    private boolean changed;
+    
+    public boolean getChanged(){
+        return changed;
+    }
+    
+    public void setChanged(boolean change){
+        changed = change;
+    }
+    
     public boolean isLoggedIn() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         if (externalContext.getRemoteUser() != null) {
@@ -41,8 +52,8 @@ public class ProfileBean implements Serializable {
             context.addMessage(component.getClientId(context), fm);
         }
     }
-    
-    public void updateUser(){
+
+    public void updateUser() {
         user = db.getUser();
     }
 
@@ -52,9 +63,16 @@ public class ProfileBean implements Serializable {
 
     public void apply() throws IOException {
         db.changeData(user);
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        if (externalContext != null) {
-            externalContext.redirect("faces/index.xhtml");
-        }
+        String message = "Changes complete";
+        FacesMessage fm = new FacesMessage(message);
+        FacesContext.getCurrentInstance().addMessage(uic.getClientId(), fm);
+    }
+    
+    public void setUic(UIComponent uic) {
+        this.uic = uic;
+    }
+    
+    public UIComponent getUic(){
+        return uic;
     }
 }
