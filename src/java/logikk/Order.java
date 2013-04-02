@@ -67,36 +67,13 @@ public class Order {
 
     public Order(Date date, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode) {
         fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
-                timeOfDelivery.getHours(), timeOfDelivery.getMinutes(), timeOfDelivery.getSeconds());
+                date.getHours(), date.getMinutes(), date.getSeconds());
         this.date = date;
         this.deliveryAddress = deliveryAddress;
         status_numeric = status;
         this.orderedDish = dishes;
         this.description = description;
         this.postalcode = postalcode;
-        switch (status) {
-            case 1:
-                this.status = Status.PENDING.toString();
-                break;
-            case 2:
-                this.status = Status.UNDER_PREPARATION.toString();
-                break;
-            case 3:
-                this.status = Status.PENDING_DELIVERY.toString();
-                break;
-            case 4:
-                this.status = Status.ON_THE_ROAD.toString();
-                break;
-            case 5:
-                this.status = Status.FINISHED.toString();
-                break;
-            case 6:
-                this.status = Status.MISSING.toString();
-                break;
-            case 7:
-                this.status = Status.NEEDS_APPROVAL.toString();
-                break;
-        }
     }
 
     public String getStatus() {

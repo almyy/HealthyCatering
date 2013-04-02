@@ -4,7 +4,6 @@ import DB.Database;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -43,9 +42,18 @@ public class MenuItems implements Serializable {
     }
 
     public void addDish() {
-        Dish newDish = new Dish(selectedDish.getDishId(), selectedDish.getDishName(), selectedDish.getPrice(),
-                selectedDish.getCount());
-        orderList.add(newDish);
+        boolean newdish = true;
+        for (int i = 0; i < orderList.size(); i++) {
+            if (orderList.get(i).getDishName().equals(selectedDish.getDishName())) {
+                orderList.get(i).setCount(orderList.get(i).getCount() + selectedDish.getCount());
+                newdish = false;
+            }
+        }
+        if (newdish) {
+            Dish newDish = new Dish(selectedDish.getDishId(), selectedDish.getDishName(), selectedDish.getPrice(),
+                    selectedDish.getCount());
+            orderList.add(newDish);
+        }
     }
 
     public void removeDish(Dish dish) {
@@ -88,13 +96,20 @@ public class MenuItems implements Serializable {
                 if (facesContext.getExternalContext()
                         .getUserPrincipal().getName().equals("customer")) {
                     externalContext.redirect("faces/protected/order.xhtml");
-                }
-                else{
+                } else {
                     externalContext.redirect("faces/index.xhtml");
                 }
             } catch (IOException e) {
                 System.out.println("IOException");
             }
         }
+    }
+    
+    public boolean isLoggedIn() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        if (externalContext.getRemoteUser() != null) {
+            return true;
+        }
+        return false;
     }
 }

@@ -1,19 +1,12 @@
 package Beans;
 
-import DB.Database;
 import java.io.IOException;
 import java.io.Serializable;
-import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @ManagedBean
@@ -23,22 +16,20 @@ public class LoginBean implements Serializable {
 
     public void redirect() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Database db = new Database();
         try {
-            String role = db.getRole();
-            if (role.equals("customer")) {
-                externalContext.redirect("faces/protected/profile.xhtml");
+            if (externalContext.getUserPrincipal().getName().equals("customer")) {
+                externalContext.redirect("faces/protected/customer.xhtml");
             }
-            if (role.equals("chef")) {
+            if (externalContext.getUserPrincipal().getName().equals("chef")) {
                 externalContext.redirect("faces/protected/chef.xhtml");
             }
-            if (role.equals("salesman")) {
+            if (externalContext.getUserPrincipal().getName().equals("salesman")) {
                 externalContext.redirect("faces/protected/salesman.xhtml");
             }
-            if (role.equals("driver")) {
+            if (externalContext.getUserPrincipal().getName().equals("driver")) {
                 externalContext.redirect("faces/protected/driver.xhtml");
             }
-            if (role.equals("admin")) {
+            if (externalContext.getUserPrincipal().getName().equals("admin")) {
                 externalContext.redirect("faces/protected/admin.xhtml");
             }
         } catch (IOException e) {
