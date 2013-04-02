@@ -64,10 +64,13 @@ public class Order {
                 break;
         }
     }
-    
-    public Order(Date timeOfDelivery, String deliveryAddress, ArrayList<Dish> dishes, String description, int postalcode) {
-        this.timeOfDelivery = timeOfDelivery.;
+
+    public Order(Date date, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode) {
+        fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
+                timeOfDelivery.getHours(), timeOfDelivery.getMinutes(), timeOfDelivery.getSeconds());
+        this.date = date;
         this.deliveryAddress = deliveryAddress;
+        status_numeric = status;
         this.orderedDish = dishes;
         this.description = description;
         this.postalcode = postalcode;
@@ -163,5 +166,4 @@ public class Order {
     public void setPostalcode(int postalcode) {
         this.postalcode = postalcode;
     }
-    
 }
