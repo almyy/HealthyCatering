@@ -40,8 +40,8 @@ public class OrderBean implements Serializable {
     public String confirmOrder() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");  
         FacesContext.getCurrentInstance().addMessage(null, msg);  
-        java.sql.Date sqlDate = new java.sql.Date(deliverydate.getTime());
-        Order order = new Order(sqlDate, user.getAddress(), dishes, description, user.getPostnumber());
+        //java.sql.Date sqlDate = new java.sql.Date(deliverydate.getTime());
+        Order order = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber());
         String returnvalue = "";
         if (db.order(order)) {
             FacesContext context = FacesContext.getCurrentInstance();

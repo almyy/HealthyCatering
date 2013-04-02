@@ -67,7 +67,7 @@ public class Order {
 
     public Order(Date date, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode) {
         fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
-                timeOfDelivery.getHours(), timeOfDelivery.getMinutes(), timeOfDelivery.getSeconds());
+                date.getHours(), date.getMinutes(), date.getSeconds());
         this.date = date;
         this.deliveryAddress = deliveryAddress;
         status_numeric = status;
