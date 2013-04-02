@@ -63,6 +63,10 @@ and open the template in the editor.
 
                     </p:fieldset>
                 </h:form>
+                <h:panelGrid columns="1">
+                    <p:lineChart value="#{Analytics.linearModel}" legendPosition="e" zoom="true" animate="true"  
+                     title="Linear Chart" style="width:1000px;" widgetVar="chart"/> 
+                </h:panelGrid> 
             </ui:define>
         </ui:composition>
     </body>
