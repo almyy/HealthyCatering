@@ -10,10 +10,10 @@ public class User {
     private String firstName;
     private String surname;
     private String email;
-    private int phone;
+    private String phone;
     
     public User(String username, String password, String firstname, String surname,
-        String address, int mobilenr, int postalcode){
+        String address, String mobilenr, int postalcode){
         this.username = username;
         this.password = password;
         this.firstName = firstname;
@@ -80,10 +80,10 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     public String toString() {

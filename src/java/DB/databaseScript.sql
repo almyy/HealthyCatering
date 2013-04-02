@@ -45,7 +45,8 @@ CREATE TABLE users(
     firstname VARCHAR(40),
     surname VARCHAR(40),
     address VARCHAR(40) NOT NULL,
-    moblieNr INTEGER,
+    mobileNr VARCHAR(20),
+    email VARCHAR(40),
     postalCode SMALLINT,
     CONSTRAINT users_pk PRIMARY KEY(username),
     CONSTRAINT users_fk1 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)
@@ -116,13 +117,14 @@ CREATE TABLE Subscriptionplan(
 ); 
 CREATE TABLE orders(
     orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
-    timeOfDelivery date,
+    timeOfDelivery time,
     deliveryAddress VARCHAR (50),
     status INTEGER,
     userNameSalesman VARCHAR(20),
     userNameCustomer VARCHAR(20),
     subscriptionId INTEGER,
     postalCode SMALLINT,
+    dates date,
     CONSTRAINT orders_pk PRIMARY KEY(orderId),
     CONSTRAINT orders_fk1 FOREIGN KEY(userNameSalesman) REFERENCES Salesman(username),
     CONSTRAINT orders_fk2 FOREIGN KEY(userNameCustomer) REFERENCES Customer(username),
@@ -130,7 +132,7 @@ CREATE TABLE orders(
     CONSTRAINT orders_fk4 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)
 );
 CREATE TABLE dish(
-    dishId INTEGER NOT NULL,
+    dishId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     dishName VARCHAR(50) NOT NULL,
     dishPrice DECIMAL NOT NULL,
     CONSTRAINT dish_pk PRIMARY KEY(dishId)

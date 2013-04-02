@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    
+           <h:body>
+        <ui:composition template ="../serviceTemplate.xhtml">
+            <ui:define name ="content">
+              
+                <h:form>
+                    <p>
+                        <h:outputText value ="#{lang_auth.NoDish}"
+                                      rendered ="#{not Dish.dataExist}"/>
+                    </p>
+                    <p:dataTable value ="#{Dish.tableData}" var ="list" styleClass ="dishes" id="dataTable_id" 
+                                 rendered ="#{Dish.dataExist}">
+                                
+                        <p:column>
+                            <f:facet name ="header">
+                                <h:outputText value ="#{lang_auth.DishName}"/>
+                            </f:facet>
+                            <h:inputText value ="#{list.dish.dishName}"
+                                         rendered ="#{list.change}"/>
+                            <h:outputText value ="#{list.dish.dishName}"
+                                          rendered ="#{list.change}"/>
+                            #{not list.dish.dishName}
+                        </p:column>
+                        <p:column>
+                        <f:facet name ="header">
+                            <h:outputText value ="#{lang_auth.Price} "/>
+                        </f:facet>
+                        <h:inputText value ="#{list.dish.price}"
+                                     rendered ="#{list.change}"/>
+                        <h:outputText value ="#{list.dish.price}"
+                                      rendered ="#{not list.change}"/>
+                        
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name= "header">
+                                <h:outputText value ="#{lang_auth.Delete}"/>
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{list.delete}"/>
+                            <f:facet name ="footer">
+                                <h:commandButton value ="#{lang_auth.Delete}" action ="#{Dish.delete()}"/>
+                            </f:facet>
+                        </p:column>
+                        <p:column>
+                            <f:facet name ="header">
+                                <h:outputText value ="&#160;"/>
+                                <h:outputText value ="#{lang_auth.Change}"/>
+                            </f:facet>
+                            <h:commandButton value ="#{lang_auth.Change}" action ="#{list.change()}" rendered ="#{not list.change}"/>
+                            <f:facet name ="footer">
+                                <h:commandButton value ="#{lang_auth.Update}" action ="#{Dish.change()}"/>
+                            </f:facet>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                </h:form>
+                
+           </ui:define>
+        </ui:composition>
+         </h:body>
+    
+</html>

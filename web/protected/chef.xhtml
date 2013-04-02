@@ -15,45 +15,45 @@
                 #{Worker.update()}
                 <!-- A form for making the page run the update-method every x seconds -->
                 <h:form>
-                    <p:dataTable value="#{Worker.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id"
-                                 rowStyleClass="#{OrderStatus.order.status eq 1 ? 'yellow' : OrderStatus.order.status eq '3' ? 'green':null}">
+                    <p:dataTable value="#{Worker.tabledata}" var="OrderList" styleClass="orders" id="dataTable_id"
+                                 rowStyleClass="#{OrderList.order.status eq 1 ? 'yellow' : OrderList.order.status eq '3' ? 'green':null}">
                         
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="ID"/>
                             </f:facet>
-                            #{OrderStatus.order.orderId}
+                            #{OrderList.order.orderId}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="Date"/>
                             </f:facet>
-                            #{OrderStatus.order.date}
+                            #{OrderList.order.date}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="Time of Delivery"/>
                             </f:facet>
-                            #{OrderStatus.order.timeOfDelivery}
+                            #{OrderList.order.timeOfDelivery}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="Delivery Address"/>
                             </f:facet>
-                            #{OrderStatus.order.deliveryAddress}
+                            #{OrderList.order.deliveryAddress}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="Ordered dish"/>
                             </f:facet>
-                            #{OrderStatus.order.orderedDish}
+                            #{OrderList.order.orderedDish}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="Status"/>
                             </f:facet>
-                            <p:outputLabel value="#{OrderStatus.order.status}" rendered="#{!OrderStatus.toBeChanged}"/>
-                            <p:selectOneMenu  rendered="#{OrderStatus.toBeChanged}" value="#{OrderStatus.order.status}"
+                            <p:outputLabel value="#{OrderList.order.status}" rendered="#{!OrderList.toBeChanged}"/>
+                            <p:selectOneMenu  rendered="#{OrderList.toBeChanged}" value="#{OrderList.order.status}"
                                              onchange="submit" valueChangeListener="#{Worker.statusChanged}">
                                 <f:selectItem itemValue="PENDING" itemLabel="PENDING"/>
                                 <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="UNDER_PREPARATION"/>
@@ -64,14 +64,14 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Price"/>
                             </f:facet>
-                            #{OrderStatus.order.orderPrice}
+                            #{OrderList.order.orderPrice}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="Change Status"/>
                             </f:facet>
                             #{Worker.update()}
-                            <p:commandButton value="Change" action="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
+                            <p:commandButton value="Change" action="#{OrderList.setToBeChanged()}" update="dataTable_id" />
                         </p:column>
                         <f:facet name="footer">
                         </f:facet>
