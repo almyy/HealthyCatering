@@ -164,7 +164,7 @@ public class Database {
             sqlRegNewuser.setString(3, user.getFirstName());
             sqlRegNewuser.setString(4, user.getSurname());
             sqlRegNewuser.setString(5, user.getAddress());
-            sqlRegNewuser.setInt(6, user.getPhone());
+            sqlRegNewuser.setString(6, user.getPhone());
             sqlRegNewuser.setInt(7, user.getPostnumber());
             sqlRegNewuser.executeUpdate();
 
@@ -187,7 +187,6 @@ public class Database {
         return ok;
     }
 //FOR MENU
-
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();
@@ -224,7 +223,7 @@ public class Database {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("insert into orders(timeofdelivery,"
                     + " deliveryaddress, status, postalcode) values(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            statement.setDate(1, order.getTimeOfDelivery());
+            statement.setTime(1, order.getTimeOfDelivery());
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
             statement.setInt(4, order.getPostalcode());
