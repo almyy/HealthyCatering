@@ -26,14 +26,14 @@
                     <p:commandButton value="Home" action="/faces/index.xhtml"></p:commandButton>
                     <p:commandButton value="Menu" action="/faces/menu.xhtml"></p:commandButton>
                     <p:commandButton value="Contact" action="/faces/contact.xhtml"></p:commandButton>
-                    <p:commandButton value="Profile" action="/faces/profile.xhtml"></p:commandButton>
+                    <p:commandButton value="Profile" action="/faces/profile.xhtml" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
                     <p:commandButton value="Log out" action="#{Frontpage.logout()}" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
             </div>
         </div>
         <div id="lang" class="lang">
             <h:form>
-                <p> <h:commandLink action="#{Lang.setEng()}"><h:graphicImage value = "resources/pictures/uk.png"/> </h:commandLink> 
-                    <h:commandLink action="#{Lang.setNo()}" ><h:graphicImage value = "resources/pictures/nor.png"/></h:commandLink></p>
+                <p> <h:commandLink action="#{Lang.setEng()}"><h:graphicImage value = "/resources/pictures/uk.png"/> </h:commandLink> 
+                    <h:commandLink action="#{Lang.setNo()}" ><h:graphicImage value = "/resources/pictures/nor.png"/></h:commandLink></p>
             </h:form>
         </div>
         
