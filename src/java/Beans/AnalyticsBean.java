@@ -29,17 +29,17 @@ class AnalyticsBean implements Serializable {
         this.toDate = toDate;
     }
     
-    public String getTurnover() {
-        double revenue = db.getTurnover(fromDate, toDate);
-        return String.format("%1$,.2f", revenue);
-    }
+    /*public String getTurnover() {
+     * double revenue = db.getTurnover(fromDate, toDate);
+     * return String.format("%1$,.2f", revenue);
+     * }*/
     
-    public String getTurnoverLastYear() {
-        Date lastYearFrom = new Date();
-        Date lastYearTo = new Date();
-        lastYearFrom.setYear(fromDate.getYear()-1);
-        lastYearFrom.setYear(toDate.getYear()-1);
-        double turnover = db.getTurnover(lastYearFrom, lastYearTo);
-        return String.format("%1$,.2f", turnover);
-    }
+    /*    public String getTurnoverLastYear() {
+     * Date lastYearFrom = new Date();
+     * Date lastYearTo = new Date();
+     * lastYearFrom.setYear(fromDate.getYear()-1);
+     * lastYearFrom.setYear(toDate.getYear()-1);
+     * double turnover = db.getTurnover(lastYearFrom, lastYearTo);
+     * return String.format("%1$,.2f", turnover);
+     * }*/
 }
