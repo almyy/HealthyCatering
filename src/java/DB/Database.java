@@ -38,11 +38,12 @@ public class Database {
             stm = connection.createStatement();
             res = stm.executeQuery(query);
             while (res.next()) {
-                java.sql.Date timeOfDelivery = res.getDate("TIMEOFDELIVERY");
+                java.sql.Date date = res.getDate("dates");
+                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 int status = res.getInt("STATUS");
                 int orderId = res.getInt("ORDERID");
-                Order orderToBeAdded = new Order(timeOfDelivery, deliveryAddress, status);
+                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status);
                 orderToBeAdded.setOrderId(orderId);
                 orders.add(orderToBeAdded);
             }
@@ -82,10 +83,11 @@ public class Database {
             sqlRead = connection.prepareStatement("SELECT * FROM ASD.ORDERS");
             res = sqlRead.executeQuery();
             while (res.next()) {
+                java.sql.Date date = res.getDate("dates");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
-                java.sql.Date timeOfDelivery = res.getDate("TIMEOFDELIVERY");
+                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
-                orders.add(new Order(timeOfDelivery, deliveryAddress, status));
+                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status);
             }
 
         } catch (SQLException e) {
@@ -109,12 +111,12 @@ public class Database {
             sqlRead.setInt(1, Status.ON_THE_ROAD.getCode());
             res = sqlRead.executeQuery();
             while (res.next()) {
+                java.sql.Date date = res.getDate("dates");
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
-                java.sql.Date timeOfDelivery = res.getDate("TIMEOFDELIVERY");
+                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
-                orders.add(new Order(timeOfDelivery, deliveryAddress, status));
+                orders.add(new Order(date,timeOfDelivery, deliveryAddress, status));
             }
-
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -223,11 +225,12 @@ public class Database {
         try {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("insert into orders(timeofdelivery,"
-                    + " deliveryaddress, status, postalcode) values(?, ?, ?, ?, ?)");
-            statement.setDate(1, order.getTimeOfDelivery());
+                    + " deliveryaddress, status, postalcode,dates) values(?, ?, ?, ?, ?,?)");
+            statement.setTime(1, order.getTimeOfDelivery());
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
-            statement.setInt(4, order.getPostalcode());
+            statement.setInt(4, order.getPostalcode()); 
+            statement.setDate(5, new java.sql.Date(order.getDate().getTime()));
             statement.executeQuery();
             ResultSet keys = statement.getGeneratedKeys();
             int key = keys.getInt(1);
