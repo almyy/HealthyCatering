@@ -29,12 +29,13 @@ div#content {
     background-repeat: repeat;
     margin-left: 150px;
     margin-right: 150px;
+    min-height: 100%;
     z-index:200;
-    position:absolute;
+    position: absolute;
     top:70px;
     right:0;
     left:0;
-    bottom:0;
+    padding: 10px;
 }
 div#lang {
     position: fixed;

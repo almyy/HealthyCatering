@@ -84,36 +84,12 @@ public class Order {
         }
     }
     
-    public Order(Date timeOfDelivery, String deliveryAddress, int status, ArrayList<Dish> dishes, String description) {
+    public Order(Date timeOfDelivery, String deliveryAddress, ArrayList<Dish> dishes, String description, int postalcode) {
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
-        status_numeric = status; 
         this.orderedDish = dishes;
         this.description = description;
         this.postalcode = postalcode;
-        switch (status) {
-            case 1:
-                this.status = Status.PENDING.toString();
-                break;
-            case 2:
-                this.status = Status.UNDER_PREPARATION.toString();
-                break;
-            case 3:
-                this.status = Status.PENDING_DELIVERY.toString();
-                break;
-            case 4:
-                this.status = Status.ON_THE_ROAD.toString();
-                break;
-            case 5:
-                this.status = Status.FINISHED.toString();
-                break;
-            case 6:
-                this.status = Status.MISSING.toString();
-                break;
-            case 7:
-                this.status = Status.NEEDS_APPROVAL.toString();
-                break;
-        }
     }
  
     public String getStatus() {
@@ -189,4 +165,13 @@ public class Order {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(int postalcode) {
+        this.postalcode = postalcode;
+    }
+    
 }
