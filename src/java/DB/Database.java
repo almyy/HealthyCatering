@@ -160,14 +160,15 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
-            sqlRegNewuser = connection.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?)");
+            sqlRegNewuser = connection.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             sqlRegNewuser.setString(1, user.getUsername());
             sqlRegNewuser.setString(2, user.getPassword());
             sqlRegNewuser.setString(3, user.getFirstName());
             sqlRegNewuser.setString(4, user.getSurname());
             sqlRegNewuser.setString(5, user.getAddress());
             sqlRegNewuser.setString(6, user.getPhone());
-            sqlRegNewuser.setInt(7, user.getPostnumber());
+            sqlRegNewuser.setString(7, user.getEmail());
+            sqlRegNewuser.setInt(8, user.getPostnumber());
             sqlRegNewuser.executeUpdate();
 
             sqlRegNewRole = connection.prepareStatement("INSERT INTO roles VALUES(?,?)");
@@ -314,9 +315,29 @@ public class Database {
                 String firstname = res.getString("firstname");
                 String surname = res.getString("surname");
                 String address = res.getString("address");
-                String mobilenr = res.getString("moblienr");
+                String mobilenr = res.getString("mobilenr");
                 int postalcode = res.getInt("postalcode");
+                String email = res.getString("email");
                 newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
+                newUser.setEmail(email);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
+        }
+        try {
+            statement = connection.prepareStatement("SELECT * FROM POSTAL_NO WHERE zip=?");
+            statement.setInt(1, newUser.getPostnumber());
+            ResultSet res = statement.executeQuery();
+            connection.commit();
+            while(res.next()) {
+                String postalArea = res.getString("place");
+                newUser.setCity(postalArea);
+                System.out.println(postalArea);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
