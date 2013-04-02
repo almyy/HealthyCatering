@@ -11,7 +11,7 @@
     <ui:composition template="userTemplate.xhtml">
         <ui:define name="content">
             #{Profile.updateUser()}
-            <h:form>
+            <h:form id="form">
                 <p:fieldset legend="Profile"> 
                     <p:panelGrid id="grid" columns="3" >
                         <f:facet name="header">
@@ -49,9 +49,9 @@
                         </p:inputText> 
                         <p:message for="phone" />
                     </p:panelGrid>
-                    <p:commandButton action="#{Profile.apply()}" type="submit" id="submitButton" value="submit" update="grid" binding="#{Profile.uic}"/>
+                    <p:commandButton action="#{Profile.apply()}" type="submit" id="submitButton" value="submit" update="form"/>
                     <p:outputLabel rendered="#{Profile.changed}"></p:outputLabel>
-                    <p:message for="submitButton"/>
+                    <p:messages/>
                 </p:fieldset>
             </h:form>
         </ui:define>

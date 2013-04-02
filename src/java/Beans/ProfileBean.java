@@ -20,7 +20,6 @@ public class ProfileBean implements Serializable {
 
     private User user = new User();
     private Database db = new Database();
-    private UIComponent uic;
     private boolean changed;
     
     public boolean getChanged(){
@@ -65,14 +64,7 @@ public class ProfileBean implements Serializable {
         db.changeData(user);
         String message = "Changes complete";
         FacesMessage fm = new FacesMessage(message);
-        FacesContext.getCurrentInstance().addMessage(uic.getClientId(), fm);
+        FacesContext.getCurrentInstance().addMessage(null, fm);
     }
     
-    public void setUic(UIComponent uic) {
-        this.uic = uic;
-    }
-    
-    public UIComponent getUic(){
-        return uic;
-    }
 }
