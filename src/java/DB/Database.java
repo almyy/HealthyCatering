@@ -310,6 +310,7 @@ public class Database {
             ResultSet res = statement.executeQuery();
             connection.commit();
             while (res.next()) {
+                System.out.println("lol");
                 String username = res.getString("username");
                 String password = res.getString("password");
                 String firstname = res.getString("firstname");
