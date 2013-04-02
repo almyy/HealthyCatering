@@ -314,7 +314,7 @@ public class Database {
                 String firstname = res.getString("firstname");
                 String surname = res.getString("surname");
                 String address = res.getString("address");
-                String mobilenr = res.getString("moblienr");
+                String mobilenr = res.getString("mobilenr");
                 int postalcode = res.getInt("postalcode");
                 newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
             }
