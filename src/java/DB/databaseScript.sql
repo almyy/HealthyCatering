@@ -107,9 +107,7 @@ CREATE TABLE Subscriptionplan(
     endDate date,
     timeofdelivery time,
     weekday varchar(20),
-    companyUserName VarCHAR(20),
-    CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId),
-    CONSTRAINT subscriptionplan_fk1 FOREIGN KEY(companyUserName) REFERENCES company(UserName)
+    CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId)
 ); 
 CREATE TABLE orders(
     orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
