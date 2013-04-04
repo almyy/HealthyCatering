@@ -5,6 +5,30 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
+        <title>FAAAAAIL</title>
+        <ui:composition template="userTemplate.xhtml">
+            
+            <ui:define name="content">
+                <div id="login" class="login">
+                <form method="POST" action="j_security_check">
+                    <table>
+                        <tr>
+                            <td><h:outputText value="Username"/></td>
+                            <td><p:inputText  id="j_username"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Password"/></td>
+                            <td><p:inputText id="j_password" type="password"/></td>
+                        </tr>
+                    </table>
+                    <p><p:commandButton onclick="submit()" value="Login" ></p:commandButton></p>
+                    <p><p:commandLink value="Register" ></p:commandLink></p>
+                    <p><p:commandLink value="Forgot password?"></p:commandLink></p>
+                </form>
+                </div>
+                Detta ble feil, gitt.
+            </ui:define>
+        </ui:composition>
     </h:head>
     <h:body>
         <ui:composition template="userTemplate.xhtml">

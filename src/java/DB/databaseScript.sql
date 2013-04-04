@@ -108,10 +108,11 @@ CREATE TABLE company(
     CONSTRAINT company_pk PRIMARY KEY(username)
 );
 CREATE TABLE Subscriptionplan(
-    subscriptionId INTEGER not null,
+    subscriptionId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     startDate date,
     endDate date,
-    
+    timeofdelivery time,
+    weekday varchar(20),
     companyUserName VarCHAR(20),
     CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId),
     CONSTRAINT subscriptionplan_fk1 FOREIGN KEY(companyUserName) REFERENCES company(UserName)
