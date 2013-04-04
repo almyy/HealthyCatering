@@ -24,11 +24,11 @@
         <div id="menu" class="menu">
             <div align="right">
                 <h:form>
-                    <p:commandButton value="Home" action="/faces/index.xhtml"></p:commandButton>
-                    <p:commandButton value="Menu" action="/faces/menu.xhtml"></p:commandButton>
-                    <p:commandButton value="Contact" action="/faces/contact.xhtml"></p:commandButton>
-                    <p:commandButton value="Profile" action="/faces/profile.xhtml" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
-                    <p:commandButton value="Log out" action="#{Frontpage.logout()}" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
+                    <p:commandButton value="#{lang_auth.Home}" action="/faces/index.xhtml"></p:commandButton>
+                    <p:commandButton value="#{lang_auth.Menu}" action="/faces/menu.xhtml"></p:commandButton>
+                    <p:commandButton value="#{lang_auth.Contact}" action="/faces/contact.xhtml"></p:commandButton>
+                    <p:commandButton value="#{lang_auth.Profile}" action="/faces/profile.xhtml" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
+                    <p:commandButton value="#{lang_auth.LogOut}" action="#{Frontpage.logout()}" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
                 </h:form>
             </div>
         </div>

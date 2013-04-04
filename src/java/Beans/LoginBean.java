@@ -1,5 +1,6 @@
 package Beans;
 
+import DB.Database;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
@@ -13,23 +14,24 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 @Named("Frontpage")
 public class LoginBean implements Serializable {
+    private Database db = new Database();
 
     public void redirect() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            if (externalContext.getUserPrincipal().getName().equals("customer")) {
+            if (db.getRole().equals("customer")) {
                 externalContext.redirect("faces/protected/customer.xhtml");
             }
-            if (externalContext.getUserPrincipal().getName().equals("chef")) {
+            if (db.getRole().equals("chef")) {
                 externalContext.redirect("faces/protected/chef.xhtml");
             }
-            if (externalContext.getUserPrincipal().getName().equals("salesman")) {
+            if (db.getRole().equals("salesman")) {
                 externalContext.redirect("faces/protected/salesman.xhtml");
             }
-            if (externalContext.getUserPrincipal().getName().equals("driver")) {
+            if (db.getRole().equals("driver")) {
                 externalContext.redirect("faces/protected/driver.xhtml");
             }
-            if (externalContext.getUserPrincipal().getName().equals("admin")) {
+            if (db.getRole().equals("admin")) {
                 externalContext.redirect("faces/protected/admin.xhtml");
             }
         } catch (IOException e) {
