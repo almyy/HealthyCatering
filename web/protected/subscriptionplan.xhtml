@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <title>Subscription plan</title>
+
+    <ui:composition template="../userTemplate.xhtml">
+        <ui:define name="content">
+            <h2>Setup subscription plan</h2>
+            <p:panelGrid columns="2" styleClass="noBackground">
+                <p:panel>
+                    <h3>Days of the week:</h3>
+                    <p:selectManyCheckbox value="#{subBean.selectedDays}"  
+                                          layout="pageDirection">  
+                        <f:selectItems value="#{subBean.weekdays}" />  
+                    </p:selectManyCheckbox>
+                    <p:selectOneMenu value="#{subBean.mondaytime.hours}" valueChangeListener="submit()">
+                        <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
+                    </p:selectOneMenu>
+                    <p:selectOneMenu value="#{subBean.mondaytime.minutes}" valueChangeListener="submit()">
+                        <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
+                    </p:selectOneMenu>
+                </p:panel>
+            </p:panelGrid>
+        </ui:define>
+    </ui:composition>
+</html>
+

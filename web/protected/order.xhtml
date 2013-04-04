@@ -62,22 +62,10 @@
                         <p:calendar effect="drop" value="#{orderBean.deliverydate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/><br /><br />
                         <p:outputLabel value="Time:"/><br />
                         <p:selectOneMenu value="#{orderBean.deliverydate.hours}" valueChangeListener="submit()">
-                            <f:selectItem itemLabel="10" itemValue="10" />
-                            <f:selectItem itemLabel="11" itemValue="11" />
-                            <f:selectItem itemLabel="12" itemValue="12" />
-                            <f:selectItem itemLabel="13" itemValue="13" />
-                            <f:selectItem itemLabel="14" itemValue="14" />
-                            <f:selectItem itemLabel="15" itemValue="15" />
-                            <f:selectItem itemLabel="16" itemValue="16" />
-                            <f:selectItem itemLabel="17" itemValue="17" />
+                            <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
                         </p:selectOneMenu>
                         <p:selectOneMenu value="#{orderBean.deliverydate.minutes}" valueChangeListener="submit()">
-                            <f:selectItem itemLabel="00" itemValue="0" />
-                            <f:selectItem itemLabel="10" itemValue="10" />
-                            <f:selectItem itemLabel="20" itemValue="20" />
-                            <f:selectItem itemLabel="30" itemValue="30" />
-                            <f:selectItem itemLabel="40" itemValue="40" />
-                            <f:selectItem itemLabel="50" itemValue="50" />    
+                            <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
                         </p:selectOneMenu><br /><br />
                         
                         Add description:<br />
@@ -90,6 +78,7 @@
                     </p:panel>
                 </p:panelGrid>
                 <p:commandButton value="Send" action="#{orderBean.confirmOrder()}" ajax="false"></p:commandButton>
+                <p:commandButton value="Subscribe" action ="subscriptionplan.xhtml"></p:commandButton>
             </h:form>
         </ui:define>
     </ui:composition>

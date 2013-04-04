@@ -29,6 +29,8 @@ public class OrderBean implements Serializable {
     private ArrayList<Dish> dishes = fillDishes();
     private User user = db.getUser();
     private Date deliverydate = new Date();
+    private int[] hourvalues = {10, 11, 12, 13, 14, 15, 16, 17};
+    private int[] minutevalues = {10, 20, 30, 40, 50};
     private String description;
     private double total_price;
 
@@ -120,4 +122,21 @@ public class OrderBean implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int[] getMinutevalues() {
+        return minutevalues;
+    }
+
+    public void setMinutevalues(int[] minutevalues) {
+        this.minutevalues = minutevalues;
+    }
+
+    public int[] getHourvalues() {
+        return hourvalues;
+    }
+
+    public void setHourvalues(int[] hourvalues) {
+        this.hourvalues = hourvalues;
+    }
+    
 }
