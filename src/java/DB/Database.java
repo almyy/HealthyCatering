@@ -328,15 +328,14 @@ public class Database {
         boolean result = true;
         try {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("insert into subscriptionplan(startdate, enddate, timeofdelivery, weekday, companyusername)"
-                    + "values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement("insert into subscriptionplan(startdate, enddate, timeofdelivery, weekday)"
+                    + "values (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             java.sql.Date sqldate = new java.sql.Date(plan.startdate.getTime());
             java.sql.Date sqldate2 = new java.sql.Date(plan.enddate.getTime());
             statement.setDate(1, sqldate);
             statement.setDate(2, sqldate2);
             statement.setTime(3, plan.timeofdelivery);
             statement.setString(4, plan.weekday);
-            statement.setString(5, plan.companyusername);
             statement.executeUpdate();
             int key = 0;
             ResultSet res = statement.getGeneratedKeys();
@@ -359,7 +358,7 @@ public class Database {
             statement2.executeUpdate();
             connection.commit();
             int key2 = 0;
-            ResultSet res2 = statement.getGeneratedKeys();
+            ResultSet res2 = statement2.getGeneratedKeys();
             if (res2.next()) {
                 key2 = res2.getInt(1);
             }
