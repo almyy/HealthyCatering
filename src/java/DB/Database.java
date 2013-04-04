@@ -226,16 +226,18 @@ public class Database {
         try {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("insert into orders(timeofdelivery,"
-                    + " deliveryaddress, status, postalcode,dates) values(?, ?, ?, ?, ?,?)");
+                    + " deliveryaddress, status, postalcode) values(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             statement.setTime(1, order.getTimeOfDelivery());
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
             statement.setInt(4, order.getPostalcode());
-            statement.setDate(5, new java.sql.Date(order.getDate().getTime()));
-            statement.executeQuery();
-            ResultSet keys = statement.getGeneratedKeys();
-            int key = keys.getInt(1);
-            System.out.println("Key: " + key);
+            statement.executeUpdate();
+            connection.commit();
+            int key = 0;
+            ResultSet res = statement.getGeneratedKeys();
+            if (res.next()) {
+                key = res.getInt(1);
+            }
 
             for (int i = 0; i < order.getOrderedDish().size(); i++) {
                 statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount) values(?, ?, ?)");
@@ -243,10 +245,12 @@ public class Database {
                 statement2.setInt(2, key);
                 statement2.setInt(3, order.getOrderedDish().get(i).getCount());
                 System.out.println(order.getOrderedDish().get(i).getCount());
+                statement2.executeUpdate();
             }
             connection.commit();
             result = true;
         } catch (SQLException e) {
+            System.out.println("252");
             System.out.println(e);
             Cleaner.rollback(connection);
             result = false;
@@ -266,7 +270,7 @@ public class Database {
             statement.setString(1, dishname);
             ResultSet res = statement.executeQuery();
             if (res.next()) {
-                result = res.getInt(dishname);
+                result = res.getInt("dishid");
             } else {
                 result = -1;
             }

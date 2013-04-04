@@ -46,7 +46,7 @@ CREATE TABLE users(
     surname VARCHAR(40),
     address VARCHAR(40) NOT NULL,
     mobileNr VARCHAR(20),
-    email VARCHAR(40),
+    email VARCHAR(40) NOT NULL UNIQUE,
     postalCode SMALLINT,
     CONSTRAINT users_pk PRIMARY KEY(username),
     CONSTRAINT users_fk1 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)
@@ -125,6 +125,7 @@ CREATE TABLE orders(
     subscriptionId INTEGER,
     postalCode SMALLINT,
     dates date,
+    totalPrice DECIMAL,
     CONSTRAINT orders_pk PRIMARY KEY(orderId),
     CONSTRAINT orders_fk1 FOREIGN KEY(userNameSalesman) REFERENCES Salesman(username),
     CONSTRAINT orders_fk2 FOREIGN KEY(userNameCustomer) REFERENCES Customer(username),
