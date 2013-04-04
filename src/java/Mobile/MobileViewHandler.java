@@ -1,5 +1,5 @@
 package Mobile;
-
+/*1
 import java.util.Map;
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
@@ -28,3 +28,4 @@ public class MobileViewHandler extends ViewHandlerWrapper {
         }
     }
 }
+*/

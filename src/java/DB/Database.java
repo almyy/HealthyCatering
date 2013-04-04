@@ -28,7 +28,33 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-
+    public ArrayList<Order> getTurnoverstatistics(String query){
+        ArrayList<Order> orders = new ArrayList();
+        ResultSet res = null;
+        Statement stm = null;
+        openConnection();
+        try {
+            stm = connection.createStatement();
+            res = stm.executeQuery(query);
+            while (res.next()) {
+                java.sql.Date date = res.getDate("dates");
+                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
+                String deliveryAddress = res.getString("DELIVERYADDRESS");
+                int status = res.getInt("STATUS");
+                int orderId = res.getInt("ORDERID");
+                double totalPrice = res.getDouble("TOTALPRICE");
+                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status,totalPrice);
+                orderToBeAdded.setOrderId(orderId);
+                orders.add(orderToBeAdded);
+            }
+        } catch (SQLException e) {
+        } finally {
+            Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(stm);
+        }
+        return orders;
+    }
     public ArrayList<Order> getPendingOrders(String query) {
         ArrayList<Order> orders = new ArrayList();
         ResultSet res = null;
@@ -134,7 +160,7 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
-            sqlLogIn = connection.prepareStatement("UPDATE BRUKER SET PASSORD = ? WHERE BRUKERNAVN = ?");
+            sqlLogIn = connection.prepareStatement("UPDATE user SET PASSWORD = ? WHERE username = ?");
             sqlLogIn.setString(1, user.getPassword());
             sqlLogIn.setString(2, user.getUsername());
             sqlLogIn.executeUpdate();
@@ -382,14 +408,15 @@ public class Database {
         boolean ok = false;
         openConnection();
         try {
-            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, postalcode = ?, password = ? where username = ?");
+            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, email = ?,postalcode = ?, password = ? where username = ?");
             sqlUpdProfile.setString(1, user.getFirstName());
             sqlUpdProfile.setString(2, user.getSurname());
             sqlUpdProfile.setString(3, user.getAddress());
             sqlUpdProfile.setString(4, user.getPhone());
-            sqlUpdProfile.setInt(5, user.getPostnumber());
-            sqlUpdProfile.setString(6, user.getPassword());
-            sqlUpdProfile.setString(7, currentUser);
+            sqlUpdProfile.setString(5, user.getEmail());
+            sqlUpdProfile.setInt(6, user.getPostnumber());
+            sqlUpdProfile.setString(7, user.getPassword());
+            sqlUpdProfile.setString(8, currentUser);
             ok = true;
             sqlUpdProfile.executeUpdate();
             connection.commit();
@@ -505,11 +532,11 @@ public class Database {
         closeConnection();
         return dishes;
     }
+    
     public String getRole() {
         PreparedStatement statement = null;
         openConnection();
         String role = "";
-        System.out.println(currentUser);
          try {
             statement = connection.prepareStatement("SELECT * FROM roles WHERE username=?");
             statement.setString(1, currentUser);
@@ -529,5 +556,36 @@ public class Database {
         closeConnection();
         System.out.println(role);
         return role;
+    }
+    
+    public User emailExist(String inputEmail){
+        PreparedStatement sqlLogIn = null;
+        openConnection();
+        User newUser = new User();
+        try {
+            sqlLogIn = connection.prepareStatement("SELECT * FROM users WHERE email = '" + inputEmail + "'");
+            ResultSet res = sqlLogIn.executeQuery();
+            connection.commit();
+            while (res.next()) {
+                String username = res.getString("username");
+                String password = res.getString("password");
+                String firstname = res.getString("firstname");
+                String surname = res.getString("surname");
+                String address = res.getString("address");
+                String mobilenr = res.getString("mobilenr");
+                int postalcode = res.getInt("postalcode");
+                String email = res.getString("email");
+                newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sqlLogIn);
+        }
+        closeConnection();
+        return newUser;
     }
 }

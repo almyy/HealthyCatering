@@ -14,9 +14,7 @@
             <h:body>
                 #{Sales.update()}
                 <h:form>
-                    <p:dataTable value="#{Sales.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id"
-                                 rowStyleClass="#{OrderStatus.order.status eq 1 ? 'yellow' : OrderStatus.order.status eq '3' ? 'green':null}">
-                        
+                    <p:dataTable value="#{Sales.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id">                        
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="ID"/>
@@ -70,7 +68,7 @@
                         </f:facet>
                     </p:dataTable>
                 </h:form>
-
+                <a href="order.xhtml">Order dish</a>
             </h:body>
         </ui:define>
     </ui:composition>
