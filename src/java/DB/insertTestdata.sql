@@ -34,7 +34,7 @@ INSERT INTO dish (dishname,dishprice) VALUES ('laks',200.75);
 INSERT INTO dish (dishname,dishprice) VALUES ('biff',358.00);
 INSERT INTO dish (dishname,dishprice) VALUES ('GRÆNDIS',30.00);
 
-INSERT INTO subscriptionplan(startdate, enddate, timeofdelivery, weekday, companyusername) VALUES((DATE(2013-02-25)),(DATE(2016-02-26)), (TIME('12:45:19')), 'Monday','bedrift');
+INSERT INTO subscriptionplan(startdate, enddate, timeofdelivery, weekday) VALUES((DATE(2013-02-25)),(DATE(2016-02-26)), (TIME('12:45:19')), 'Monday');
 
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('23:03:03','adresseveien x', 4,'salesman','customer',null,7046,'2013-03-02', 1002);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('18:03:03','adresseveien x', 2,'salesman','bedrift',1,7046,'2013-02-02', 489);
