@@ -408,14 +408,15 @@ public class Database {
         boolean ok = false;
         openConnection();
         try {
-            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, postalcode = ?, password = ? where username = ?");
+            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, email = ?,postalcode = ?, password = ? where username = ?");
             sqlUpdProfile.setString(1, user.getFirstName());
             sqlUpdProfile.setString(2, user.getSurname());
             sqlUpdProfile.setString(3, user.getAddress());
             sqlUpdProfile.setString(4, user.getPhone());
-            sqlUpdProfile.setInt(5, user.getPostnumber());
-            sqlUpdProfile.setString(6, user.getPassword());
-            sqlUpdProfile.setString(7, currentUser);
+            sqlUpdProfile.setString(5, user.getEmail());
+            sqlUpdProfile.setInt(6, user.getPostnumber());
+            sqlUpdProfile.setString(7, user.getPassword());
+            sqlUpdProfile.setString(8, currentUser);
             ok = true;
             sqlUpdProfile.executeUpdate();
             connection.commit();
