@@ -107,7 +107,7 @@ public class Order {
         this.orderedDish = dishes;
         this.description = description;
         this.postalcode = postalcode;
-        this.totalprice = totalprice;
+        this.totalPrice = totalprice;
     }
 
     public double getTotalPrice() {
@@ -206,11 +206,10 @@ public class Order {
     }
 
     public double getTotalprice() {
-        return totalprice;
+        return totalPrice;
     }
 
-    public void setTotalprice(double totalprice) {
-        this.totalprice = totalprice;
-    }
-    
+    public void setTotalPrice(double totalprice) {
+        this.totalPrice = totalprice;
+    }   
 }

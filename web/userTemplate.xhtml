@@ -27,7 +27,7 @@
                     <p:commandButton value="#{lang_auth.Home}" action="/faces/index.xhtml"></p:commandButton>
                     <p:commandButton value="#{lang_auth.Menu}" action="/faces/menu.xhtml"></p:commandButton>
                     <p:commandButton value="#{lang_auth.Contact}" action="/faces/contact.xhtml"></p:commandButton>
-                    <p:commandButton value="#{lang_auth.Profile}" action="/faces/profile.xhtml" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
+                    <p:commandButton value="#{lang_auth.Profile}" action="profile.xhtml" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
                     <p:commandButton value="#{lang_auth.LogOut}" action="#{Frontpage.logout()}" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
                 </h:form>
             </div>
