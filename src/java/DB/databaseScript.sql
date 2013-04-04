@@ -40,7 +40,7 @@ CREATE TABLE postal_no (
 
 CREATE TABLE users(
     username VARCHAR(20) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(40) NOT NULL,
     firstname VARCHAR(40),
     surname VARCHAR(40),
     address VARCHAR(40) NOT NULL,
@@ -102,10 +102,11 @@ CREATE TABLE private(
     CONSTRAINT private_pk PRIMARY KEY(username)
 );
 CREATE TABLE Subscriptionplan(
-    subscriptionId INTEGER not null,
+    subscriptionId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     startDate date,
     endDate date,
-    
+    timeofdelivery time,
+    weekday varchar(20),
     companyUserName VarCHAR(20),
     CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId),
     CONSTRAINT subscriptionplan_fk1 FOREIGN KEY(companyUserName) REFERENCES company(UserName)

@@ -7,7 +7,7 @@
     <title>Facelet Title</title>
     <ui:composition template="../userTemplate.xhtml">
         <ui:define name="content">
-            Logget inn som #{request.remoteUser}!
+            #{lang_auth.LoggedInAs} #{request.remoteUser}!
         </ui:define>
     </ui:composition>
 </html>

@@ -1,4 +1,4 @@
-INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3','46257954','a@post.no',7046);
+INSERT INTO users VALUES ('customer','asd123','kunde','kundesen','adresseveien 3','46257954','martinalmvik@hotmail.com',7046);
 INSERT INTO users VALUES ('driver','asd123','sjåfør','sjåførsen','adresseveien 21', '457845512','b@post.no', 7049 );
 INSERT INTO users VALUES ('admin','asd123','admin','administratorsen','adresseveien 26', '457812412','c@post.no', 7049);
 INSERT INTO users VALUES ('salesman','asd123','selger','selgersen','adresseveien 23', '457845512','d@post.no', 7049);
@@ -34,7 +34,7 @@ INSERT INTO dish (dishname,dishprice) VALUES ('laks',200.75);
 INSERT INTO dish (dishname,dishprice) VALUES ('biff',358.00);
 INSERT INTO dish (dishname,dishprice) VALUES ('GRÆNDIS',30.00);
 
-INSERT INTO subscriptionplan VALUES(1,(DATE(2013-02-25)),(DATE(2016-02-26)),'bedrift');
+INSERT INTO subscriptionplan(startdate, enddate, timeofdelivery, weekday, companyusername) VALUES((DATE(2013-02-25)),(DATE(2016-02-26)), (TIME('12:45:19')), 'Monday','bedrift');
 
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('23:03:03','adresseveien x', 4,'salesman','customer',null,7046,'2013-03-02', 1002);
 INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('18:03:03','adresseveien x', 2,'salesman','bedrift',1,7046,'2013-02-02', 489);

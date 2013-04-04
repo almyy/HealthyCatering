@@ -2,14 +2,12 @@
 package Beans;
 
 import DB.Database;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import logikk.Dish;
@@ -29,8 +27,11 @@ public class OrderBean implements Serializable {
     private ArrayList<Dish> dishes = fillDishes();
     private User user = db.getUser();
     private Date deliverydate = new Date();
+    private int[] hourvalues = {10, 11, 12, 13, 14, 15, 16, 17};
+    private int[] minutevalues = {10, 20, 30, 40, 50};
     private String description;
     private double total_price;
+    private Order savedOrder;
 
     public OrderBean() {
         deliverydate.setHours(10);
@@ -43,7 +44,6 @@ public class OrderBean implements Serializable {
     public String confirmOrder() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");  
         FacesContext.getCurrentInstance().addMessage(null, msg);  
-        //java.sql.Date sqlDate = new java.sql.Date(deliverydate.getTime());
         Order order = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
         String returnvalue = "";
         if (db.order(order)) {
@@ -52,8 +52,7 @@ public class OrderBean implements Serializable {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             if (facesContext != null) {
                 try {
-                    if (facesContext.getExternalContext()
-                            .getUserPrincipal().getName().equals("customer")) {
+                    if (db.getRole().equals("customer")) {
                         returnvalue = "orderSuccess.xhtml";
                     } 
                 } catch (Exception e) {
@@ -61,7 +60,16 @@ public class OrderBean implements Serializable {
                 }
             }
         }
+        else{
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, try again later.", "Error, try again later.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            returnvalue = "order.xhtml";
+        }
         return returnvalue;
+    }
+    public String subscribe(){
+        savedOrder = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
+        return "subscribtionplan.xhtml";
     }
 
     public ArrayList<Dish> fillDishes() {
@@ -120,4 +128,26 @@ public class OrderBean implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int[] getMinutevalues() {
+        return minutevalues;
+    }
+
+    public void setMinutevalues(int[] minutevalues) {
+        this.minutevalues = minutevalues;
+    }
+
+    public int[] getHourvalues() {
+        return hourvalues;
+    }
+
+    public void setHourvalues(int[] hourvalues) {
+        this.hourvalues = hourvalues;
+    }
+
+    public Order getSavedOrder() {
+        return savedOrder;
+    }
+    
+    
 }
