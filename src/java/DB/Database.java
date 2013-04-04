@@ -29,8 +29,8 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-    
-    public ArrayList<Order> getTurnoverstatistics(String query){
+
+    public ArrayList<Order> getTurnoverstatistics(String query) {
         ArrayList<Order> orders = new ArrayList();
         ResultSet res = null;
         Statement stm = null;
@@ -45,7 +45,7 @@ public class Database {
                 int status = res.getInt("STATUS");
                 int orderId = res.getInt("ORDERID");
                 double totalPrice = res.getDouble("TOTALPRICE");
-                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status,totalPrice);
+                Order orderToBeAdded = new Order(date, timeOfDelivery, deliveryAddress, status, totalPrice);
                 orderToBeAdded.setOrderId(orderId);
                 orders.add(orderToBeAdded);
             }
@@ -57,6 +57,7 @@ public class Database {
         }
         return orders;
     }
+
     public ArrayList<Order> getPendingOrders(String query) {
         ArrayList<Order> orders = new ArrayList();
         ResultSet res = null;
@@ -250,7 +251,6 @@ public class Database {
         PreparedStatement statement = null;
         PreparedStatement statement2 = null;
         openConnection();
-        currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         boolean result = false;
         try {
             connection.setAutoCommit(false);
@@ -260,7 +260,7 @@ public class Database {
             statement.setTime(1, new Time(order.getDate().getHours(), order.getDate().getMinutes(), order.getDate().getSeconds()));
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
-            statement.setString(4, currentUser);
+            statement.setString(4, getCurrentUser());
             statement.setInt(5, order.getPostalcode());
             java.sql.Date sqldate = new java.sql.Date(order.getDate().getTime());
             statement.setDate(6, sqldate);
@@ -278,7 +278,6 @@ public class Database {
                 statement2.setInt(1, getDishId(order.getOrderedDish().get(i).getDishName()));
                 statement2.setInt(2, key);
                 statement2.setInt(3, order.getOrderedDish().get(i).getCount());
-                System.out.println(order.getOrderedDish().get(i).getCount());
                 statement2.executeUpdate();
             }
             connection.commit();
@@ -291,6 +290,7 @@ public class Database {
         } finally {
             Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
+            Cleaner.closeSentence(statement2);
         }
         closeConnection();
         return result;
@@ -312,15 +312,20 @@ public class Database {
             System.out.println(e.getMessage());
             Cleaner.rollback(connection);
 
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
         }
         return result;
     }
-    
+
     //FOR SUBSCRIPTION
     public boolean subscription(SubscriptionPlan plan, Order order) {
         PreparedStatement statement = null;
+        PreparedStatement statement2 = null;
+        PreparedStatement statement3 = null;
         openConnection();
-        boolean result = false;
+        boolean result = true;
         try {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("insert into subscriptionplan(startdate, enddate, timeofdelivery, weekday, companyusername)"
@@ -337,20 +342,21 @@ public class Database {
             ResultSet res = statement.getGeneratedKeys();
             if (res.next()) {
                 key = res.getInt(1);
+                System.out.println("Key: "+key);
             }
-            statement = connection.prepareStatement("insert into orders(timeofdelivery,"
+            statement2 = connection.prepareStatement("insert into orders(timeofdelivery,"
                     + " deliveryaddress, status, usernamecustomer, subscriptionid, postalcode, dates, totalprice) "
                     + "values(?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            statement.setTime(1, new Time(order.getDate().getHours(), order.getDate().getMinutes(), order.getDate().getSeconds()));
-            statement.setString(2, order.getDeliveryAddress());
-            statement.setInt(3, 7);
-            statement.setString(4, currentUser);
-            statement.setInt(5, key);
-            statement.setInt(6, order.getPostalcode());
+            statement2.setTime(1, new Time(order.getDate().getHours(), order.getDate().getMinutes(), order.getDate().getSeconds()));
+            statement2.setString(2, order.getDeliveryAddress());
+            statement2.setInt(3, 7);
+            statement2.setString(4, getCurrentUser());
+            statement2.setInt(5, key);
+            statement2.setInt(6, order.getPostalcode());
             java.sql.Date sqldate3 = new java.sql.Date(order.getDate().getTime());
-            statement.setDate(7, sqldate3);
-            statement.setDouble(8, order.getTotalprice());
-            statement.executeUpdate();
+            statement2.setDate(7, sqldate3);
+            statement2.setDouble(8, order.getTotalprice());
+            statement2.executeUpdate();
             connection.commit();
             int key2 = 0;
             ResultSet res2 = statement.getGeneratedKeys();
@@ -359,12 +365,11 @@ public class Database {
             }
 
             for (int i = 0; i < order.getOrderedDish().size(); i++) {
-                statement = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount) values(?, ?, ?)");
-                statement.setInt(1, getDishId(order.getOrderedDish().get(i).getDishName()));
-                statement.setInt(2, key2);
-                statement.setInt(3, order.getOrderedDish().get(i).getCount());
-                System.out.println(order.getOrderedDish().get(i).getCount());
-                statement.executeUpdate();
+                statement3 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount) values(?, ?, ?)");
+                statement3.setInt(1, getDishId(order.getOrderedDish().get(i).getDishName()));
+                statement3.setInt(2, key2);
+                statement3.setInt(3, order.getOrderedDish().get(i).getCount());
+                statement3.executeUpdate();
             }
             connection.commit();
             result = true;
@@ -375,6 +380,8 @@ public class Database {
         } finally {
             Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
+            Cleaner.closeSentence(statement2);
+            Cleaner.closeSentence(statement3);
         }
         closeConnection();
         return result;
@@ -407,10 +414,9 @@ public class Database {
     public User getUser() {
         PreparedStatement statement = null;
         openConnection();
-        currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         User newUser = new User();
         try {
-            statement = connection.prepareStatement("SELECT * FROM users WHERE username = '" + currentUser + "'");
+            statement = connection.prepareStatement("SELECT * FROM users WHERE username = '" + getCurrentUser() + "'");
             ResultSet res = statement.executeQuery();
             connection.commit();
             while (res.next()) {
@@ -486,7 +492,7 @@ public class Database {
             sqlUpdProfile.setString(5, user.getEmail());
             sqlUpdProfile.setInt(6, user.getPostnumber());
             sqlUpdProfile.setString(7, user.getPassword());
-            sqlUpdProfile.setString(8, currentUser);
+            sqlUpdProfile.setString(8, getCurrentUser());
             ok = true;
             sqlUpdProfile.executeUpdate();
             connection.commit();
@@ -547,9 +553,6 @@ public class Database {
         }
         closeConnection();
         return ok;
-
-
-
     }
 
     public boolean changeDishData(Dish dish) {
@@ -602,15 +605,14 @@ public class Database {
         closeConnection();
         return dishes;
     }
-    
+
     public String getRole() {
         PreparedStatement statement = null;
         openConnection();
-        currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         String role = "";
-         try {
+        try {
             statement = connection.prepareStatement("SELECT * FROM roles WHERE username=?");
-            statement.setString(1, currentUser);
+            statement.setString(1, getCurrentUser());
             ResultSet res = statement.executeQuery();
             connection.commit();
             while (res.next()) {
@@ -627,8 +629,8 @@ public class Database {
         closeConnection();
         return role;
     }
-    
-    public User emailExist(String inputEmail){
+
+    public User emailExist(String inputEmail) {
         PreparedStatement sqlLogIn = null;
         openConnection();
         User newUser = new User();
@@ -658,5 +660,10 @@ public class Database {
         }
         closeConnection();
         return newUser;
+    }
+
+    public String getCurrentUser() {
+        currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        return currentUser;
     }
 }

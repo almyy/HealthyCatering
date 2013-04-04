@@ -17,7 +17,7 @@ import logikk.SubscriptionPlan;
 @SessionScoped
 public class SubscribeBean implements Serializable {
 
-    private Database db;
+    private Database db = new Database();
     private String currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private ArrayList selectedDays = new ArrayList();
     private ArrayList<String> weekdays = new ArrayList<String>(Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"));
@@ -29,21 +29,24 @@ public class SubscribeBean implements Serializable {
     public String submitPlan() {
         String returnvalue = "";
         for (int i = 0; i < selectedDays.size(); i++) {
-            for (int j = 0; j < selectedDays.size(); j++) {
+            for (int j = 0; j < weekdays.size(); j++) {
                 if (selectedDays.get(i).equals(weekdays.get(j))) {
-                    SubscriptionPlan subplan = new SubscriptionPlan(startdate, enddate, times.get(i), weekdays.get(i), currentUser);
+                    SubscriptionPlan subplan = new SubscriptionPlan(startdate, enddate, times.get(j), weekdays.get(j), currentUser);
                     FacesContext context = FacesContext.getCurrentInstance();
                     OrderBean orderbean = (OrderBean) context.getApplication().evaluateExpressionGet(context, "#{orderBean}", OrderBean.class);
                     Order order = orderbean.getSavedOrder();
                     if(db.subscription(subplan, order)){
+                        System.out.println("5");
                         returnvalue= "orderSuccess.xhtml";
                     }
                     else{
-                        returnvalue="subscriptionplan.xhtml";
+                        System.out.println("føkk");
                     }
                 }
+                else{
+                    System.out.println("lol?");
+                }
             }
-
         }
 
         return returnvalue;

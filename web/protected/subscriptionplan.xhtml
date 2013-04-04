@@ -10,55 +10,60 @@
 
     <ui:composition template="../userTemplate.xhtml">
         <ui:define name="content">
-            <h2>Setup subscription plan</h2>
-            <table>
-                <tr>
-                    <td>
-                        <h3>Start</h3>
-                    </td>
-                    <td>
-                        <p:calendar effect="drop" value="#{subBean.startdate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h3>End</h3>
-                    </td>
-                    <td>
-                        <p:calendar effect="drop" value="#{subBean.enddate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
-                    </td>
-                </tr>
+            <h:form>
+                <h2>Setup subscription plan</h2>
+                <table>
+                    <tr>
+                        <td>
+                            <h3>Start</h3>
+                        </td>
+                        <td>
+                            <p:calendar effect="drop" value="#{subBean.startdate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>End</h3>
+                        </td>
+                        <td>
+                            <p:calendar effect="drop" value="#{subBean.enddate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td><h3>Days:</h3></td>
-                    <td><h3>Time:</h3></td>
-                </tr>
-                <tr>
-                    <td>  
-                        <p:selectManyCheckbox value="#{subBean.selectedDays}"  
-                                              layout="pageDirection">  
-                            <f:selectItems value="#{subBean.weekdays}" />  
-                        </p:selectManyCheckbox>
-                    </td>
-                    <td>
-                        <p:panel style="background: none !important; border: none !important; width: 200px;">
-                            <ui:repeat value="#{subBean.times}" var="time">
-                                <p:selectOneMenu value="#{time.hours}" valueChangeListener="submit()">
-                                    <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
-                                </p:selectOneMenu>
-                                <p:selectOneMenu value="#{time.minutes}" valueChangeListener="submit()">
-                                    <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
-                                </p:selectOneMenu><br />
-                            </ui:repeat>
-                        </p:panel>
-                    </td>
-                </tr>
-                <tr>
-                    <h:form>
-                    <p:commandButton value="Send" action="#{subBean.submitPlan()}" ajax="false"></p:commandButton>
-                    </h:form>
-                </tr>
-            </table>
+                    <tr>
+                        <td><h3>Days:</h3></td>
+                        <td><h3>Time:</h3></td>
+                    </tr>
+                    <tr>
+                        <td>  
+                            <p:selectManyCheckbox id="days" value="#{subBean.selectedDays}"  
+                                                  layout="pageDirection" required="true" requiredMessage="Please choose a day." onchange="submit()">  
+                                <f:selectItems value="#{subBean.weekdays}" />  
+                            </p:selectManyCheckbox>
+
+                        </td>
+                        <td>
+                            <p:panel style="background: none !important; border: none !important; width: 200px;">
+                                <ui:repeat value="#{subBean.times}" var="time">
+                                    <p:selectOneMenu value="#{time.hours}" valueChangeListener="submit()">
+                                        <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu value="#{time.minutes}" valueChangeListener="submit()">
+                                        <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
+                                    </p:selectOneMenu><br />
+                                </ui:repeat>
+                            </p:panel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <p:message for="days"></p:message>
+                    </tr>
+                    <tr>
+                    </tr>
+                </table>
+
+                <p:commandButton value="Send" action="#{subBean.submitPlan()}" ajax="false"></p:commandButton>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>
