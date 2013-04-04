@@ -35,17 +35,19 @@ public class OrderBean implements Serializable {
     public OrderBean() {
         deliverydate.setHours(10);
         deliverydate.setMinutes(00);
+        MenuItems menuitems = getMenuItems();
+        total_price = menuitems.getTotal_price();
+        
     }
 
     public String confirmOrder() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");  
         FacesContext.getCurrentInstance().addMessage(null, msg);  
         //java.sql.Date sqlDate = new java.sql.Date(deliverydate.getTime());
-        Order order = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber());
+        Order order = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
         String returnvalue = "";
         if (db.order(order)) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            MenuItems menuitems = (MenuItems) context.getApplication().evaluateExpressionGet(context, "#{menuitems}", MenuItems.class);
+            MenuItems menuitems = getMenuItems();
             menuitems.getOrderList().clear();
             FacesContext facesContext = FacesContext.getCurrentInstance();
             if (facesContext != null) {
@@ -63,8 +65,7 @@ public class OrderBean implements Serializable {
     }
 
     public ArrayList<Dish> fillDishes() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        MenuItems menuitems = (MenuItems) context.getApplication().evaluateExpressionGet(context, "#{menuitems}", MenuItems.class);
+        MenuItems menuitems = getMenuItems();
         ArrayList<Dish> items = menuitems.getOrderList();
         return items;
     }
@@ -72,6 +73,12 @@ public class OrderBean implements Serializable {
     public TimeZone getTimeZone() {
         TimeZone tz = TimeZone.getDefault();
         return tz;
+    }
+    
+    public MenuItems getMenuItems(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        MenuItems menuitems = (MenuItems) context.getApplication().evaluateExpressionGet(context, "#{menuitems}", MenuItems.class);
+        return menuitems;
     }
 
     public double getTotal_price() {

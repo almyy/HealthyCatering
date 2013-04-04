@@ -226,11 +226,16 @@ public class Database {
         try {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("insert into orders(timeofdelivery,"
-                    + " deliveryaddress, status, postalcode) values(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            statement.setTime(1, order.getTimeOfDelivery());
+                    + " deliveryaddress, status, usernamecustomer, postalcode, dates, totalprice) "
+                    + "values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setTime(1, new Time(order.getDate().getHours(), order.getDate().getMinutes(), order.getDate().getSeconds()));
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
-            statement.setInt(4, order.getPostalcode());
+            statement.setString(4, currentUser);
+            statement.setInt(5, order.getPostalcode());
+            java.sql.Date sqldate = new java.sql.Date(order.getDate().getTime());
+            statement.setDate(6, sqldate);
+            statement.setDouble(7, order.getTotalprice());
             statement.executeUpdate();
             connection.commit();
             int key = 0;
