@@ -20,7 +20,7 @@ public class Order {
     private double orderPrice = 0.0;
     private String description;
     private int postalcode; 
-    private double totalprice = 0.0;
+    private double totalPrice = 0.0;
 
     public Order() {
     }
@@ -72,7 +72,7 @@ public class Order {
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         status_numeric = status;
-        this.totalprice = totalPrice; 
+        this.totalPrice = totalPrice; 
         switch (status) {
             case 1:
                 this.status = Status.PENDING.toString();
@@ -111,7 +111,7 @@ public class Order {
     }
 
     public double getTotalPrice() {
-        return totalprice;
+        return totalPrice;
     }
     
     public String getStatus() {
