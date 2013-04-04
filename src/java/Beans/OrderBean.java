@@ -31,6 +31,7 @@ public class OrderBean implements Serializable {
     private int[] minutevalues = {10, 20, 30, 40, 50};
     private String description;
     private double total_price;
+    private Order savedOrder;
 
     public OrderBean() {
         deliverydate.setHours(10);
@@ -43,7 +44,6 @@ public class OrderBean implements Serializable {
     public String confirmOrder() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");  
         FacesContext.getCurrentInstance().addMessage(null, msg);  
-        //java.sql.Date sqlDate = new java.sql.Date(deliverydate.getTime());
         Order order = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
         String returnvalue = "";
         if (db.order(order)) {
@@ -52,8 +52,7 @@ public class OrderBean implements Serializable {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             if (facesContext != null) {
                 try {
-                    if (facesContext.getExternalContext()
-                            .getUserPrincipal().getName().equals("customer")) {
+                    if (db.getRole().equals("customer")) {
                         returnvalue = "orderSuccess.xhtml";
                     } 
                 } catch (Exception e) {
@@ -67,6 +66,10 @@ public class OrderBean implements Serializable {
             returnvalue = "order.xhtml";
         }
         return returnvalue;
+    }
+    public String subscribe(){
+        savedOrder = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
+        return "subscribtionplan.xhtml";
     }
 
     public ArrayList<Dish> fillDishes() {
@@ -141,5 +144,10 @@ public class OrderBean implements Serializable {
     public void setHourvalues(int[] hourvalues) {
         this.hourvalues = hourvalues;
     }
+
+    public Order getSavedOrder() {
+        return savedOrder;
+    }
+    
     
 }
