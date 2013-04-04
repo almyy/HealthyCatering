@@ -10,65 +10,60 @@
     <ui:composition template="userTemplate.xhtml">
         <ui:define name="content">
             <h:form id="dishForm">  
+                <p:panelGrid id="panel" columns="2" styleClass="noBackground">
+                    <p:fieldset legend="Dishes">  
+                        <p:dataTable id="availableDishes" var="items" value="#{menuitems.items}">   
 
-                <p:fieldset legend="Dishes">  
-                    <p:dataTable id="availableDishes" var="items" value="#{menuitems.items}">   
-
-                        <p:column headerText="Dish Name">  
-                            <h:outputText value="#{items.dishName}" />  
-                        </p:column>  
-
-                        <p:column headerText="Price">  
-                            <h:outputText value="#{items.price}" />  
-                        </p:column>
-                        
-                        <p:column headerText="Count" style="width:18px" rendered="#{menuitems.loggedIn}">  
-                            <p:spinner id="spinnerBasic" value="#{items.count}" required="true" size="5"
-                                       min="1"/>  
-                        </p:column>
-                        
-                        <p:column headerText="Add" style="width:18px" rendered="#{menuitems.loggedIn}">
-                            <p:commandButton value="Add" oncomplete="submit()" action="#{menuitems.addDish()}">
-                                <f:setPropertyActionListener value="#{items}" target="#{menuitems.selectedDish}" />  
-                            </p:commandButton>
-                        </p:column>
-
-                    </p:dataTable>  
-                </p:fieldset>  
-
-                <p:fieldset id="selectedDishes" legend="Selected Dishes" style="margin-top:30px" rendered="#{menuitems.loggedIn}">  
-                    <p:outputPanel id="dropArea">  
-                        <h:outputText value="No dishes in order."  
-                                      rendered="#{empty menuitems.orderList}"  
-                                      style="font-size:15px;" />  
-
-                        <p:dataTable var="item" value="#{menuitems.orderList}"   
-                                     rendered="#{not empty menuitems.orderList}">  
-
-                            <p:column headerText="Count" style="width:18px" >  
-                                <h:outputText value="#{item.count}" />  
+                            <p:column headerText="Dish Name">  
+                                <h:outputText value="#{items.dishName}" />  
                             </p:column>  
 
-                            <p:column headerText="Name">  
-                                <h:outputText value="#{item.dishName}" />  
-                            </p:column>  
+                            <p:column headerText="Price">  
+                                <h:outputText value="#{items.price}" />  
+                            </p:column>
 
-                            <p:column headerText="Unitprice" footerText="Total: #{menuitems.total_price}" style="width:25px">  
-                                <h:outputText value="#{item.price}" />  
-                            </p:column> 
+                            <p:column headerText="Count" style="width:18px" rendered="#{menuitems.loggedIn}">  
+                                <p:spinner id="spinnerBasic" value="#{items.count}" required="true" size="5"
+                                           min="1" />  
+                            </p:column>
 
-                            <p:column headerText="Remove" style="width:18px">  
-                                <p:commandButton value="Remove" oncomplete="submit()" actionListener="#{menuitems.removeDish(item)}">
+                            <p:column headerText="Add" style="width:18px" rendered="#{menuitems.loggedIn}">
+                                <p:commandButton value="Add" oncomplete="submit()" action="#{menuitems.addDish()}">
+                                    <f:setPropertyActionListener value="#{items}" target="#{menuitems.selectedDish}" />  
                                 </p:commandButton>
-                            </p:column> 
+                            </p:column>
+
                         </p:dataTable>  
-                    </p:outputPanel>
-                    
-                </p:fieldset>   
+                    </p:fieldset>  
+
+                    <p:fieldset id="selectedDishes" legend="Selected Dishes" rendered="#{menuitems.loggedIn}">  
+                        <p:outputPanel id="dropArea">   
+                            <p:dataTable var="item" value="#{menuitems.orderList}" emptyMessage="No dishes in order.">  
+                                <p:column headerText="Count" style="width:18px" >  
+                                    <h:outputText value="#{item.count}" />  
+                                </p:column>  
+
+                                <p:column headerText="Name">  
+                                    <h:outputText value="#{item.dishName}" />  
+                                </p:column>  
+
+                                <p:column headerText="Unitprice" footerText="Total: #{menuitems.total_price}" style="width:25px">  
+                                    <h:outputText value="#{item.price}" />  
+                                </p:column> 
+
+                                <p:column headerText="Remove" style="width:18px">  
+                                    <p:commandButton value="Remove" oncomplete="submit()" actionListener="#{menuitems.removeDish(item)}">
+                                    </p:commandButton>
+                                </p:column> 
+                            </p:dataTable>  
+                        </p:outputPanel>
+
+                    </p:fieldset>  
+                </p:panelGrid>
                 <h:form>
-                <div align="right">
-                    <p:commandButton value="Order" action="#{menuitems.order()}" rendered="#{menuitems.loggedIn}"></p:commandButton>                
-                </div>
+                    <div align="right">
+                        <p:commandButton value="Order" action="#{menuitems.order()}" rendered="#{menuitems.loggedIn}"></p:commandButton>                
+                    </div>
                 </h:form>
             </h:form>  
         </ui:define>
