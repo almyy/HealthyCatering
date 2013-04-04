@@ -28,9 +28,8 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-    public float getTurnoverstatistics(String query){
+    public ArrayList<Order> getTurnoverstatistics(String query){
         ArrayList<Order> orders = new ArrayList();
-        float result = 0; 
         ResultSet res = null;
         Statement stm = null;
         openConnection();
@@ -43,12 +42,10 @@ public class Database {
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 int status = res.getInt("STATUS");
                 int orderId = res.getInt("ORDERID");
-                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status);
+                double totalPrice = res.getDouble("TOTALPRICE");
+                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status,totalPrice);
                 orderToBeAdded.setOrderId(orderId);
                 orders.add(orderToBeAdded);
-            }
-            for(int i = 0; i < orders.size(); i++){
-                
             }
         } catch (SQLException e) {
         } finally {
@@ -56,7 +53,7 @@ public class Database {
             Cleaner.closeResSet(res);
             Cleaner.closeSentence(stm);
         }
-        return result;
+        return orders;
     }
     public ArrayList<Order> getPendingOrders(String query) {
         ArrayList<Order> orders = new ArrayList();

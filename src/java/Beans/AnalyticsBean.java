@@ -17,18 +17,19 @@ class AnalyticsBean implements Serializable {
     private Date toDate = new Date();
     private Date fromDate = new Date(toDate.getYear()-1,toDate.getMonth(),toDate.getDay());
     private CartesianChartModel linearModel;
-    private float turnoverNow =0; 
+    private ArrayList<Order> orders = new ArrayList();
+    private float turnoverNow = 0;
     private float turnoverLastYear = 0; 
 
     public AnalyticsBean() {
-        calculateTurnover();
         createLinearModel();
     }
-    public void calculateTurnover(){
+    public ArrayList<Order> calculateTurnover(Date fromDate, Date toDate){
         java.sql.Date fromDateSql = new java.sql.Date(fromDate.getTime());
         java.sql.Date toDateSql = new java.sql.Date(toDate.getTime());
         String query = "SELECT * FROM orders WHERE dates <='"+toDateSql.toString()+"' and dates>='"+fromDateSql.toString()+"'";
-        turnoverNow = db.getTurnoverstatistics(query);
+        orders = db.getTurnoverstatistics(query);
+        return orders;
     }
     public Date getFromDate() {
         return fromDate;
@@ -46,30 +47,52 @@ class AnalyticsBean implements Serializable {
         this.toDate = toDate;
     }
 
+    public float getTurnoverLastYear() {
+        return turnoverLastYear;
+    }
+
+    public float getTurnoverNow() {
+        return turnoverNow;
+    }
+    
     public CartesianChartModel getLinearModel() {
         return linearModel;
     }
 
     public void createLinearModel() {
+        String[] months = {"January","February","March","April","Mai","June","July","August","September",
+            "October","November","Descember"};
+        ArrayList<Order> orders = calculateTurnover(this.fromDate,this.toDate); 
         linearModel = new CartesianChartModel();
         LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Series 1");
-
-        series1.set(1, 2);
-        series1.set(2, 1);
-        series1.set(3, 3);
-        series1.set(4, 6);
-        series1.set(5, 8);
+        series1.setLabel("Turnover past year");
+        float turnOver = 0; 
+        for(int i = 0; i < 12; i++){
+            for(int u=0; u< orders.size(); u++){
+                if(orders.get(u).getDate().getMonth()==i){
+                    turnOver+=orders.get(u).getTotalPrice();
+                }
+            }
+            series1.set(months[i], turnOver);
+            turnoverNow+=turnOver; 
+            turnOver=0;
+        }
 
         LineChartSeries series2 = new LineChartSeries();
-        series2.setLabel("Series 2");
-        series2.setMarkerStyle("diamond");
-
-        series2.set(1, 6);
-        series2.set(2, 3);
-        series2.set(3, 2);
-        series2.set(4, 7);
-        series2.set(5, 9);
+        series2.setLabel("Turnover last Year");
+        orders = calculateTurnover(new Date(this.fromDate.getYear()-1),this.fromDate);
+        
+        for(int i = 0; i < 12; i++){
+            for(int u=0; u< orders.size(); u++){
+                if(orders.get(u).getDate().getMonth()==i){
+                    turnOver+=orders.get(u).getTotalPrice();
+                }
+            }
+            series2.set(months[i], turnOver);
+            turnoverLastYear+=turnOver; 
+            turnOver=0;
+        }
+        
         linearModel.addSeries(series1);
         linearModel.addSeries(series2);
     }

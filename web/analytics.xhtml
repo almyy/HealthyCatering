@@ -36,8 +36,8 @@ and open the template in the editor.
                             </f:facet>
                             <p:row>
                                 <p:column>Turnover</p:column>
-                                <p:column>#{Analytics}</p:column>
-                                <p:column>#{Analytics}</p:column>
+                                <p:column>#{Analytics.turnoverNow}</p:column>
+                                <p:column>#{Analytics.turnoverLastYear}</p:column>
                             </p:row>
                             <p:row>
                                 <p:column>Revenue</p:column>
@@ -65,7 +65,8 @@ and open the template in the editor.
                 </h:form>
                 <h:panelGrid columns="1">
                     <p:lineChart value="#{Analytics.linearModel}" legendPosition="e" zoom="true" animate="true"  
-                     title="Linear Chart" style="width:1000px;" widgetVar="chart"/> 
+                     title="Linear Chart" minY="0" minX="0" style="width:1000px;" widgetVar="chart"
+                     legendCols="12" xaxisLabel="Month"/> 
                 </h:panelGrid> 
             </ui:define>
         </ui:composition>
