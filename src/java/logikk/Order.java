@@ -20,6 +20,7 @@ public class Order {
     private double orderPrice = 0.0;
     private String description;
     private int postalcode;
+    private double totalprice;
 
     public Order() {
     }
@@ -65,7 +66,7 @@ public class Order {
         }
     }
 
-    public Order(Date date, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode) {
+    public Order(Date date, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode, double totalprice) {
         fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
                 date.getHours(), date.getMinutes(), date.getSeconds());
         this.date = date;
@@ -74,6 +75,7 @@ public class Order {
         this.orderedDish = dishes;
         this.description = description;
         this.postalcode = postalcode;
+        this.totalprice = totalprice;
     }
 
     public String getStatus() {
@@ -166,4 +168,13 @@ public class Order {
     public void setPostalcode(int postalcode) {
         this.postalcode = postalcode;
     }
+
+    public double getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(double totalprice) {
+        this.totalprice = totalprice;
+    }
+    
 }

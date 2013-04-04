@@ -110,3 +110,7 @@ div#login {
 .green{
     background:green!important;
 }
+.noBackground tr, .noBackground td {
+    background: none !important;
+    width: 100%;
+}

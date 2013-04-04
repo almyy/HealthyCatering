@@ -226,11 +226,16 @@ public class Database {
         try {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement("insert into orders(timeofdelivery,"
-                    + " deliveryaddress, status, postalcode) values(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            statement.setTime(1, order.getTimeOfDelivery());
+                    + " deliveryaddress, status, usernamecustomer, postalcode, dates, totalprice) "
+                    + "values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setTime(1, new Time(order.getDate().getHours(), order.getDate().getMinutes(), order.getDate().getSeconds()));
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
-            statement.setInt(4, order.getPostalcode());
+            statement.setString(4, currentUser);
+            statement.setInt(5, order.getPostalcode());
+            java.sql.Date sqldate = new java.sql.Date(order.getDate().getTime());
+            statement.setDate(6, sqldate);
+            statement.setDouble(7, order.getTotalprice());
             statement.executeUpdate();
             connection.commit();
             int key = 0;
@@ -377,14 +382,15 @@ public class Database {
         boolean ok = false;
         openConnection();
         try {
-            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, postalcode = ?, password = ? where username = ?");
+            sqlUpdProfile = connection.prepareStatement("update users set firstname = ?,surname = ?, address = ?, mobilenr = ?, email = ?,postalcode = ?, password = ? where username = ?");
             sqlUpdProfile.setString(1, user.getFirstName());
             sqlUpdProfile.setString(2, user.getSurname());
             sqlUpdProfile.setString(3, user.getAddress());
             sqlUpdProfile.setString(4, user.getPhone());
-            sqlUpdProfile.setInt(5, user.getPostnumber());
-            sqlUpdProfile.setString(6, user.getPassword());
-            sqlUpdProfile.setString(7, currentUser);
+            sqlUpdProfile.setString(5, user.getEmail());
+            sqlUpdProfile.setInt(6, user.getPostnumber());
+            sqlUpdProfile.setString(7, user.getPassword());
+            sqlUpdProfile.setString(8, currentUser);
             ok = true;
             sqlUpdProfile.executeUpdate();
             connection.commit();
