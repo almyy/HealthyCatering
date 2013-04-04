@@ -160,7 +160,7 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
-            sqlLogIn = connection.prepareStatement("UPDATE BRUKER SET PASSORD = ? WHERE BRUKERNAVN = ?");
+            sqlLogIn = connection.prepareStatement("UPDATE user SET PASSWORD = ? WHERE username = ?");
             sqlLogIn.setString(1, user.getPassword());
             sqlLogIn.setString(2, user.getUsername());
             sqlLogIn.executeUpdate();
@@ -532,11 +532,11 @@ public class Database {
         closeConnection();
         return dishes;
     }
+    
     public String getRole() {
         PreparedStatement statement = null;
         openConnection();
         String role = "";
-        System.out.println(currentUser);
          try {
             statement = connection.prepareStatement("SELECT * FROM roles WHERE username=?");
             statement.setString(1, currentUser);
@@ -556,5 +556,36 @@ public class Database {
         closeConnection();
         System.out.println(role);
         return role;
+    }
+    
+    public User emailExist(String inputEmail){
+        PreparedStatement sqlLogIn = null;
+        openConnection();
+        User newUser = new User();
+        try {
+            sqlLogIn = connection.prepareStatement("SELECT * FROM users WHERE email = '" + inputEmail + "'");
+            ResultSet res = sqlLogIn.executeQuery();
+            connection.commit();
+            while (res.next()) {
+                String username = res.getString("username");
+                String password = res.getString("password");
+                String firstname = res.getString("firstname");
+                String surname = res.getString("surname");
+                String address = res.getString("address");
+                String mobilenr = res.getString("mobilenr");
+                int postalcode = res.getInt("postalcode");
+                String email = res.getString("email");
+                newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sqlLogIn);
+        }
+        closeConnection();
+        return newUser;
     }
 }
