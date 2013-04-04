@@ -2,7 +2,6 @@ DROP TABLE dishes_ordered;
 DROP TABLE private;
 DROP TABLE orders;
 DROP TABLE subscriptionplan;
-DROP TABLE company;
 DROP TABLE CUSTOMER;
 DROP TABLE dish;
 DROP TABLE salesman;
@@ -101,11 +100,6 @@ CREATE TABLE private(
     username VARCHAR(20) NOT NULL,
     CONSTRAINT private_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT private_pk PRIMARY KEY(username)
-);
-CREATE TABLE company(
-    username VARCHAR(20) NOT NULL,
-    CONSTRAINT company_fk FOREIGN KEY(username) REFERENCES users(username),
-    CONSTRAINT company_pk PRIMARY KEY(username)
 );
 CREATE TABLE Subscriptionplan(
     subscriptionId INTEGER not null,
