@@ -19,8 +19,8 @@ public class Order {
     private ArrayList<Dish> orderedDish = new ArrayList();
     private double orderPrice = 0.0;
     private String description;
-    private int postalcode;
-    private double totalprice;
+    private int postalcode; 
+    private double totalprice = 0.0;
 
     public Order() {
     }
@@ -65,6 +65,38 @@ public class Order {
                 break;
         }
     }
+    public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status,double totalPrice) {
+        fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
+                timeOfDelivery.getHours(), timeOfDelivery.getMinutes(), timeOfDelivery.getSeconds());
+        this.date = date;
+        this.timeOfDelivery = timeOfDelivery;
+        this.deliveryAddress = deliveryAddress;
+        status_numeric = status;
+        this.totalprice = totalPrice; 
+        switch (status) {
+            case 1:
+                this.status = Status.PENDING.toString();
+                break;
+            case 2:
+                this.status = Status.UNDER_PREPARATION.toString();
+                break;
+            case 3:
+                this.status = Status.PENDING_DELIVERY.toString();
+                break;
+            case 4:
+                this.status = Status.ON_THE_ROAD.toString();
+                break;
+            case 5:
+                this.status = Status.FINISHED.toString();
+                break;
+            case 6:
+                this.status = Status.MISSING.toString();
+                break;
+            case 7:
+                this.status = Status.NEEDS_APPROVAL.toString();
+                break;
+        }
+    }
 
     public Order(Date date, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode, double totalprice) {
         fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
@@ -78,6 +110,10 @@ public class Order {
         this.totalprice = totalprice;
     }
 
+    public double getTotalPrice() {
+        return totalprice;
+    }
+    
     public String getStatus() {
         return status;
     }
