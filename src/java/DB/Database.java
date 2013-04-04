@@ -18,7 +18,7 @@ public class Database {
     @Resource(name = "jdbc/hc_realm")
     private DataSource ds;
     private Connection connection;
-    private String currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+    private String currentUser;
 
     public Database() {
         try {
@@ -28,6 +28,7 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+    
     public ArrayList<Order> getTurnoverstatistics(String query){
         ArrayList<Order> orders = new ArrayList();
         ResultSet res = null;
@@ -248,6 +249,7 @@ public class Database {
         PreparedStatement statement = null;
         PreparedStatement statement2 = null;
         openConnection();
+        currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         boolean result = false;
         try {
             connection.setAutoCommit(false);
@@ -339,6 +341,7 @@ public class Database {
     public User getUser() {
         PreparedStatement statement = null;
         openConnection();
+        currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         User newUser = new User();
         try {
             statement = connection.prepareStatement("SELECT * FROM users WHERE username = '" + currentUser + "'");
@@ -405,6 +408,7 @@ public class Database {
 
     public boolean changeData(User user) {
         PreparedStatement sqlUpdProfile = null;
+        currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         boolean ok = false;
         openConnection();
         try {
@@ -536,6 +540,7 @@ public class Database {
     public String getRole() {
         PreparedStatement statement = null;
         openConnection();
+        currentUser = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         String role = "";
          try {
             statement = connection.prepareStatement("SELECT * FROM roles WHERE username=?");
@@ -554,7 +559,6 @@ public class Database {
             Cleaner.closeSentence(statement);
         }
         closeConnection();
-        System.out.println(role);
         return role;
     }
     
