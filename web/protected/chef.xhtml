@@ -25,25 +25,25 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Date"/>
+                                <p:outputLabel value="#{lang_auth.Date}"/>
                             </f:facet>
                             #{OrderList.order.date}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Time of Delivery"/>
+                                <p:outputLabel value="#{lang_auth.TimeOfDelivery}"/>
                             </f:facet>
                             #{OrderList.order.timeOfDelivery}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Delivery Address"/>
+                                <p:outputLabel value="#{lang_auth.DeliveryAddress}"/>
                             </f:facet>
                             #{OrderList.order.deliveryAddress}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Ordered dish"/>
+                                <p:outputLabel value="#{lang_auth.OrderedDish}"/>
                             </f:facet>
                             #{OrderList.order.orderedDish}
                         </p:column>
@@ -61,21 +61,21 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Price"/>
+                                <p:outputLabel value="#{lang_auth.Price}"/>
                             </f:facet>
                             #{OrderList.order.orderPrice}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Change Status"/>
+                                <p:outputLabel value="#{lang_auth.ChangeStatus}"/>
                             </f:facet>
                             #{Worker.update()}
-                            <p:commandButton value="Change" action="#{OrderList.setToBeChanged()}" update="dataTable_id" />
+                            <p:commandButton value="#{lang_auth.Change}" action="#{OrderList.setToBeChanged()}" update="dataTable_id" />
                         </p:column>
                         <f:facet name="footer">
                         </f:facet>
                     </p:dataTable>
-                    <p><p:commandLink value="Logout" action="#{Frontpage.logout()}"></p:commandLink></p>
+                    <p><p:commandLink value="#{lang_auth.LogOut}" action="#{Frontpage.logout()}"></p:commandLink></p>
                 </h:form>
 
             </h:body>
