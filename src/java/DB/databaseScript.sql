@@ -41,7 +41,7 @@ CREATE TABLE postal_no (
 
 CREATE TABLE users(
     username VARCHAR(20) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(40) NOT NULL,
     firstname VARCHAR(40),
     surname VARCHAR(40),
     address VARCHAR(40) NOT NULL,

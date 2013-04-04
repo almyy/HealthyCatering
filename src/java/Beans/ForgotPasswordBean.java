@@ -12,6 +12,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import Support.SessionIdentifierGenerator;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import logikk.User;
 
 @SessionScoped
@@ -24,11 +26,11 @@ public class ForgotPasswordBean implements Serializable {
 
     public void apply() {
         User user = db.emailExist(email);
-        if (user != null) {
+        if (user.getEmail() != null) {
             Properties props = System.getProperties();
 
             props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.from", "andreaskalstad@gmail.com");
+            props.put("mail.from", "healthycatering1@gmail.com");
             props.put("mail.smtp.starttls.enable", "true");
             props.put("mail.smtp.port", "587");
             props.setProperty("mail.debug", "true");
@@ -43,18 +45,24 @@ public class ForgotPasswordBean implements Serializable {
 
                 String newPw = gen.nextSessionId();
                 user.setPassword(newPw);
-                db.changePassword(user);
-                message.setText("Hi,\n \n You requested a reset of your password."
-                        + "\n \n Your new password is now: " + newPw);
-                Transport transport = session.getTransport("smtp");
-                transport.connect("healthycatering1@gmail.com", "catering123");
-                transport.sendMessage(message, message.getAllRecipients());
-                transport.close();
-                System.out.println("Sent message successfully....");
+                if (db.changePassword(user)) {
+                    message.setText("Hi,\n \n You requested a reset of your password."
+                            + "\n \n Your new password is now: " + newPw);
+                    Transport transport = session.getTransport("smtp");
+                    transport.connect("healthycatering1@gmail.com", "catering123");
+                    transport.sendMessage(message, message.getAllRecipients());
+                    transport.close();
+                    System.out.println("Sent message successfully....");
+                }
+                FacesMessage fm = new FacesMessage("Email sent");
+                FacesContext.getCurrentInstance().addMessage(null, fm);
             } catch (MessagingException mex) {
                 mex.printStackTrace();
                 //   }
             }
+        } else {
+            FacesMessage fm = new FacesMessage("Email was not found");
+            FacesContext.getCurrentInstance().addMessage(null, fm);
         }
     }
 
