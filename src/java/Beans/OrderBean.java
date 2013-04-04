@@ -2,14 +2,12 @@
 package Beans;
 
 import DB.Database;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import logikk.Dish;
@@ -62,6 +60,11 @@ public class OrderBean implements Serializable {
                     System.out.println("IOException");
                 }
             }
+        }
+        else{
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, try again later.", "Error, try again later.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            returnvalue = "order.xhtml";
         }
         return returnvalue;
     }

@@ -11,21 +11,78 @@
     <ui:composition template="../userTemplate.xhtml">
         <ui:define name="content">
             <h2>Setup subscription plan</h2>
-            <p:panelGrid columns="2" styleClass="noBackground">
-                <p:panel>
-                    <h3>Days of the week:</h3>
-                    <p:selectManyCheckbox value="#{subBean.selectedDays}"  
-                                          layout="pageDirection">  
-                        <f:selectItems value="#{subBean.weekdays}" />  
-                    </p:selectManyCheckbox>
-                    <p:selectOneMenu value="#{subBean.mondaytime.hours}" valueChangeListener="submit()">
-                        <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
-                    </p:selectOneMenu>
-                    <p:selectOneMenu value="#{subBean.mondaytime.minutes}" valueChangeListener="submit()">
-                        <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
-                    </p:selectOneMenu>
-                </p:panel>
-            </p:panelGrid>
+            <table>
+                <tr>
+                    <td>
+                        <h3>Start</h3>
+                    </td>
+                    <td>
+                        <p:calendar effect="drop" value="#{subBean.startdate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>End</h3>
+                    </td>
+                    <td>
+                        <p:calendar effect="drop" value="#{subBean.enddate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><h3>Days:</h3></td>
+                    <td><h3>Time:</h3></td>
+                </tr>
+                <tr>
+                    <td>  
+                        <p:selectManyCheckbox value="#{subBean.selectedDays}"  
+                                              layout="pageDirection">  
+                            <f:selectItems value="#{subBean.weekdays}" />  
+                        </p:selectManyCheckbox>
+                    </td>
+                    <td>
+                        <p:panel style="background: none !important; border: none !important; width: 200px;">
+                            <p:selectOneMenu value="#{subBean.mondaytime.hours}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{subBean.mondaytime.minutes}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
+                            </p:selectOneMenu><br />
+
+                            <p:selectOneMenu value="#{subBean.tuesdaytime.hours}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{subBean.tuesdaytime.minutes}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
+                            </p:selectOneMenu><br />
+
+                            <p:selectOneMenu value="#{subBean.wednesdaytime.hours}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{subBean.wednesdaytime.minutes}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
+                            </p:selectOneMenu><br />
+
+                            <p:selectOneMenu value="#{subBean.thursdaytime.hours}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{subBean.thursdaytime.minutes}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
+                            </p:selectOneMenu><br />
+
+                            <p:selectOneMenu value="#{subBean.fridaytime.hours}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.hourvalues}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{subBean.fridaytime.minutes}" valueChangeListener="submit()">
+                                <f:selectItems value="#{orderBean.minutevalues}"></f:selectItems>    
+                            </p:selectOneMenu>
+                        </p:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <p:commandButton value="Send" action="#{subBean.submitPlan()}" ajax="false"></p:commandButton>
+                </tr>
+            </table>
         </ui:define>
     </ui:composition>
 </html>
