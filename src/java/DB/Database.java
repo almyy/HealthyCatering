@@ -160,7 +160,7 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
-            sqlLogIn = connection.prepareStatement("UPDATE user SET PASSWORD = ? WHERE username = ?");
+            sqlLogIn = connection.prepareStatement("UPDATE users SET PASSWORD = ? WHERE username = ?");
             sqlLogIn.setString(1, user.getPassword());
             sqlLogIn.setString(2, user.getUsername());
             sqlLogIn.executeUpdate();
@@ -576,6 +576,7 @@ public class Database {
                 int postalcode = res.getInt("postalcode");
                 String email = res.getString("email");
                 newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
+                newUser.setEmail(email);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

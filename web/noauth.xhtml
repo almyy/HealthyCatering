@@ -1,10 +1,9 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>FAAAAAIL</title>
         <ui:composition template="userTemplate.xhtml">
@@ -32,6 +31,28 @@
         </ui:composition>
     </h:head>
     <h:body>
-</h:body>
+        <ui:composition template="userTemplate.xhtml">
+            <ui:define name="content">
+                <div id="login" class="login">
+                    <h:form id="login1" onsubmit="document.getElementById('login1').action = 'j_security_check';" prependId="false" rendered="#{!Frontpage.isLoggedIn()}">
+                        <table>
+                            <tr>
+                                <td><p:outputLabel value="Username"/></td>
+                                <td><p:inputText id="j_username"/></td>
+                            </tr>
+                            <tr>
+                                <td><p:outputLabel value="Password"/></td>
+                                <td><p:inputText id="j_password" type="password"/></td>
+                            </tr>
+                        </table>
+                        <p:messages />
+                        <p><p:commandButton id="submit" value="Login" ajax="false" /></p>
+                        <p><p:commandLink value="Register" action="./register.xhtml"/></p>
+                        <p><p:commandLink value="Forgot password?"/></p>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>
 
