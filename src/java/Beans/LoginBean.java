@@ -1,5 +1,6 @@
 package Beans;
 
+import DB.Database;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
@@ -16,20 +17,22 @@ public class LoginBean implements Serializable {
 
     public void redirect() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Database db = new Database();
         try {
-            if (externalContext.getUserPrincipal().getName().equals("customer")) {
-                externalContext.redirect("faces/protected/customer.xhtml");
+            String role = db.getRole();
+            if (role.equals("customer")) {
+                externalContext.redirect("faces/protected/profile.xhtml");
             }
-            if (externalContext.getUserPrincipal().getName().equals("chef")) {
+            if (role.equals("chef")) {
                 externalContext.redirect("faces/protected/chef.xhtml");
             }
-            if (externalContext.getUserPrincipal().getName().equals("salesman")) {
+            if (role.equals("salesman")) {
                 externalContext.redirect("faces/protected/salesman.xhtml");
             }
-            if (externalContext.getUserPrincipal().getName().equals("driver")) {
+            if (role.equals("driver")) {
                 externalContext.redirect("faces/protected/driver.xhtml");
             }
-            if (externalContext.getUserPrincipal().getName().equals("admin")) {
+            if (role.equals("admin")) {
                 externalContext.redirect("faces/protected/admin.xhtml");
             }
         } catch (IOException e) {

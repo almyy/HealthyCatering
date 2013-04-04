@@ -43,7 +43,7 @@ public class Database {
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 int status = res.getInt("STATUS");
                 int orderId = res.getInt("ORDERID");
-                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status);
+                Order orderToBeAdded = new Order(date, timeOfDelivery, deliveryAddress, status);
                 orderToBeAdded.setOrderId(orderId);
                 orders.add(orderToBeAdded);
             }
@@ -87,7 +87,7 @@ public class Database {
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
-                Order orderToBeAdded = new Order(date,timeOfDelivery, deliveryAddress, status);
+                Order orderToBeAdded = new Order(date, timeOfDelivery, deliveryAddress, status);
             }
 
         } catch (SQLException e) {
@@ -115,7 +115,7 @@ public class Database {
                 String deliveryAddress = res.getString("DELIVERYADDRESS");
                 java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
-                orders.add(new Order(date,timeOfDelivery, deliveryAddress, status));
+                orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
             }
 
         } catch (SQLException e) {
@@ -160,14 +160,15 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
-            sqlRegNewuser = connection.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?)");
+            sqlRegNewuser = connection.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             sqlRegNewuser.setString(1, user.getUsername());
             sqlRegNewuser.setString(2, user.getPassword());
             sqlRegNewuser.setString(3, user.getFirstName());
             sqlRegNewuser.setString(4, user.getSurname());
             sqlRegNewuser.setString(5, user.getAddress());
             sqlRegNewuser.setString(6, user.getPhone());
-            sqlRegNewuser.setInt(7, user.getPostnumber());
+            sqlRegNewuser.setString(7, user.getEmail());
+            sqlRegNewuser.setInt(8, user.getPostnumber());
             sqlRegNewuser.executeUpdate();
 
             sqlRegNewRole = connection.prepareStatement("INSERT INTO roles VALUES(?,?)");
@@ -229,7 +230,7 @@ public class Database {
             statement.setTime(1, order.getTimeOfDelivery());
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
-            statement.setInt(4, order.getPostalcode()); 
+            statement.setInt(4, order.getPostalcode());
             statement.setDate(5, new java.sql.Date(order.getDate().getTime()));
             statement.executeQuery();
             ResultSet keys = statement.getGeneratedKeys();
@@ -316,7 +317,27 @@ public class Database {
                 String address = res.getString("address");
                 String mobilenr = res.getString("mobilenr");
                 int postalcode = res.getInt("postalcode");
+                String email = res.getString("email");
                 newUser = new User(username, password, firstname, surname, address, mobilenr, postalcode);
+                newUser.setEmail(email);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
+        }
+        try {
+            statement = connection.prepareStatement("SELECT * FROM POSTAL_NO WHERE zip=?");
+            statement.setInt(1, newUser.getPostnumber());
+            ResultSet res = statement.executeQuery();
+            connection.commit();
+            while (res.next()) {
+                String postalArea = res.getString("place");
+                newUser.setCity(postalArea);
+                System.out.println(postalArea);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -372,7 +393,8 @@ public class Database {
         closeConnection();
         return ok;
     }
-    public boolean regDish(Dish dish){
+
+    public boolean regDish(Dish dish) {
         PreparedStatement sqlRegNew = null;
         openConnection();
         boolean ok = false;
@@ -401,6 +423,7 @@ public class Database {
         closeConnection();
         return ok;
     }
+
     public boolean deleteDish(Dish dish) {
         boolean ok = false;
         PreparedStatement sqlDel = null;
@@ -423,8 +446,8 @@ public class Database {
 
 
     }
-    
-     public boolean changeDishData(Dish dish) {
+
+    public boolean changeDishData(Dish dish) {
         PreparedStatement sqlUpdDish = null;
         boolean ok = false;
         openConnection();
@@ -434,7 +457,7 @@ public class Database {
             sqlUpdDish.setString(1, dish.getDishName());
             sqlUpdDish.setDouble(2, dish.getPrice());
             sqlUpdDish.setInt(3, dish.getDishId());
-          
+
             ok = true;
             sqlUpdDish.executeUpdate();
             connection.commit();
@@ -446,8 +469,8 @@ public class Database {
         closeConnection();
         return ok;
     }
-     
-      public ArrayList<Dish> getAdminDishes() {
+
+    public ArrayList<Dish> getAdminDishes() {
         PreparedStatement sentence = null;
         openConnection();
         ArrayList<Dish> dishes = new ArrayList<Dish>();
@@ -473,5 +496,30 @@ public class Database {
         }
         closeConnection();
         return dishes;
+    }
+    public String getRole() {
+        PreparedStatement statement = null;
+        openConnection();
+        String role = "";
+        System.out.println(currentUser);
+         try {
+            statement = connection.prepareStatement("SELECT * FROM roles WHERE username=?");
+            statement.setString(1, currentUser);
+            ResultSet res = statement.executeQuery();
+            connection.commit();
+            while (res.next()) {
+                role = res.getString("rolename");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
+        }
+        closeConnection();
+        System.out.println(role);
+        return role;
     }
 }
