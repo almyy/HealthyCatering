@@ -12,9 +12,9 @@
         </h:head>
         <ui:define name="content">
             <h:body>
-                #{Sales.update()}
-                <h:form>
-                    <p:dataTable value="#{Sales.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id">                        
+                <h:form >
+                    #{Sales.update()}
+                    <p:dataTable value="#{Sales.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id">    
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="ID"/>
@@ -61,8 +61,7 @@
                             <f:facet name="header">
                                 <p:outputLabel value="#{lang_auth.ChangeStatus}"/>
                             </f:facet>
-                            #{Sales.update()}
-                            <p:commandButton value="#{lang_auth.Change}" action="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
+                            <p:commandButton value="#{lang_auth.Change}" action="#{Sales.update()}" actionListener="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
                         </p:column>
                         <f:facet name="footer">
                         </f:facet>
