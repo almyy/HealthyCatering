@@ -12,9 +12,9 @@
         </h:head>
         <ui:define name="content">
             <h:body>
-                #{Sales.update()}
-                <h:form>
-                    <p:dataTable value="#{Sales.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id">                        
+                <h:form >
+                    #{Sales.update()}
+                    <p:dataTable value="#{Sales.tabledata}" var="OrderStatus" styleClass="orders" id="dataTable_id">    
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="ID"/>
@@ -23,25 +23,25 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Date"/>
+                                <p:outputLabel value="#{lang_auth.Date}"/>
                             </f:facet>
                             #{OrderStatus.order.date}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Time of Delivery"/>
+                                <p:outputLabel value="#{lang_auth.TimeOfDelivery}"/>
                             </f:facet>
                             #{OrderStatus.order.timeOfDelivery}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Delivery Address"/>
+                                <p:outputLabel value="#{lang_auth.DeliveryAddress}"/>
                             </f:facet>
                             #{OrderStatus.order.deliveryAddress}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Ordered dish"/>
+                                <p:outputLabel value="#{lang_auth.OrderedDish}"/>
                             </f:facet>
                             #{OrderStatus.order.orderedDish}
                         </p:column>
@@ -53,22 +53,21 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Price"/>
+                                <p:outputLabel value="#{lang_auth.Price}"/>
                             </f:facet>
                             #{OrderStatus.order.orderPrice}
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <p:outputLabel value="Change Status"/>
+                                <p:outputLabel value="#{lang_auth.ChangeStatus}"/>
                             </f:facet>
-                            #{Sales.update()}
-                            <p:commandButton value="Change" action="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
+                            <p:commandButton value="#{lang_auth.Change}" action="#{Sales.update()}" actionListener="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
                         </p:column>
                         <f:facet name="footer">
                         </f:facet>
                     </p:dataTable>
                 </h:form>
-                <a href="order.xhtml">Order dish</a>
+                <a href="../menu.xhtml">#{lang_auth.OrderDish}</a>
             </h:body>
         </ui:define>
     </ui:composition>

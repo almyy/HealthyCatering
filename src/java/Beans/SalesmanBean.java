@@ -38,11 +38,7 @@ public class SalesmanBean implements Serializable {
     public synchronized void update() {
         ArrayList<Order> temp = overView.getFirstOrdersSalesmen();
         if (tabledata.size() < temp.size()) {
-            tabledata.clear();
-            for (int i = 0; i < temp.size(); i++) {
-                tabledata.add(new OrderStatus(temp.get(i)));
-            }
-            quickSortDate(0,tabledata.size()-1);
+            getFromDb(); 
         }
         for (int i = 0; i < tabledata.size(); i++) {
             if (tabledata.get(i).getToBeChanged()) {
@@ -50,6 +46,16 @@ public class SalesmanBean implements Serializable {
                 overView.updateDb(tabledata.get(i).getOrder());
             }
         }
+        getFromDb(); 
+    }
+
+    private void getFromDb() {
+        ArrayList<Order> temp = overView.getFirstOrdersSalesmen();
+        tabledata.clear();
+        for (int i = 0; i < temp.size(); i++) {
+            tabledata.add(new OrderStatus(temp.get(i)));
+        }
+        quickSortDate(0, tabledata.size() - 1);
     }
 
     private void quickSortDate(int low, int high) {
@@ -64,7 +70,9 @@ public class SalesmanBean implements Serializable {
                 j--;
             }
             if (i <= j) {
-                exchange(i, j);i++;j--;
+                exchange(i, j);
+                i++;
+                j--;
             }
         }
         if (low < j) {
@@ -74,9 +82,10 @@ public class SalesmanBean implements Serializable {
             quickSortDate(i, high);
         }
     }
+
     private void exchange(int i, int j) {
         OrderStatus temp = tabledata.get(i);
         tabledata.set(i, tabledata.get(j));
-        tabledata.set(j,temp);
+        tabledata.set(j, temp);
     }
 }

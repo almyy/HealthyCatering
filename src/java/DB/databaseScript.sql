@@ -1,8 +1,8 @@
+DROP TABLE dishes_stored; 
 DROP TABLE dishes_ordered;
 DROP TABLE private;
 DROP TABLE orders;
 DROP TABLE subscriptionplan;
-DROP TABLE company;
 DROP TABLE CUSTOMER;
 DROP TABLE dish;
 DROP TABLE salesman;
@@ -102,19 +102,13 @@ CREATE TABLE private(
     CONSTRAINT private_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT private_pk PRIMARY KEY(username)
 );
-CREATE TABLE company(
-    username VARCHAR(20) NOT NULL,
-    CONSTRAINT company_fk FOREIGN KEY(username) REFERENCES users(username),
-    CONSTRAINT company_pk PRIMARY KEY(username)
-);
 CREATE TABLE Subscriptionplan(
-    subscriptionId INTEGER not null,
+    subscriptionId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     startDate date,
     endDate date,
-    
-    companyUserName VarCHAR(20),
-    CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId),
-    CONSTRAINT subscriptionplan_fk1 FOREIGN KEY(companyUserName) REFERENCES company(UserName)
+    timeofdelivery time,
+    weekday varchar(20),
+    CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId)
 ); 
 CREATE TABLE orders(
     orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
@@ -144,5 +138,18 @@ CREATE TABLE dishes_ordered(
     orderId INTEGER NOT NULL,
     dishCount INTEGER NOT NULL,
     CONSTRAINT dishes_ordered_fk FOREIGN KEY(orderId) REFERENCES orders(orderID),
+    CONSTRAINT dishes_ordered_fk2 FOREIGN KEY(dishId) REFERENCES dish(dishId),
     CONSTRAINT dishes_ordered_pk PRIMARY KEY(orderId,dishId)
+);
+CREATE TABLE dishes_stored(
+    dishId INTEGER NOT NULL,
+    orderId INTEGER NOT NULL,
+    dishCount INTEGER NOT NULL,
+    totalPrice decimal, 
+    dates date,
+    postalcode SMALLINT,
+    salesmanusername VARCHAR(40),
+    CONSTRAINT dishes_stored_fk1 FOREIGN KEY(dishId) REFERENCES dish(dishId),
+    CONSTRAINT dishes_stored_fk2 FOREIGN KEY(orderId) REFERENCES orders(orderId),
+    CONSTRAINT dishes_stores_pk PRIMARY KEY(orderId,dishId)
 );

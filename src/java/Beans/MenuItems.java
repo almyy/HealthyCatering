@@ -1,4 +1,4 @@
-package logikk;
+package Beans;
 
 import DB.Database;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import logikk.Dish;
 
 /**
  *
@@ -88,23 +89,14 @@ public class MenuItems implements Serializable {
         this.total_price = total_price;
     }
 
-    public void order() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        if (facesContext != null) {
-            ExternalContext externalContext = facesContext.getExternalContext();
-            try {
-                if (facesContext.getExternalContext()
-                        .getUserPrincipal().getName().equals("customer")) {
-                    externalContext.redirect("faces/protected/order.xhtml");
-                } else {
-                    externalContext.redirect("faces/index.xhtml");
-                }
-            } catch (IOException e) {
-                System.out.println("IOException");
-            }
+    public String order() {
+        String returnvalue = "";
+        if (db.getRole().equals("customer")||db.getRole().equals("salesman")) {
+            returnvalue = "faces/protected/order.xhtml";
         }
+        return returnvalue;
     }
-    
+
     public boolean isLoggedIn() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         if (externalContext.getRemoteUser() != null) {
