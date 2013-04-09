@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import logikk.Order;
 import logikk.OrderStatus;

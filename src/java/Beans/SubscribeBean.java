@@ -25,6 +25,7 @@ public class SubscribeBean implements Serializable {
             new Time(10, 10, 0), new Time(10, 10, 0), new Time(10, 10, 0)));
     private Date startdate = new Date();
     private Date enddate = new Date();
+    private boolean isEnglish;
 
     public String submitPlan() {
         String returnvalue = "";
@@ -79,5 +80,13 @@ public class SubscribeBean implements Serializable {
 
     public void setTimes(ArrayList<Time> times) {
         this.times = times;
+    }
+    
+    public void setIsEnglish(boolean isEnglish){
+        this.isEnglish = isEnglish;
+    }
+    
+    public boolean getIsEnglish(){
+        return isEnglish;
     }
 }

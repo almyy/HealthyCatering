@@ -10,7 +10,7 @@
 
     <ui:composition template="../userTemplate.xhtml">
         <ui:define name="content">
-            <h2>Setup subscription plan</h2>
+            <h2>#{lang_auth.SetupSubscriptionPlan}</h2>
             <table>
                 <tr>
                     <td>
@@ -22,7 +22,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <h3>End</h3>
+                        <h3>#{lang_auth.End}</h3>
                     </td>
                     <td>
                         <p:calendar effect="drop" value="#{subBean.enddate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
@@ -30,14 +30,14 @@
                 </tr>
 
                 <tr>
-                    <td><h3>Days:</h3></td>
-                    <td><h3>Time:</h3></td>
+                    <td><h3>#{lang_auth.Days}:</h3></td>
+                    <td><h3>#{lang_auth.Time}:</h3></td>
                 </tr>
                 <tr>
                     <td>  
                         <p:selectManyCheckbox value="#{subBean.selectedDays}"  
                                               layout="pageDirection">  
-                            <f:selectItems value="#{subBean.weekdays}" />  
+                            <f:selectItems value="#{subBean.weekdays}" rendered="#{subBean.isEnglish}"/>    
                         </p:selectManyCheckbox>
                     </td>
                     <td>

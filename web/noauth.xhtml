@@ -13,20 +13,20 @@
                 <form method="POST" action="j_security_check">
                     <table>
                         <tr>
-                            <td><h:outputText value="Username"/></td>
+                            <td><h:outputText value="#{lang_auth.Username}"/></td>
                             <td><p:inputText  id="j_username"/></td>
                         </tr>
                         <tr>
-                            <td><h:outputText value="Password"/></td>
+                            <td><h:outputText value="#{lang_auth.Password}"/></td>
                             <td><p:inputText id="j_password" type="password"/></td>
                         </tr>
                     </table>
-                    <p><p:commandButton onclick="submit()" value="Login" ></p:commandButton></p>
-                    <p><p:commandLink value="Register" ></p:commandLink></p>
-                    <p><p:commandLink value="Forgot password?"></p:commandLink></p>
+                    <p><p:commandButton onclick="submit()" value="#{lang_auth.LogIn}" ></p:commandButton></p>
+                    <p><p:commandLink value="#{lang_auth.Register}" ></p:commandLink></p>
+                    <p><p:commandLink value="#{lang_auth.ForgottenPassword}?"></p:commandLink></p>
                 </form>
                 </div>
-                Detta ble feil, gitt.
+                #{lang_auth.Wrong}
             </ui:define>
         </ui:composition>
     </h:head>
@@ -37,18 +37,18 @@
                     <h:form id="login1" onsubmit="document.getElementById('login1').action = 'j_security_check';" prependId="false" rendered="#{!Frontpage.isLoggedIn()}">
                         <table>
                             <tr>
-                                <td><p:outputLabel value="Username"/></td>
+                                <td><p:outputLabel value="#{lang_auth.Username}"/></td>
                                 <td><p:inputText id="j_username"/></td>
                             </tr>
                             <tr>
-                                <td><p:outputLabel value="Password"/></td>
+                                <td><p:outputLabel value="#{lang_auth.Password}"/></td>
                                 <td><p:inputText id="j_password" type="password"/></td>
                             </tr>
                         </table>
                         <p:messages />
-                        <p><p:commandButton id="submit" value="Login" ajax="false" /></p>
-                        <p><p:commandLink value="Register" action="./register.xhtml"/></p>
-                        <p><p:commandLink value="Forgot password?"/></p>
+                        <p><p:commandButton id="submit" value="#{lang_auth.LogIn}" ajax="false" /></p>
+                        <p><p:commandLink value="#{lang_auth.Register}" action="./register.xhtml"/></p>
+                        <p><p:commandLink value="#{lang_auth.ForgottenPassword}"/></p>
                     </h:form>
                 </div>
             </ui:define>
