@@ -6,6 +6,7 @@ package logikk;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.faces.component.UIComponent;
 
 public class Order {
 
@@ -21,6 +22,7 @@ public class Order {
     private String description;
     private int postalcode; 
     private double totalprice = 0.0;
+    private UIComponent uic;
 
     public Order() {
     }
@@ -110,6 +112,14 @@ public class Order {
         this.totalprice = totalprice;
     }
 
+    public UIComponent getUic() {
+        return uic;
+    }
+
+    public void setUic(UIComponent uic) {
+        this.uic = uic;
+    }
+    
     public double getTotalPrice() {
         return totalprice;
     }

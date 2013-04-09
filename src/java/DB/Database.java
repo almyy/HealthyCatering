@@ -85,18 +85,21 @@ public class Database {
     //FOR ADMIN
     public void updateOrder(Order s) {
         PreparedStatement sqlRead = null;
-        ResultSet res = null;
         openConnection();
         try {
-            sqlRead = connection.prepareStatement("UPDATE ASD.ORDERS set STATUS=? where ORDERID=?");
+            sqlRead = connection.prepareStatement("UPDATE ORDERS set STATUS=? where ORDERID=?");
             sqlRead.setInt(1, s.getStatusNumeric());
             sqlRead.setInt(2, s.getOrderId());
             sqlRead.executeUpdate();
+            connection.commit();
+            System.out.println(s.getStatusNumeric() + ", " + s.getOrderId());
         } catch (Exception e) {
-            Cleaner.closeConnection(connection);
-            Cleaner.closeResSet(res);
+            System.out.println("lol");
+        } finally {
             Cleaner.closeSentence(sqlRead);
+            Cleaner.setAutoCommit(connection);
         }
+        closeConnection();
     }
 
     public ArrayList<Order> getOrderOverview() {
@@ -106,7 +109,7 @@ public class Database {
         openConnection();
 
         try {
-            sqlRead = connection.prepareStatement("SELECT * FROM ASD.ORDERS");
+            sqlRead = connection.prepareStatement("SELECT * FROM ORDERS");
             res = sqlRead.executeQuery();
             while (res.next()) {
                 java.sql.Date date = res.getDate("dates");

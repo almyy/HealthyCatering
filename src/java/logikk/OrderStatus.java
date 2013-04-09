@@ -4,20 +4,22 @@
  */
 package logikk;
 
-/**
- *
- * @author Rino
- */
-public class OrderStatus {
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+public class OrderStatus implements Serializable{
     
     private Order order;
     private boolean toBeChanged;
-    private boolean toBeDeleted; 
+    private boolean toBeDeleted;
+    private UIComponent uic;
     
-    public OrderStatus(){
+    public OrderStatus(){   
         order = new Order();
         toBeChanged=false;
-        toBeDeleted = false; 
+        toBeDeleted = false;
     }
     public OrderStatus(Order order){
         this.order = order;
@@ -38,6 +40,7 @@ public class OrderStatus {
     }
     public void setToBeChanged(){
         toBeChanged = !toBeChanged;
+        System.out.println("FITTE");
     }
     public void setToBeDeleted(boolean newToBeDeleted){
         toBeDeleted = newToBeDeleted; 
@@ -45,4 +48,13 @@ public class OrderStatus {
     public void setOrder(Order newOrder){
         this.order = newOrder; 
     }
+
+    public UIComponent getUic() {
+        return uic;
+    }
+
+    public void setUic(UIComponent uic) {
+        this.uic = uic;
+    }
+    
 }
