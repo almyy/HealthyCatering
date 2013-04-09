@@ -129,9 +129,40 @@ public class Database {
         return orders;
     }
     
-    public ArrayList<Order> removeSubscription(){
-        ArrayList<Order> result = new ArrayList<Order>();
-        
+    public ArrayList<SubscriptionPlan> removeOrder(){
+        ArrayList<SubscriptionPlan> result = new ArrayList<SubscriptionPlan>();
+        ArrayList subremove = new ArrayList();
+        PreparedStatement sqlRead = null;
+        PreparedStatement sqlRemove = null;
+        ResultSet res = null;
+        openConnection();
+        try {
+            sqlRead = connection.prepareStatement("SELECT subscriptionplan.* "
+                    + "FROM ORDERS, SUBSCRIPTIONPLAN WHERE orders.subscriptionid = "
+                    + "subscriptionplan.subscriptionid and subscriptionplan.enddate <= CURRENT DATE;");
+            res = sqlRead.executeQuery();
+            while (res.next()) { 
+                int subid = res.getInt("subscriptionid");
+                Date startdate = res.getDate("startdate");
+                Date enddate = res.getDate("enddate");
+                Time time = res.getTime("timeofdelivery");
+                String day = res.getString("weekday");
+                String username = res.getString("companyusername");
+                java.util.Date utilstart = startdate;
+                java.util.Date utilend = enddate;
+                SubscriptionPlan plan = new SubscriptionPlan(subid, utilstart, utilend, time, day, username);
+                subremove.add(subid);
+                result.add(plan);
+            }
+            sqlRemove = connection.prepareStatement("DELETE ");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(sqlRead);
+        }
         return result;
     }
     
@@ -227,7 +258,6 @@ public class Database {
         return ok;
     }
 //FOR MENU
-
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();
@@ -336,14 +366,15 @@ public class Database {
         boolean result = true;
         try {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("insert into subscriptionplan(startdate, enddate, timeofdelivery, weekday)"
-                    + "values (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement("insert into subscriptionplan(startdate, enddate, timeofdelivery, weekday, companyusername)"
+                    + "values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             java.sql.Date sqldate = new java.sql.Date(plan.startdate.getTime());
             java.sql.Date sqldate2 = new java.sql.Date(plan.enddate.getTime());
             statement.setDate(1, sqldate);
             statement.setDate(2, sqldate2);
             statement.setTime(3, plan.timeofdelivery);
             statement.setString(4, plan.weekday);
+            statement.setString(5, getCurrentUser());
             statement.executeUpdate();
             int key = 0;
             ResultSet res = statement.getGeneratedKeys();
