@@ -9,7 +9,6 @@ import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import logikk.MenuItems;
 import logikk.Order;
 import logikk.SubscriptionPlan;
 
