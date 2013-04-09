@@ -128,6 +128,14 @@ public class Database {
         }
         return orders;
     }
+    
+    public ArrayList<Order> removeSubscription(){
+        ArrayList<Order> result = new ArrayList<Order>();
+        
+        return result;
+    }
+    
+    //
 
     //FOR DRIVER
     public ArrayList<Order> getDriversList() {
