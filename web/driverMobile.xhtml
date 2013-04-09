@@ -33,10 +33,11 @@ and open the template in the editor.
                                         <p><p:outputLabel value="#{List.order.timeOfDelivery}"/></p>
                                     </p:column>
                                     <p:column>
-                                        <h:selectOneMenu value="#{List.order.status}" valueChangeListener="#{Driver.statusChanged}">
+                                        <h:selectOneMenu  value="#{List.order.status}">
                                             <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>
                                             <f:selectItem itemValue="ON_THE_ROAD" itemLabel="ON_THE_ROAD"/>
                                             <f:selectItem itemValue="FINISHED" itemLabel="FINISHED"/>
+                                            <p:ajax listener="#{Driver.statusChanged}" />
                                         </h:selectOneMenu>
                                     </p:column>
                                 </p:row>

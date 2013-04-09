@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -28,7 +29,6 @@ public class DriverBean implements Serializable {
     private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
     private Order tempOrder = new Order();
     private PendingOrders overview = new PendingOrders();
-    private UIComponent uic = null;
 
     public DriverBean() {
         if (overview.getFirstOrdersDrivers() != null) {
@@ -51,13 +51,12 @@ public class DriverBean implements Serializable {
         return tempOrder;
     }
 
-    public void statusChanged(ValueChangeEvent e) {
+    public void statusChanged() {
         System.out.println("yo");
         for (int i = 0; i < tabledata.size(); i++) {
             System.out.println(tabledata.get(i).getOrder().getStatus());
             overview.updateDb(tabledata.get(i).getOrder());
         }
-        update();
     }
 
     public synchronized void update() {
@@ -66,14 +65,8 @@ public class DriverBean implements Serializable {
         for (int i = 0; i < temp.size(); i++) {
             tabledata.add(new OrderStatus(temp.get(i)));
         }
-
     }
 
-    public UIComponent getUic() {
-        return uic;
-    }
-
-    public void setUic(UIComponent uic) {
-        this.uic = uic;
+    public void fjert() {
     }
 }
