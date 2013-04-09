@@ -209,8 +209,7 @@ public class Order {
         return totalprice;
     }
 
-    public void setTotalprice(double totalprice) {
+    public void setTotalPrice(double totalprice) {
         this.totalprice = totalprice;
-    }
-    
+    }   
 }

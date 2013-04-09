@@ -2,7 +2,6 @@ DROP TABLE dishes_ordered;
 DROP TABLE private;
 DROP TABLE orders;
 DROP TABLE subscriptionplan;
-DROP TABLE company;
 DROP TABLE CUSTOMER;
 DROP TABLE dish;
 DROP TABLE salesman;
@@ -102,20 +101,13 @@ CREATE TABLE private(
     CONSTRAINT private_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT private_pk PRIMARY KEY(username)
 );
-CREATE TABLE company(
-    username VARCHAR(20) NOT NULL,
-    CONSTRAINT company_fk FOREIGN KEY(username) REFERENCES users(username),
-    CONSTRAINT company_pk PRIMARY KEY(username)
-);
 CREATE TABLE Subscriptionplan(
     subscriptionId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
     startDate date,
     endDate date,
     timeofdelivery time,
     weekday varchar(20),
-    companyUserName VarCHAR(20),
-    CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId),
-    CONSTRAINT subscriptionplan_fk1 FOREIGN KEY(companyUserName) REFERENCES company(UserName)
+    CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId)
 ); 
 CREATE TABLE orders(
     orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),

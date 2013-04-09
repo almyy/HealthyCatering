@@ -61,8 +61,7 @@
                             <f:facet name="header">
                                 <p:outputLabel value="#{lang_auth.ChangeStatus}"/>
                             </f:facet>
-                            #{Sales.update()}
-                            <p:commandButton value="#{lang_auth.Change}" action="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
+                            <p:commandButton value="#{lang_auth.Change}" action="#{Sales.update()}" actionListener="#{OrderStatus.setToBeChanged()}" update="dataTable_id" />
                         </p:column>
                         <f:facet name="footer">
                         </f:facet>

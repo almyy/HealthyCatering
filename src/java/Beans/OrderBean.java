@@ -11,7 +11,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import logikk.Dish;
-import logikk.MenuItems;
 import logikk.Order;
 import logikk.User;
 
@@ -38,7 +37,6 @@ public class OrderBean implements Serializable {
         deliverydate.setMinutes(00);
         MenuItems menuitems = getMenuItems();
         total_price = menuitems.getTotal_price();
-        
     }
 
     public String confirmOrder() {
@@ -69,7 +67,7 @@ public class OrderBean implements Serializable {
     }
     public String subscribe(){
         savedOrder = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
-        return "subscribtionplan.xhtml";
+        return "subscriptionplan.xhtml";
     }
 
     public ArrayList<Dish> fillDishes() {
