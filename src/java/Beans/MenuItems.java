@@ -91,7 +91,7 @@ public class MenuItems implements Serializable {
 
     public String order() {
         String returnvalue = "";
-        if (db.getRole().equals("customer")) {
+        if (db.getRole().equals("customer")||db.getRole().equals("salesman")) {
             returnvalue = "faces/protected/order.xhtml";
         }
         return returnvalue;

@@ -1,5 +1,6 @@
 package DB;
 
+import java.security.Principal;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;
@@ -254,17 +255,26 @@ public class Database {
         closeConnection();
         return dishes;
     }
-
     public boolean order(Order order) {
         PreparedStatement statement = null;
         PreparedStatement statement2 = null;
+        boolean customer = false; 
+        if(getRole().equals("customer")){
+            customer=true; 
+        }
         openConnection();
         boolean result = false;
         try {
             connection.setAutoCommit(false);
-            statement = connection.prepareStatement("insert into orders(timeofdelivery,"
+            if(customer){
+                statement = connection.prepareStatement("insert into orders(timeofdelivery,"
                     + " deliveryaddress, status, usernamecustomer, postalcode, dates, totalprice) "
                     + "values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            }else{
+                statement = connection.prepareStatement("insert into orders(timeofdelivery,"
+                    + " deliveryaddress, status, usernamesalesman, postalcode, dates, totalprice) "
+                    + "values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            }
             statement.setTime(1, new Time(order.getDate().getHours(), order.getDate().getMinutes(), order.getDate().getSeconds()));
             statement.setString(2, order.getDeliveryAddress());
             statement.setInt(3, 7);
