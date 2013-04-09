@@ -14,7 +14,6 @@ INSERT INTO Roles VALUES ('salesman','salesman');
 INSERT INTO CUSTOMER VALUES ('customer');
 INSERT INTO CUSTOMER VALUES ('bedrift');
 INSERT INTO private VALUES ('customer');
-INSERT INTO company VALUES ('bedrift');
 
 INSERT INTO EMPLOYEE VALUES ('admin', 1);
 INSERT INTO EMPLOYEE VALUES ('customer', 1);

@@ -93,11 +93,8 @@ public class MenuItems implements Serializable {
         if (facesContext != null) {
             ExternalContext externalContext = facesContext.getExternalContext();
             try {
-                if (facesContext.getExternalContext()
-                        .getUserPrincipal().getName().equals("customer")) {
+                if (db.getRole().equals("customer")) {
                     externalContext.redirect("faces/protected/order.xhtml");
-                } else {
-                    externalContext.redirect("faces/index.xhtml");
                 }
             } catch (IOException e) {
                 System.out.println("IOException");
