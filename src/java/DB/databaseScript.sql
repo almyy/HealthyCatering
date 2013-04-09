@@ -139,3 +139,9 @@ CREATE TABLE dishes_ordered(
     CONSTRAINT dishes_ordered_fk FOREIGN KEY(orderId) REFERENCES orders(orderID),
     CONSTRAINT dishes_ordered_pk PRIMARY KEY(orderId,dishId)
 );
+CREATE TABLE dishes_stored(
+    dishId INTEGER NOT NULL,
+    orderId INTEGER NOT NULL,
+    dishCount INTEGER NOT NULL,
+    totalPrice 
+)
