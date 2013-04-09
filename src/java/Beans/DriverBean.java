@@ -66,7 +66,4 @@ public class DriverBean implements Serializable {
             tabledata.add(new OrderStatus(temp.get(i)));
         }
     }
-
-    public void fjert() {
-    }
 }

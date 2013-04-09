@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Rino
  */
-public class PendingOrders implements Serializable {
+public class PendingOrders {
 
     private Database database = new Database();
     private ArrayList<Order> orders = new ArrayList();
