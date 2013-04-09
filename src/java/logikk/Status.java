@@ -25,7 +25,25 @@ public enum Status {
         this.code = code;
         this.description = description;
     }
-
+    public static String getStatusName(int code){
+        switch (code) {
+            case 1:
+                return Status.PENDING.toString();
+            case 2:
+                return Status.UNDER_PREPARATION.toString();
+            case 3:
+                return Status.PENDING_DELIVERY.toString();
+            case 4:
+                return Status.ON_THE_ROAD.toString();
+            case 5:
+                return Status.FINISHED.toString();
+            case 6:
+                return Status.MISSING.toString();
+            case 7:
+                return Status.NEEDS_APPROVAL.toString();
+        }
+        return null; 
+    }
     public String getDescription() {
         return description;
     }

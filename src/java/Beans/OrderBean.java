@@ -50,7 +50,7 @@ public class OrderBean implements Serializable {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             if (facesContext != null) {
                 try {
-                    if (db.getRole().equals("customer")) {
+                    if (db.getRole().equals("customer")||db.getRole().equals("salesman")) {
                         returnvalue = "orderSuccess.xhtml";
                     } 
                 } catch (Exception e) {

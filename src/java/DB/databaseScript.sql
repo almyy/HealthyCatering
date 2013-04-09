@@ -1,3 +1,4 @@
+DROP TABLE dishes_stored; 
 DROP TABLE dishes_ordered;
 DROP TABLE private;
 DROP TABLE orders;
@@ -137,5 +138,18 @@ CREATE TABLE dishes_ordered(
     orderId INTEGER NOT NULL,
     dishCount INTEGER NOT NULL,
     CONSTRAINT dishes_ordered_fk FOREIGN KEY(orderId) REFERENCES orders(orderID),
+    CONSTRAINT dishes_ordered_fk2 FOREIGN KEY(dishId) REFERENCES dish(dishId),
     CONSTRAINT dishes_ordered_pk PRIMARY KEY(orderId,dishId)
+);
+CREATE TABLE dishes_stored(
+    dishId INTEGER NOT NULL,
+    orderId INTEGER NOT NULL,
+    dishCount INTEGER NOT NULL,
+    totalPrice decimal, 
+    dates date,
+    postalcode SMALLINT,
+    salesmanusername VARCHAR(40),
+    CONSTRAINT dishes_stored_fk1 FOREIGN KEY(dishId) REFERENCES dish(dishId),
+    CONSTRAINT dishes_stored_fk2 FOREIGN KEY(orderId) REFERENCES orders(orderId),
+    CONSTRAINT dishes_stores_pk PRIMARY KEY(orderId,dishId)
 );
