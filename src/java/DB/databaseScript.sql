@@ -168,3 +168,9 @@ CREATE TABLE dishes_stored(
     CONSTRAINT dishes_stored_fk1 FOREIGN KEY(dishId) REFERENCES dish(dishId),
     CONSTRAINT dishes_stores_pk PRIMARY KEY(orderId,dishId)
 );
+
+CREATE TABLE message(
+    messageId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
+    message VARCHAR(100),
+    CONSTRAINT message_pk PRIMARY KEY(messageId)
+);
