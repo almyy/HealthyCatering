@@ -30,19 +30,21 @@ public class AdminBean implements Serializable {
     private ArrayList<SubscriptionPlan> deletedplans = new ArrayList<SubscriptionPlan>();
 
      public AdminBean(){
+         if(orders.getList()!=null){
+             for(int i = 0;i<orders.getList().size();i++){
+                 tabledata.add(new OrderStatus(orders.getList().get(i)));
+             }
+         }
         
         
-    }
-     public synchronized boolean getDataExist() {
-        return (tabledata.size() > 0);
     }
 
-    public List<OrderStatus> getTabledata() {
+    public synchronized List<OrderStatus> getTabledata() {
         return tabledata;
     }
 
-    public Order getTempOrder() {
-        return tempOrder;
+    public synchronized Orders getOrders() {
+        return orders;
     }
     
     public void deletePlans(){
