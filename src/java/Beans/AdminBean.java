@@ -4,6 +4,7 @@
  */
 package Beans;
 
+import DB.Database;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ import logikk.Order;
 import logikk.OrderStatus;
 import logikk.PendingOrders;
 import java.io.Serializable;
+import logikk.SubscriptionPlan;
 
 /**
  *
@@ -21,8 +23,11 @@ import java.io.Serializable;
 @SessionScoped
 @Named("Admin")
 public class AdminBean implements Serializable {
+    private Orders orders = new Orders();
+    private Database db = new Database();
     private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
     private Order tempOrder = new Order();
+    private ArrayList<SubscriptionPlan> deletedplans = new ArrayList<SubscriptionPlan>();
 
      public AdminBean(){
         
@@ -39,5 +44,20 @@ public class AdminBean implements Serializable {
     public Order getTempOrder() {
         return tempOrder;
     }
-     
+    
+    public void deletePlans(){
+        ArrayList<SubscriptionPlan> temp = db.removeOrder();
+        System.out.println("size: " + temp.size());
+        for(int i=0; i<temp.size(); i++){
+            deletedplans.add(temp.get(i));
+        }
+    }
+
+    public ArrayList<SubscriptionPlan> getDeletedplans() {
+        return deletedplans;
+    }
+    
+    public boolean deletedExists(){
+        return deletedplans.size() > 0;
+    }
 }
