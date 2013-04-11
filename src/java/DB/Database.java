@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import logikk.Dish;
 import logikk.Order;
 import logikk.Status;
+import logikk.StoredOrders;
 import logikk.SubscriptionPlan;
 import logikk.User;
 
@@ -246,6 +247,53 @@ public class Database {
         }
         closeConnection();
         return ok;
+    }
+    public int getNumberOfSalesmen(){
+        int result = 0;
+        PreparedStatement statement = null;
+        openConnection(); 
+        try {
+            statement = connection.prepareStatement("SELECT COUNT(*) as number FROM SALESMAN");
+            ResultSet res = statement.executeQuery();
+            while(res.next()){
+                result = res.getInt("number"); 
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
+        }
+        return result;
+    }
+    public ArrayList<StoredOrders> getStoredOrders(String query){
+        ArrayList<StoredOrders> result = new ArrayList();
+        PreparedStatement statement = null;
+        openConnection(); 
+        try {
+            statement = connection.prepareStatement(query);
+            ResultSet res = statement.executeQuery();
+            while(res.next()){
+                int dishId = res.getInt("dishid");
+                int orderId = res.getInt("orderId");
+                int dishCount = res.getInt("dishCount");
+                int totalPrice = res.getInt("totalPrice");
+                int postalCode = res.getInt("postalcode"); 
+                String un = res.getString("salesmanusername");
+                Date d = res.getDate("dates");
+                result.add(new StoredOrders(dishId,orderId,dishCount,totalPrice,postalCode,d,un)); 
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
+        }
+        return result;
     }
 //FOR MENU
 
@@ -667,7 +715,7 @@ public class Database {
         closeConnection();
         return role;
     }
-
+    
     public User emailExist(String inputEmail) {
         PreparedStatement sqlLogIn = null;
         openConnection();
