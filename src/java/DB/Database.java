@@ -9,6 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import logikk.AdminMessage;
 import logikk.Dish;
 import logikk.Order;
 import logikk.Status;
@@ -121,6 +122,7 @@ public class Database {
                 java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
                 int status = res.getInt("STATUS");
                 Order orderToBeAdded = new Order(date, timeOfDelivery, deliveryAddress, status);
+                orders.add(orderToBeAdded);
             }
 
         } catch (SQLException e) {
@@ -626,6 +628,97 @@ public class Database {
         }
         closeConnection();
         return ok;
+    }
+    public boolean deleteMessage(AdminMessage message){
+         boolean ok = false;
+         PreparedStatement sentence = null;
+        openConnection();
+         try{
+            sentence = connection.prepareStatement("DELETE from message WHERE messageid = ?");
+            sentence.setInt(1, message.getID());
+            sentence.executeUpdate();
+            connection.commit();
+            ok = true;
+         
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sentence);
+        }
+        closeConnection();
+        return ok;
+    }
+    public boolean addMessage(AdminMessage message){
+        boolean ok = false;
+         PreparedStatement sentence = null;
+        openConnection();
+         try{
+            sentence = connection.prepareStatement("INSERT into message(message)VALUES(?)");
+            sentence.setString(1, message.getMessage());
+            sentence.executeUpdate();
+            connection.commit();
+            ok = true;
+         
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sentence);
+        }
+        closeConnection();
+        return ok;
+    }
+    public boolean changeMessage(AdminMessage message){
+           boolean ok = false;
+         PreparedStatement sentence = null;
+        openConnection();
+         try{
+            sentence = connection.prepareStatement("update message set message = ? where messageid = ?");
+            sentence.setString(1, message.getMessage());
+            sentence.setInt(2, message.getID());
+            sentence.executeUpdate();
+            connection.commit();
+            ok = true;
+         
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sentence);
+        }
+        closeConnection();
+        return ok;
+    }
+    public ArrayList<AdminMessage>getMessages(){
+        PreparedStatement sentence = null;
+        openConnection();
+        ArrayList<AdminMessage>messages = new ArrayList<AdminMessage>();
+        try{
+            sentence = connection.prepareStatement("Select * from Message");
+            ResultSet res = sentence.executeQuery();
+            connection.commit();
+            while(res.next()){
+                String message = res.getString("message");
+                int ID = res.getInt("MESSAGEID");
+                messages.add(new AdminMessage(message,ID));
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(sentence);
+        }
+        closeConnection();
+        return messages;
     }
 
     public ArrayList<Dish> getAdminDishes() {

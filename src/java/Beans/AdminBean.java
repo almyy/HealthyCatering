@@ -13,6 +13,8 @@ import logikk.Order;
 import logikk.OrderStatus;
 import logikk.PendingOrders;
 import java.io.Serializable;
+import logikk.OrderStatus;
+import logikk.Orders;
 
 /**
  *
@@ -21,23 +23,27 @@ import java.io.Serializable;
 @SessionScoped
 @Named("Admin")
 public class AdminBean implements Serializable {
-    private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
-    private Order tempOrder = new Order();
-
+    private Orders orders = new Orders();
+    private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());    
      public AdminBean(){
+         if(orders.getList()!=null){
+             for(int i = 0;i<orders.getList().size();i++){
+                 tabledata.add(new OrderStatus(orders.getList().get(i)));
+             }
+         }
         
         
-    }
-     public synchronized boolean getDataExist() {
-        return (tabledata.size() > 0);
     }
 
-    public List<OrderStatus> getTabledata() {
+    public synchronized List<OrderStatus> getTabledata() {
         return tabledata;
     }
 
-    public Order getTempOrder() {
-        return tempOrder;
+    public synchronized Orders getOrders() {
+        return orders;
     }
+
+    
+    
      
 }

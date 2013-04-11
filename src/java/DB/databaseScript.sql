@@ -16,6 +16,7 @@ DROP TABLE users;
 DROP TABLE postal_no;
 DROP TABLE munincipial_no;
 DROP TABLE county_no;
+DROP TABLE message;
 
 CREATE TABLE county_no (
     id SMALLINT,
@@ -152,4 +153,10 @@ CREATE TABLE dishes_stored(
     CONSTRAINT dishes_stored_fk1 FOREIGN KEY(dishId) REFERENCES dish(dishId),
     CONSTRAINT dishes_stored_fk2 FOREIGN KEY(orderId) REFERENCES orders(orderId),
     CONSTRAINT dishes_stores_pk PRIMARY KEY(orderId,dishId)
+);
+
+CREATE TABLE message(
+    messageId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
+    message VARCHAR(100),
+    CONSTRAINT message_pk PRIMARY KEY(messageId)
 );
