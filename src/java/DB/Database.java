@@ -528,10 +528,9 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
-            sqlRegNew = connection.prepareStatement("insert into dish(dishid,dishname,dishprice) values(?, ?, ?)");
-            sqlRegNew.setInt(1, dish.getDishId());
-            sqlRegNew.setString(2, dish.getDishName());
-            sqlRegNew.setDouble(3, dish.getPrice());
+            sqlRegNew = connection.prepareStatement("insert into dish(dishname,dishprice) values(?, ?)");
+            sqlRegNew.setString(1, dish.getDishName());
+            sqlRegNew.setDouble(2, dish.getPrice());
             sqlRegNew.executeUpdate();
 
             connection.commit();

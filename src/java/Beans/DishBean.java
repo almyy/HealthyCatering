@@ -17,6 +17,7 @@ import javax.inject.Named;
 import logikk.Dish;
 import logikk.DishStatus;
 import logikk.Dishes;
+import org.primefaces.event.CellEditEvent;
 
 @Named("Dish")
 @SessionScoped
@@ -112,6 +113,14 @@ public class DishBean implements Serializable {
             ts.setChange(false);
             dishes.changeData(ts.getDish());
             index--;
+        }
+    }
+     public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            change();
         }
     }
 }
