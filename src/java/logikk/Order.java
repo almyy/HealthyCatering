@@ -23,6 +23,7 @@ public class Order {
     private double totalprice = 0.0;
 
     public Order() {
+        
     }
 
     public Order(Date date, Time timeOfDelivery, String deliveryAddress) {
