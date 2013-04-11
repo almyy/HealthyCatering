@@ -13,74 +13,40 @@ and open the template in the editor.
         xmlns:pm="http://primefaces.org/mobile">
     <pm:page title="driverMobile">
         <pm:view id="main">
-            <pm:header title="Order overview"/>
+            <pm:header title="Order overview">
+                <f:facet name="left">
+                    <p:commandButton value="Update" icon="refresh" action="#{Driver.update()}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandLink value="Logout" action="#{Frontpage.logout()}"/>
+                </f:facet>
+            </pm:header>
             <pm:content id="content">
-                #{Worker.update()}
-                <!-- A form for making the page run the update-method every x seconds -->
-                <h:form>
-                    <p:dataTable value="#{Worker.tabledata}" var="OrderList" styleClass="orders" id="dataTable_id"
-                                 rowStyleClass="#{OrderList.order.status eq 1 ? 'yellow' : OrderList.order.status eq '3' ? 'green':null}">
-                        
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="ID"/>
-                            </f:facet>
-                            #{OrderList.order.orderId}
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Date"/>
-                            </f:facet>
-                            #{OrderList.order.date}
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Time of Delivery"/>
-                            </f:facet>
-                            #{OrderList.order.timeOfDelivery}
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Delivery Address"/>
-                            </f:facet>
-                            #{OrderList.order.deliveryAddress}
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Ordered dish"/>
-                            </f:facet>
-                            #{OrderList.order.orderedDish}
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Status"/>
-                            </f:facet>
-                            <p:outputLabel value="#{OrderList.order.status}" rendered="#{!OrderList.toBeChanged}"/>
-                            <h:selectOneMenu  rendered="#{OrderList.toBeChanged}" value="#{OrderList.order.status}"
-                                             onchange="submit" valueChangeListener="#{Worker.statusChanged}">
-                                <f:selectItem itemValue="PENDING" itemLabel="PENDING"/>
-                                <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="UNDER_PREPARATION"/>
-                                <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>                               
-                            </h:selectOneMenu>                            
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Price"/>
-                            </f:facet>
-                            #{OrderList.order.orderPrice}
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Change Status"/>
-                            </f:facet>
-                            #{Worker.update()}
-                            <p:commandButton value="Change" action="#{OrderList.setToBeChanged()}" update="dataTable_id" />
-                        </p:column>
-                        <f:facet name="footer">
-                        </f:facet>
-                    </p:dataTable>
-                    <p><p:commandLink value="Logout" action="#{Frontpage.logout()}"></p:commandLink></p>
+                <h:form id="form">
+                    <p:column>
+                        <p:dataList value="#{Driver.tabledata}"  var="List" id="list">
+                            <p:panelGrid style="width:100%">
+                                <p:row>
+                                    <p:column style="width:40%">
+                                        <p><p:outputLabel value="#{List.order.orderId}"/></p>
+                                        <p><p:outputLabel value="#{List.order.deliveryAddress}"/></p>
+                                        <p><p:outputLabel value="#{List.order.timeOfDelivery}"/></p>
+                                    </p:column>
+                                    <p:column>
+                                        <h:selectOneMenu  value="#{List.order.status}">
+                                            <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>
+                                            <f:selectItem itemValue="ON_THE_ROAD" itemLabel="ON_THE_ROAD"/>
+                                            <f:selectItem itemValue="FINISHED" itemLabel="FINISHED"/>
+                                            <p:ajax listener="#{Driver.statusChanged}" />
+                                        </h:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:dataList>
+                    </p:column>
                 </h:form>
+                <p:messages/>
+
             </pm:content>
         </pm:view>
     </pm:page>

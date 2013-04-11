@@ -57,26 +57,21 @@ and open the template in the editor.
                             <p:row>
                                 <p:column>lolo</p:column>
                                 <p:column>trolo</p:column>
-                                <p:column>alalal</p:column>
+                                <p:column>ala lal</p:column>
                             </p:row>
                         </p:panelGrid> 
                         <br/>
                         <p:panelGrid columns="1">
                             <p:lineChart id="linechart" value="#{Analytics.linearModel}" legendPosition="e" zoom="true" animate="true"  
                                          title="Linear Chart" minY="0" minX="0" style="width:970px;" widgetVar="chart"
-                                         legendCols="12" xaxisLabel="Month" fill="true" seriesColors="1ABDF8, 9111C7"/> 
+                                         legendCols="12" xaxisLabel="Month"  seriesColors="1ABDF8, 9111C7"/> 
                         </p:panelGrid> 
-                        <p:commandButton type="Button" value="Export" icon="ui-icon-extlink" onclick="exportChart()"/>
-                        <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Chart as an Image">  
-                            <p:outputPanel id="output" layout="block" style="width:1200px;height:300px"/>  
-                        </p:dialog> 
-                        <script type="text/javascript">
-                            function exportChart() {  
-                                $('#output').empty().append(chart.exportAsImage());  
-                                dlg.show();  
-                            }  
-                        </script>
-
+                        <p:panelGrid columns="2" >
+                            <p:barChart id="basic" value="#{Analytics.categoryModel}" legendPosition="ne"  
+                                        title="Basic Bar Chart" min="0" style="height:300px;width:485;"/>
+                            <p:barChart id="basic2" value="#{Analytics.categoryModel2}" legendPosition="ne"  
+                                        title="Basic Bar Chart2" min="0" style="height:300px;width:485"/>
+                        </p:panelGrid>
                     </p:fieldset>
                 </h:form>
             </ui:define>

@@ -12,7 +12,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import logikk.Order;
 import logikk.OrderStatus;
-import logikk.Orders;
 import logikk.PendingOrders;
 import java.io.Serializable;
 import logikk.SubscriptionPlan;
@@ -31,19 +30,11 @@ public class AdminBean implements Serializable {
     private ArrayList<SubscriptionPlan> deletedplans = new ArrayList<SubscriptionPlan>();
 
      public AdminBean(){
-        if(orders.getList()!=null){
-            ArrayList<Order>liste = orders.getList();
-            for(int i = 0;i<liste.size();i++){
-                tabledata.add(new OrderStatus(liste.get(i)));
-            }
-        }
+        
+        
     }
      public synchronized boolean getDataExist() {
         return (tabledata.size() > 0);
-    }
-
-    public Orders getOrders() {
-        return orders;
     }
 
     public List<OrderStatus> getTabledata() {

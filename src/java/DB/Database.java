@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import logikk.Dish;
 import logikk.Order;
 import logikk.Status;
+import logikk.StoredOrders;
 import logikk.SubscriptionPlan;
 import logikk.User;
 
@@ -89,18 +90,21 @@ public class Database {
     //FOR ADMIN
     public void updateOrder(Order s) {
         PreparedStatement sqlRead = null;
-        ResultSet res = null;
         openConnection();
         try {
             sqlRead = connection.prepareStatement("UPDATE ORDERS set STATUS=? where ORDERID=?");
             sqlRead.setInt(1, s.getStatusNumeric());
             sqlRead.setInt(2, s.getOrderId());
             sqlRead.executeUpdate();
+            connection.commit();
+            System.out.println(s.getStatusNumeric() + ", " + s.getOrderId());
         } catch (Exception e) {
-            Cleaner.closeConnection(connection);
-            Cleaner.closeResSet(res);
+            System.out.println("lol");
+        } finally {
             Cleaner.closeSentence(sqlRead);
+            Cleaner.setAutoCommit(connection);
         }
+        closeConnection();
     }
 
     public ArrayList<Order> getOrderOverview() {
@@ -279,6 +283,53 @@ public class Database {
         }
         closeConnection();
         return ok;
+    }
+    public int getNumberOfSalesmen(){
+        int result = 0;
+        PreparedStatement statement = null;
+        openConnection(); 
+        try {
+            statement = connection.prepareStatement("SELECT COUNT(*) as number FROM SALESMAN");
+            ResultSet res = statement.executeQuery();
+            while(res.next()){
+                result = res.getInt("number"); 
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
+        }
+        return result;
+    }
+    public ArrayList<StoredOrders> getStoredOrders(String query){
+        ArrayList<StoredOrders> result = new ArrayList();
+        PreparedStatement statement = null;
+        openConnection(); 
+        try {
+            statement = connection.prepareStatement(query);
+            ResultSet res = statement.executeQuery();
+            while(res.next()){
+                int dishId = res.getInt("dishid");
+                int orderId = res.getInt("orderId");
+                int dishCount = res.getInt("dishCount");
+                int totalPrice = res.getInt("totalPrice");
+                int postalCode = res.getInt("postalcode"); 
+                String un = res.getString("salesmanusername");
+                Date d = res.getDate("dates");
+                result.add(new StoredOrders(dishId,orderId,dishCount,totalPrice,postalCode,d,un)); 
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
+
+        } finally {
+            Cleaner.setAutoCommit(connection);
+            Cleaner.closeSentence(statement);
+        }
+        return result;
     }
 //FOR MENU
     public ArrayList<Dish> getDishes() {
@@ -562,10 +613,9 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
-            sqlRegNew = connection.prepareStatement("insert into dish(dishid,dishname,dishprice) values(?, ?, ?)");
-            sqlRegNew.setInt(1, dish.getDishId());
-            sqlRegNew.setString(2, dish.getDishName());
-            sqlRegNew.setDouble(3, dish.getPrice());
+            sqlRegNew = connection.prepareStatement("insert into dish(dishname,dishprice) values(?, ?)");
+            sqlRegNew.setString(1, dish.getDishName());
+            sqlRegNew.setDouble(2, dish.getPrice());
             sqlRegNew.executeUpdate();
 
             connection.commit();
@@ -681,7 +731,7 @@ public class Database {
         closeConnection();
         return role;
     }
-
+    
     public User emailExist(String inputEmail) {
         PreparedStatement sqlLogIn = null;
         openConnection();
