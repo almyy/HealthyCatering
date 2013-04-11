@@ -90,9 +90,27 @@ public class Database {
         PreparedStatement sqlRead = null;
         openConnection();
         try {
-            sqlRead = connection.prepareStatement("UPDATE ORDERS set STATUS=? where ORDERID=?");
-            sqlRead.setInt(1, s.getStatusNumeric());
-            sqlRead.setInt(2, s.getOrderId());
+            if (s.getStatusNumeric() == 7) {
+                sqlRead = connection.prepareStatement("DELETE * FROM orders where orderid=?");
+                sqlRead.setInt(1, s.getOrderId());
+                PreparedStatement getSql = connection.prepareStatement("SELECT * FROM dish_ordered WHERE orderid=?");
+                getSql.setInt(1, s.getOrderId());
+                ResultSet res = getSql.executeQuery();
+                PreparedStatement insertSql = connection.prepareStatement("INSERT INTO dishes_stored (dishId,orderId,dishCount,totalPrice,dates,postalcode,salesmanusername) VALUES (?,?,?,?,?,?,?);");
+                while(res.next()) {
+                    insertSql.setInt(1, res.getInt("dishid"));
+                    insertSql.setInt(3, res.getInt("dishcount"));
+                }
+                insertSql.setInt(2, s.getOrderId());
+                insertSql.setDouble(4, s.getTotalprice());
+                insertSql.setString(5, s.getDate().getYear() + "-" + s.getDate().getMonth() + "-" + s.getDate().getDate());
+                insertSql.setInt(6, s.getPostalcode());
+                insertSql.setString(7, "");
+            } else {
+                sqlRead = connection.prepareStatement("UPDATE ORDERS set STATUS=? where ORDERID=?");
+                sqlRead.setInt(1, s.getStatusNumeric());
+                sqlRead.setInt(2, s.getOrderId());
+            }
             sqlRead.executeUpdate();
             connection.commit();
             System.out.println(s.getStatusNumeric() + ", " + s.getOrderId());
@@ -131,8 +149,8 @@ public class Database {
         }
         return orders;
     }
-    
-    public ArrayList<SubscriptionPlan> removeOrder(){
+
+    public ArrayList<SubscriptionPlan> removeOrder() {
         ArrayList<SubscriptionPlan> result = new ArrayList<SubscriptionPlan>();
         ArrayList subremove = new ArrayList();
         PreparedStatement sqlRead = null;
@@ -144,7 +162,7 @@ public class Database {
                     + "FROM ORDERS, SUBSCRIPTIONPLAN WHERE orders.subscriptionid = "
                     + "subscriptionplan.subscriptionid and subscriptionplan.enddate <= CURRENT DATE;");
             res = sqlRead.executeQuery();
-            while (res.next()) { 
+            while (res.next()) {
                 int subid = res.getInt("subscriptionid");
                 Date startdate = res.getDate("startdate");
                 Date enddate = res.getDate("enddate");
@@ -158,7 +176,7 @@ public class Database {
                 result.add(plan);
             }
             sqlRemove = connection.prepareStatement("DELETE ");
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -168,6 +186,7 @@ public class Database {
         }
         return result;
     }
+
     public boolean changePassword(User user) {
         PreparedStatement sqlLogIn = null;
         openConnection();
@@ -229,6 +248,7 @@ public class Database {
         return ok;
     }
 //FOR MENU
+
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();
@@ -255,25 +275,26 @@ public class Database {
         closeConnection();
         return dishes;
     }
+
     public boolean order(Order order) {
         PreparedStatement statement = null;
         PreparedStatement statement2 = null;
-        boolean customer = false; 
-        if(getRole().equals("customer")){
-            customer=true; 
+        boolean customer = false;
+        if (getRole().equals("customer")) {
+            customer = true;
         }
         openConnection();
         boolean result = false;
         try {
             connection.setAutoCommit(false);
-            if(customer){
+            if (customer) {
                 statement = connection.prepareStatement("insert into orders(timeofdelivery,"
-                    + " deliveryaddress, status, usernamecustomer, postalcode, dates, totalprice) "
-                    + "values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            }else{
+                        + " deliveryaddress, status, usernamecustomer, postalcode, dates, totalprice) "
+                        + "values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            } else {
                 statement = connection.prepareStatement("insert into orders(timeofdelivery,"
-                    + " deliveryaddress, status, usernamesalesman, postalcode, dates, totalprice) "
-                    + "values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                        + " deliveryaddress, status, usernamesalesman, postalcode, dates, totalprice) "
+                        + "values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             }
             statement.setTime(1, new Time(order.getDate().getHours(), order.getDate().getMinutes(), order.getDate().getSeconds()));
             statement.setString(2, order.getDeliveryAddress());
@@ -360,7 +381,7 @@ public class Database {
             ResultSet res = statement.getGeneratedKeys();
             if (res.next()) {
                 key = res.getInt(1);
-                System.out.println("Key: "+key);
+                System.out.println("Key: " + key);
             }
             statement2 = connection.prepareStatement("insert into orders(timeofdelivery,"
                     + " deliveryaddress, status, usernamecustomer, subscriptionid, postalcode, dates, totalprice) "

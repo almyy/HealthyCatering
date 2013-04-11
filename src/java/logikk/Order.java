@@ -66,10 +66,6 @@ public class Order {
         this.totalprice = totalprice;
     }
     
-    public double getTotalPrice() {
-        return totalprice;
-    }
-    
     public String getStatus() {
         return status;
     }
