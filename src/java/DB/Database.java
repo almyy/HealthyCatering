@@ -1,6 +1,5 @@
 package DB;
 
-import java.security.Principal;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.annotation.Resource;
@@ -169,38 +168,6 @@ public class Database {
         }
         return result;
     }
-    
-    //
-
-    //FOR DRIVER
-    public ArrayList<Order> getDriversList() {
-        ArrayList<Order> orders = new ArrayList();
-        PreparedStatement sqlRead = null;
-        ResultSet res = null;
-        openConnection();
-        try {
-            sqlRead = connection.prepareStatement("SELECT * FROM ORDERS WHERE STATUS = ?");
-            sqlRead.setInt(1, Status.ON_THE_ROAD.getCode());
-            res = sqlRead.executeQuery();
-            while (res.next()) {
-                java.sql.Date date = res.getDate("dates");
-                String deliveryAddress = res.getString("DELIVERYADDRESS");
-                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
-                int status = res.getInt("STATUS");
-                orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            Cleaner.closeConnection(connection);
-            Cleaner.closeResSet(res);
-            Cleaner.closeSentence(sqlRead);
-        }
-        return orders;
-
-    }
-
     public boolean changePassword(User user) {
         PreparedStatement sqlLogIn = null;
         openConnection();

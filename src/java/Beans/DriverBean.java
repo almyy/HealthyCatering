@@ -52,9 +52,7 @@ public class DriverBean implements Serializable {
     }
 
     public void statusChanged() {
-        System.out.println("yo");
         for (int i = 0; i < tabledata.size(); i++) {
-            System.out.println(tabledata.get(i).getOrder().getStatus());
             overview.updateDb(tabledata.get(i).getOrder());
         }
     }
