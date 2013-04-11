@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Dishes {
     private ArrayList<Dish> list;
-    private Database database;
+    private Database database = new Database();
     
     public Dishes(){
         this.list = database.getAdminDishes();

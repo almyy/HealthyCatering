@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Rino
  */
-public class PendingOrders implements Serializable {
+public class PendingOrders {
 
     private Database database = new Database();
     private ArrayList<Order> orders = new ArrayList();
@@ -33,6 +33,9 @@ public class PendingOrders implements Serializable {
     }
     public ArrayList<Order> getFirstOrdersSalesmen(){
         return database.getPendingOrders("Select * from ORDERS where STATUS =7");
+    }
+    public ArrayList<Order> getFirstOrdersDrivers() {
+        return database.getPendingOrders("Select * from ORDERS where STATUS=3 or STATUS=4 or STATUS=5");
     }
 
     public void updateDb(Order s) {

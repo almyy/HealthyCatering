@@ -66,7 +66,7 @@ public class Order {
         this.postalcode = postalcode;
         this.totalprice = totalprice;
     }
-
+    
     public double getTotalPrice() {
         return totalprice;
     }
@@ -85,14 +85,23 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+        System.out.println(status);
         if (status.equals(Status.PENDING.toString())) {
             this.status_numeric = 1;
         } else if (status.equals(Status.UNDER_PREPARATION.toString())) {
             this.status_numeric = 2;
         } else if (status.equals(Status.PENDING_DELIVERY.toString())) {
             this.status_numeric = 3;
+        } else if (status.equals(Status.ON_THE_ROAD.toString())) {
+            this.status_numeric = 4;
+        } else if (status.equals(Status.FINISHED.toString())) {
+            this.status_numeric = 5;
+        } else if (status.equals(Status.MISSING.toString())) {
+            this.status_numeric = 6;
+        } else if (status.equals(Status.NEEDS_APPROVAL.toString())) {
+            this.status_numeric = 7;
         }
-
+        System.out.println(status_numeric);
     }
 
     public boolean addDish(Dish dish) {

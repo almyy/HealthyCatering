@@ -4,20 +4,21 @@
  */
 package logikk;
 
-/**
- *
- * @author Rino
- */
-public class OrderStatus {
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+public class OrderStatus{
     
     private Order order;
     private boolean toBeChanged;
-    private boolean toBeDeleted; 
+    private boolean toBeDeleted;
     
-    public OrderStatus(){
+    public OrderStatus(){   
         order = new Order();
         toBeChanged=false;
-        toBeDeleted = false; 
+        toBeDeleted = false;
     }
     public OrderStatus(Order order){
         this.order = order;
@@ -44,5 +45,5 @@ public class OrderStatus {
     }
     public void setOrder(Order newOrder){
         this.order = newOrder; 
-    }
+    }    
 }
