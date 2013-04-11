@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
@@ -37,11 +36,6 @@ class AnalyticsBean implements Serializable {
         "October", "November", "Descember"};
 
     public AnalyticsBean() {
-        
-    }
-
-    @PostConstruct
-    public void init() {
         createLinearModel();
         createCategoryModel();
         createCategoryModel2();
@@ -125,7 +119,14 @@ class AnalyticsBean implements Serializable {
         categoryModel2.addSeries(moneyGenerated);
     }
     public void createCategoryModelSales(){
-        ArrayList<StoredOrders> sOrders = getStoredInfo(); 
+        ArrayList<StoredOrders> sOrders = getStoredInfo(this.fromDate);       
+        
+        for(int i = 0; i < sOrders.size(); i++){
+            if(sOrders.get(i).getSalesmanUsername()==null){
+                sOrders.remove(sOrders.get(i));
+                i--;
+            }
+        }
         
         int salesmenCounter = db.getNumberOfSalesmen(); 
         String salesmanUsername = null; 
@@ -135,14 +136,23 @@ class AnalyticsBean implements Serializable {
         
         for(int i = 0; i < salesmenCounter; i++){
             salesmanUsername = sOrders.get(0).getSalesmanUsername();
+            salesmenUsernames[i] = salesmanUsername; 
             for(int u = 0; u < sOrders.size();u++){
                 if(sOrders.get(u).getSalesmanUsername().equals(salesmanUsername)){
                     salesNumbers[i] += sOrders.get(u).getTotalPrice();
                     sOrders.remove(sOrders.get(u));
+                    u--;
                 }
             }
         }
+        categoryModelSales = new CartesianChartModel(); 
+        ChartSeries salesmenPay = new ChartSeries();
         
+        salesmenPay.setLabel("Commision earned");
+        for(int i = 0; i < salesmenCounter; i++){
+            salesmenPay.set(salesmenUsernames[i],salesNumbers[i]*0.11);
+        }
+        categoryModelSales.addSeries(salesmenPay);
     }
     public void createCategoryModel() {
         categoryModel = new CartesianChartModel();
@@ -171,7 +181,17 @@ class AnalyticsBean implements Serializable {
         String query = "SELECT * FROM dishes_stored";
         return db.getStoredOrders(query);
     }
-
+    public ArrayList<StoredOrders> getStoredInfo(Date fromDate){
+        java.sql.Date fromDateSql = new java.sql.Date(fromDate.getTime());
+        String query="SELECT * FROM dishes_stored WHERE dates >='" + fromDateSql.toString() + "'";
+        return db.getStoredOrders(query);
+    }
+    public void update(){
+        createLinearModel();
+        createCategoryModel();
+        createCategoryModel2();
+        createCategoryModelSales();
+    }
     public void createLinearModel() {
         turnoverNow = 0;
         turnoverLastYear = 0;
