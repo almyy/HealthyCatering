@@ -1,11 +1,12 @@
-
 package Beans;
 
 import DB.Database;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -13,6 +14,7 @@ import javax.inject.Named;
 import logikk.Dish;
 import logikk.Order;
 import logikk.User;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -26,22 +28,21 @@ public class OrderBean implements Serializable {
     private ArrayList<Dish> dishes = fillDishes();
     private User user = db.getUser();
     private Date deliverydate = new Date();
+    private Date currentDate = new Date();
     private int[] hourvalues = {10, 11, 12, 13, 14, 15, 16, 17};
-    private int[] minutevalues = {10, 20, 30, 40, 50};
+    private int[] minutevalues = {00, 10, 20, 30, 40, 50};
     private String description;
     private double total_price;
     private Order savedOrder;
 
     public OrderBean() {
-        deliverydate.setHours(10);
-        deliverydate.setMinutes(00);
         MenuItems menuitems = getMenuItems();
         total_price = menuitems.getTotal_price();
     }
 
     public String confirmOrder() {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         Order order = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
         String returnvalue = "";
         if (db.order(order)) {
@@ -50,22 +51,22 @@ public class OrderBean implements Serializable {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             if (facesContext != null) {
                 try {
-                    if (db.getRole().equals("customer")||db.getRole().equals("salesman")) {
+                    if (db.getRole().equals("customer") || db.getRole().equals("salesman")) {
                         returnvalue = "orderSuccess.xhtml";
-                    } 
+                    }
                 } catch (Exception e) {
                     System.out.println("IOException");
                 }
             }
-        }
-        else{
+        } else {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, try again later.", "Error, try again later.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             returnvalue = "order.xhtml";
         }
         return returnvalue;
     }
-    public String subscribe(){
+
+    public String subscribe() {
         savedOrder = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
         return "subscriptionplan.xhtml";
     }
@@ -75,13 +76,21 @@ public class OrderBean implements Serializable {
         ArrayList<Dish> items = menuitems.getOrderList();
         return items;
     }
-    
+
     public TimeZone getTimeZone() {
         TimeZone tz = TimeZone.getDefault();
         return tz;
     }
-    
-    public MenuItems getMenuItems(){
+
+    public void handleDateSelect(SelectEvent event) {
+        System.out.println("YOLO");
+        FacesContext facesContext = FacesContext.getCurrentInstance();  
+        SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy");
+        deliverydate = new Date(format.format(event.getObject()));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));  
+    }  
+
+    public MenuItems getMenuItems() {
         FacesContext context = FacesContext.getCurrentInstance();
         MenuItems menuitems = (MenuItems) context.getApplication().evaluateExpressionGet(context, "#{menuitems}", MenuItems.class);
         return menuitems;
@@ -145,6 +154,11 @@ public class OrderBean implements Serializable {
 
     public Order getSavedOrder() {
         return savedOrder;
+    }
+
+    public Date getCurrentDate() {
+        currentDate = new Date();
+        return currentDate;
     }
     
     
