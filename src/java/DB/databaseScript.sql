@@ -166,6 +166,5 @@ CREATE TABLE dishes_stored(
     postalcode SMALLINT,
     salesmanusername VARCHAR(40),
     CONSTRAINT dishes_stored_fk1 FOREIGN KEY(dishId) REFERENCES dish(dishId),
-    CONSTRAINT dishes_stored_fk2 FOREIGN KEY(orderId) REFERENCES orders(orderId),
     CONSTRAINT dishes_stores_pk PRIMARY KEY(orderId,dishId)
 );

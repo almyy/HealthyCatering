@@ -4,11 +4,6 @@
  */
 package logikk;
 
-import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
 public class OrderStatus{
     
     private Order order;
