@@ -37,7 +37,7 @@ and open the template in the editor.
                                             <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>
                                             <f:selectItem itemValue="ON_THE_ROAD" itemLabel="ON_THE_ROAD"/>
                                             <f:selectItem itemValue="FINISHED" itemLabel="FINISHED"/>
-                                            <p:ajax listener="#{Driver.statusChanged}" />
+                                            <p:ajax listener="#{Driver.statusChanged}" update="list" />
                                         </h:selectOneMenu>
                                     </p:column>
                                 </p:row>

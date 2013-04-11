@@ -35,264 +35,74 @@ INSERT INTO dish (dishname,dishprice) VALUES ('GRÆNDIS',30.00);
 
 INSERT INTO subscriptionplan(startdate, enddate, timeofdelivery, weekday) VALUES((DATE(2013-02-25)),(DATE(2016-02-26)), (TIME('12:45:19')), 'Monday');
 
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('23:03:03','adresseveien x', 4,'salesman','customer',null,7046,'2013-03-02', 1002);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('18:03:03','adresseveien x', 2,'salesman','bedrift',1,7046,'2013-02-02', 489);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:04:03','adresseveien xg', 1,'salesman','customer',null,7046,'2013-03-09', 488);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:09:03','adresseveien x', 0,'salesman','bedrift',1,7046,'2013-02-09', 499);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:06:03','adresseveien f', 6,'salesman','customer',null,7046,'2013-03-17', 286);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:03:03','adresseveien x', 7,'salesman','bedrift',1,7046,'2013-02-17', 482);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:02:00','adresseveien x', 4,'salesman','customer',null,7046,'2013-03-23', 918);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:03:00','adresseveien x', 1,'salesman','bedrift',1,7046,'2013-02-23', 1093);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('12:02:00','adresseveien x', 3,'salesman','customer',null,7046,'2013-03-29', 387);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('12:02:01','adresseveien y', 6,'salesman','bedrift',1,7046,'2013-02-25', 484);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien z', 2,'salesman','customer',null,7046,'2013-03-15', 347);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 2,'salesman','bedrift',1,7046,'2013-02-15', 211);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','customer',null,7046,'2013-03-28', 98.1);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-03-02', 135);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-03-09',235);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-03-17', 335);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-03-23', 353);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-03-29', 686);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-03-15', 600);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 7,'salesman','bedrift',1,7046,'2013-03-28', 700);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-02-02', 800);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-02-09', 900);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-02-17', 1000);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-02-23', 1100);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-02-29', 1200);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-02-15', 1030);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-03-02', 100);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-01-09', 200);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-01-17', 300);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-01-23', 400);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-01-29', 500);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-01-15', 600);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 7,'salesman','bedrift',1,7046,'2013-04-28', 700);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-05-02', 800);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-05-09', 900);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-04-17', 1000);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-06-23', 1100);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-06-29', 1200);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-07-15', 1030);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-07-02', 100);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-09-09', 200);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-09-17', 300);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-08-23', 400);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-08-29', 500);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-10-15', 600);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 7,'salesman','bedrift',1,7046,'2013-10-28', 700);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-10-02', 800);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-10-09', 900);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-11-17', 1000);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-11-23', 1100);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-12-29', 1200);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-12-15', 1030);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-11-02', 100);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-03-09', 200);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2012-03-17', 300);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-03-23', 400);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-03-29', 500);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-12-15', 600);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 7,'salesman','bedrift',1,7046,'2012-12-28', 700);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-12-02', 100);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-12-09', 900);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-12-17', 1000);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-12-23', 1100);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2013-11-29', 1200);
-INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamesalesman,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'salesman','bedrift',1,7046,'2011-11-15', 1030);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('23:03:03','adresseveien x', 4,'customer',null,7046,'2013-03-02', 1002);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('18:03:03','adresseveien x', 2,'bedrift',1,7046,'2013-02-02', 489);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:04:03','adresseveien xg', 1,'customer',null,7046,'2013-03-09', 488);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:09:03','adresseveien x', 0,'bedrift',1,7046,'2013-02-09', 499);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:06:03','adresseveien f', 6,'customer',null,7046,'2013-03-17', 286);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:03:03','adresseveien x', 7,'bedrift',1,7046,'2013-02-17', 482);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:03:03','adresseveien x', 7,'bedrift',1,7046,'2013-02-17', 482);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:03:03','adresseveien x', 7,'bedrift',1,7046,'2013-02-17', 482);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:03:03','adresseveien x', 7,'bedrift',1,7046,'2013-02-17', 482);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:03:03','adresseveien x', 7,'bedrift',1,7046,'2013-02-17', 482);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:02:00','adresseveien x', 4,'customer',null,7046,'2013-03-23', 918);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('11:03:00','adresseveien x', 1,'bedrift',1,7046,'2013-02-23', 1093);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('12:02:00','adresseveien x', 3,'customer',null,7046,'2013-03-29', 387);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('12:02:01','adresseveien y', 6,'bedrift',1,7046,'2013-02-25', 484);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien z', 2,'customer',null,7046,'2013-03-15', 347);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 2,'bedrift',1,7046,'2013-02-15', 211);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'customer',null,7046,'2013-03-28', 98.1);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-03-02', 135);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-03-09',235);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-03-17', 335);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-03-23', 353);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-03-29', 686);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-03-15', 600);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 7,'bedrift',1,7046,'2013-03-28', 700);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-02-02', 800);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-02-09', 900);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-02-17', 1000);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-02-23', 1100);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-02-29', 1200);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-02-15', 1030);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-03-02', 100);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-01-09', 200);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-01-17', 300);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-01-23', 400);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-01-29', 500);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-01-15', 600);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 7,'bedrift',1,7046,'2013-04-28', 700);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-05-02', 800);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-05-09', 900);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-04-17', 1000);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-06-23', 1100);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-06-29', 1200);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-07-15', 1030);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-07-02', 100);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-09-09', 200);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-09-17', 300);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-08-23', 400);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-08-29', 500);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-10-15', 600);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 7,'bedrift',1,7046,'2013-10-28', 700);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-10-02', 800);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-10-09', 900);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-11-17', 1000);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-11-23', 1100);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-12-29', 1200);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-12-15', 1030);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-11-02', 100);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-03-09', 200);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2012-03-17', 300);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-03-23', 400);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-03-29', 500);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-12-15', 600);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 7,'bedrift',1,7046,'2012-12-28', 700);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-12-02', 100);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-12-09', 900);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-12-17', 1000);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-12-23', 1100);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2013-11-29', 1200);
+INSERT INTO orders (timeofdelivery,deliveryaddress,status,usernamecustomer,subscriptionid,postalcode,dates, totalPrice) VALUES ('19:03:03','adresseveien x', 5,'bedrift',1,7046,'2011-11-15', 1030);
 
-INSERT INTO dishes_ordered VALUES (1,1,2);
-
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (1,3,2,
-                            (SELECT totalPrice from orders where orderid=3),
-                            (SELECT dates from orders where orderid = 3),
-                            (SELECT postalcode from orders where orderid = 3)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (1,4,2,
-                            (SELECT totalPrice from orders where orderid=4),
-                            (SELECT dates from orders where orderid = 4),
-                            (SELECT postalcode from orders where orderid = 4)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (1,5,2,
-                            (SELECT totalPrice from orders where orderid=5),
-                            (SELECT dates from orders where orderid = 5),
-                            (SELECT postalcode from orders where orderid = 5)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (1,6,2,
-                            (SELECT totalPrice from orders where orderid=6),
-                            (SELECT dates from orders where orderid = 6),
-                            (SELECT postalcode from orders where orderid = 6)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,7,2,
-                            (SELECT totalPrice from orders where orderid=7),
-                            (SELECT dates from orders where orderid = 7),
-                            (SELECT postalcode from orders where orderid = 7)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,8,2,
-                            (SELECT totalPrice from orders where orderid=8),
-                            (SELECT dates from orders where orderid = 8),
-                            (SELECT postalcode from orders where orderid = 8)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,9,2,
-                            (SELECT totalPrice from orders where orderid=9),
-                            (SELECT dates from orders where orderid = 9),
-                            (SELECT postalcode from orders where orderid = 9)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,10,2,
-                            (SELECT totalPrice from orders where orderid=10),
-                            (SELECT dates from orders where orderid = 10),
-                            (SELECT postalcode from orders where orderid = 10)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (1,11,2,
-                            (SELECT totalPrice from orders where orderid=11),
-                            (SELECT dates from orders where orderid = 11),
-                            (SELECT postalcode from orders where orderid = 11)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (1,12,2,
-                            (SELECT totalPrice from orders where orderid=12),
-                            (SELECT dates from orders where orderid = 12),
-                            (SELECT postalcode from orders where orderid = 12)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (1,13,2,
-                            (SELECT totalPrice from orders where orderid=13),
-                            (SELECT dates from orders where orderid = 13),
-                            (SELECT postalcode from orders where orderid = 13)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,14,2,
-                            (SELECT totalPrice from orders where orderid=14),
-                            (SELECT dates from orders where orderid = 14),
-                            (SELECT postalcode from orders where orderid = 14)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,15,2,
-                            (SELECT totalPrice from orders where orderid=15),
-                            (SELECT dates from orders where orderid = 15),
-                            (SELECT postalcode from orders where orderid = 15)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,16,2,
-                            (SELECT totalPrice from orders where orderid=16),
-                            (SELECT dates from orders where orderid = 16),
-                            (SELECT postalcode from orders where orderid = 16)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,17,2,
-                            (SELECT totalPrice from orders where orderid=17),
-                            (SELECT dates from orders where orderid = 17),
-                            (SELECT postalcode from orders where orderid = 17)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,18,2,
-                            (SELECT totalPrice from orders where orderid=18),
-                            (SELECT dates from orders where orderid = 18),
-                            (SELECT postalcode from orders where orderid = 18)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,19,2,
-                            (SELECT totalPrice from orders where orderid=19),
-                            (SELECT dates from orders where orderid = 19),
-                            (SELECT postalcode from orders where orderid = 19)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (2,20,2,
-                            (SELECT totalPrice from orders where orderid=20),
-                            (SELECT dates from orders where orderid = 20),
-                            (SELECT postalcode from orders where orderid = 20)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,21,2,
-                            (SELECT totalPrice from orders where orderid=21),
-                            (SELECT dates from orders where orderid = 21),
-                            (SELECT postalcode from orders where orderid = 21)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,22,2,
-                            (SELECT totalPrice from orders where orderid=22),
-                            (SELECT dates from orders where orderid = 22),
-                            (SELECT postalcode from orders where orderid = 22)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,23,2,
-                            (SELECT totalPrice from orders where orderid=23),
-                            (SELECT dates from orders where orderid = 23),
-                            (SELECT postalcode from orders where orderid = 23)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,24,2,
-                            (SELECT totalPrice from orders where orderid=24),
-                            (SELECT dates from orders where orderid = 24),
-                            (SELECT postalcode from orders where orderid = 24)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,25,2,
-                            (SELECT totalPrice from orders where orderid=25),
-                            (SELECT dates from orders where orderid = 25),
-                            (SELECT postalcode from orders where orderid = 25)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,26,2,
-                            (SELECT totalPrice from orders where orderid=26),
-                            (SELECT dates from orders where orderid = 26),
-                            (SELECT postalcode from orders where orderid = 26)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,27,2,
-                            (SELECT totalPrice from orders where orderid=27),
-                            (SELECT dates from orders where orderid = 27),
-                            (SELECT postalcode from orders where orderid = 27)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,28,2,
-                            (SELECT totalPrice from orders where orderid=28),
-                            (SELECT dates from orders where orderid = 28),
-                            (SELECT postalcode from orders where orderid = 28)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,29,2,
-                            (SELECT totalPrice from orders where orderid=29),
-                            (SELECT dates from orders where orderid = 29),
-                            (SELECT postalcode from orders where orderid = 29)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,30,2,
-                            (SELECT totalPrice from orders where orderid=30),
-                            (SELECT dates from orders where orderid = 30),
-                            (SELECT postalcode from orders where orderid = 30)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,31,2,
-                            (SELECT totalPrice from orders where orderid=31),
-                            (SELECT dates from orders where orderid = 31),
-                            (SELECT postalcode from orders where orderid = 31)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,32,2,
-                            (SELECT totalPrice from orders where orderid=32),
-                            (SELECT dates from orders where orderid = 32),
-                            (SELECT postalcode from orders where orderid = 32)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,33,2,
-                            (SELECT totalPrice from orders where orderid=33),
-                            (SELECT dates from orders where orderid = 33),
-                            (SELECT postalcode from orders where orderid = 33)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,34,2,
-                            (SELECT totalPrice from orders where orderid=34),
-                            (SELECT dates from orders where orderid = 34),
-                            (SELECT postalcode from orders where orderid = 34)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,35,2,
-                            (SELECT totalPrice from orders where orderid=35),
-                            (SELECT dates from orders where orderid = 35),
-                            (SELECT postalcode from orders where orderid = 35)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,36,2,
-                            (SELECT totalPrice from orders where orderid=36),
-                            (SELECT dates from orders where orderid = 36),
-                            (SELECT postalcode from orders where orderid = 36)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,37,2,
-                            (SELECT totalPrice from orders where orderid=37),
-                            (SELECT dates from orders where orderid = 37),
-                            (SELECT postalcode from orders where orderid = 37)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,38,2,
-                            (SELECT totalPrice from orders where orderid=38),
-                            (SELECT dates from orders where orderid = 38),
-                            (SELECT postalcode from orders where orderid = 38)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (4,39,2,
-                            (SELECT totalPrice from orders where orderid=39),
-                            (SELECT dates from orders where orderid = 39),
-                            (SELECT postalcode from orders where orderid = 39)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,40,2,
-                            (SELECT totalPrice from orders where orderid=40),
-                            (SELECT dates from orders where orderid = 40),
-                            (SELECT postalcode from orders where orderid = 40)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,41,2,
-                            (SELECT totalPrice from orders where orderid=41),
-                            (SELECT dates from orders where orderid = 41),
-                            (SELECT postalcode from orders where orderid = 41)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,42,2,
-                            (SELECT totalPrice from orders where orderid=42),
-                            (SELECT dates from orders where orderid = 42),
-                            (SELECT postalcode from orders where orderid = 42)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,43,2,
-                            (SELECT totalPrice from orders where orderid=43),
-                            (SELECT dates from orders where orderid = 43),
-                            (SELECT postalcode from orders where orderid = 43)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,44,2,
-                            (SELECT totalPrice from orders where orderid=44),
-                            (SELECT dates from orders where orderid = 44),
-                            (SELECT postalcode from orders where orderid = 44)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,45,2,
-                            (SELECT totalPrice from orders where orderid=45),
-                            (SELECT dates from orders where orderid = 45),
-                            (SELECT postalcode from orders where orderid = 45)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,46,2,
-                            (SELECT totalPrice from orders where orderid=46),
-                            (SELECT dates from orders where orderid = 46),
-                            (SELECT postalcode from orders where orderid = 46)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,47,2,
-                            (SELECT totalPrice from orders where orderid=47),
-                            (SELECT dates from orders where orderid = 47),
-                            (SELECT postalcode from orders where orderid = 47)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,48,2,
-                            (SELECT totalPrice from orders where orderid=48),
-                            (SELECT dates from orders where orderid = 48),
-                            (SELECT postalcode from orders where orderid = 48)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,49,2,
-                            (SELECT totalPrice from orders where orderid=49),
-                            (SELECT dates from orders where orderid = 49),
-                            (SELECT postalcode from orders where orderid = 49)); 
-INSERT INTO dishes_stored (dishId,orderId,dishcount,totalPrice,dates,postalCode) VALUES (3,50,2,
-                            (SELECT totalPrice from orders where orderid=50),
-                            (SELECT dates from orders where orderid = 50),
-                            (SELECT postalcode from orders where orderid = 50)); 
-
+INSERT INTO dishes_ordered VALUES (1,1,2, 'salesman');

@@ -55,6 +55,7 @@ public class DriverBean implements Serializable {
         for (int i = 0; i < tabledata.size(); i++) {
             overview.updateDb(tabledata.get(i).getOrder());
         }
+        update();
     }
 
     public synchronized void update() {
