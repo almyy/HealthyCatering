@@ -14,27 +14,30 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 @Named("Frontpage")
 public class LoginBean implements Serializable {
+
     private Database db = new Database();
 
     public void redirect() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                System.out.println(db.getRole()); 
-                String roleName = db.getRole();
+        System.out.println(db.getRole());
+        String roleName = db.getRole();
         try {
-            if (roleName.equals("customer")) {
-                externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/customer/customer.xhtml");
-            }
-            if (roleName.equals("chef")) {
-                externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/worker/chef.xhtml");
-            }
-            if (roleName.equals("salesman")) {
-                externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/worker/salesman.xhtml");
-            }
-            if (roleName.equals("driver")) {
-                externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/worker/driver.xhtml");
-            }
-            if (roleName.equals("admin")) {
-                externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/admin/admin.xhtml");
+            if (roleName != null) {
+                if (roleName.equals("customer")) {
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/customer/customer.xhtml");
+                }
+                if (roleName.equals("chef")) {
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/worker/chef.xhtml");
+                }
+                if (roleName.equals("salesman")) {
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/worker/salesman.xhtml");
+                }
+                if (roleName.equals("driver")) {
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/worker/driver.xhtml");
+                }
+                if (roleName.equals("admin")) {
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/admin/admin.xhtml");
+                }
             }
         } catch (IOException e) {
             System.out.println("IOException");
