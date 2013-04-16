@@ -11,24 +11,24 @@
         <ui:define name="content">
             <h:form id="dishForm">  
                 <p:panelGrid id="panel" columns="2" styleClass="noBackground">
-                    <p:fieldset legend="Dishes">  
+                    <p:fieldset legend="#{lang_auth.Dishes}">  
                         <p:dataTable id="availableDishes" var="items" value="#{menuitems.items}">   
 
-                            <p:column headerText="Dish Name">  
+                            <p:column headerText="#{lang_auth.DishName}">  
                                 <h:outputText value="#{items.dishName}" />  
                             </p:column>  
 
-                            <p:column headerText="Price">  
+                            <p:column headerText="#{lang_auth.Price}">  
                                 <h:outputText value="#{items.price}" />  
                             </p:column>
 
-                            <p:column headerText="Count" style="width:18px" rendered="#{menuitems.loggedIn}">  
+                            <p:column headerText="#{lang_auth.Count}" style="width:18px" rendered="#{menuitems.loggedIn}">  
                                 <p:spinner id="spinnerBasic" value="#{items.count}" required="true" size="5"
                                            min="1" />  
                             </p:column>
 
                             <p:column headerText="Add" style="width:18px" rendered="#{menuitems.loggedIn}">
-                                <p:commandButton value="Add" oncomplete="submit()" action="#{menuitems.addDish()}">
+                                <p:commandButton value="#{lang_auth.Add}" oncomplete="submit()" action="#{menuitems.addDish()}">
                                     <f:setPropertyActionListener value="#{items}" target="#{menuitems.selectedDish}" />  
                                 </p:commandButton>
                             </p:column>
@@ -36,22 +36,22 @@
                         </p:dataTable>  
                     </p:fieldset>  
 
-                    <p:fieldset id="selectedDishes" legend="Selected Dishes" rendered="#{menuitems.loggedIn}">  
+                    <p:fieldset id="selectedDishes" legend="#{lang_auth.SelectedDishes}" rendered="#{menuitems.loggedIn}">  
                         <p:outputPanel id="dropArea">   
-                            <p:dataTable var="item" value="#{menuitems.orderList}" emptyMessage="No dishes in order.">  
+                            <p:dataTable var="item" value="#{menuitems.orderList}" emptyMessage="#{lang_auth.NoDishesOrdered}">  
                                 <p:column headerText="Count" style="width:18px" >  
                                     <h:outputText value="#{item.count}" />  
                                 </p:column>  
 
-                                <p:column headerText="Name">  
+                                <p:column headerText="#{lang_auth.Name}">  
                                     <h:outputText value="#{item.dishName}" />  
                                 </p:column>  
 
-                                <p:column headerText="Unitprice" footerText="Total: #{menuitems.total_price}" style="width:25px">  
+                                <p:column headerText="#{lang_auth.UnitPrice}" footerText="Total: #{menuitems.total_price}" style="width:25px">  
                                     <h:outputText value="#{item.price}" />  
                                 </p:column> 
 
-                                <p:column headerText="Remove" style="width:18px">  
+                                <p:column headerText="#{lang_auth.Remove}" style="width:18px">  
                                     <p:commandButton value="Remove" oncomplete="submit()" actionListener="#{menuitems.removeDish(item)}">
                                     </p:commandButton>
                                 </p:column> 

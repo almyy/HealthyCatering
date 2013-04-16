@@ -4,17 +4,17 @@
  */
 package Beans;
 
+import DB.Database;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import logikk.Order;
 import logikk.OrderStatus;
 import logikk.PendingOrders;
+import org.primefaces.component.tabview.TabView;
+import org.primefaces.event.TabChangeEvent;
 
 /**
  *
@@ -24,11 +24,35 @@ import logikk.PendingOrders;
 @Named("Sales")
 public class SalesmanBean implements Serializable {
 
+    private Database db = new Database();
     private PendingOrders overView = new PendingOrders();
     private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
+    private List<OrderStatus> userTabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
+    private String username;
+    private int tabIndex;
+
+    public void setTabIndex(int tabIndex) {
+        this.tabIndex = tabIndex;
+    }
+
+    public int getTabIndex() {
+        return tabIndex;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 
     public synchronized List<OrderStatus> getTabledata() {
         return tabledata;
+    }
+
+    public synchronized List<OrderStatus> getUserTabledata() {
+        return userTabledata;
     }
 
     public synchronized boolean isEmpty() {
@@ -38,7 +62,7 @@ public class SalesmanBean implements Serializable {
     public synchronized void update() {
         ArrayList<Order> temp = overView.getFirstOrdersSalesmen();
         if (tabledata.size() < temp.size()) {
-            getFromDb(); 
+            getFromDb();
         }
         for (int i = 0; i < tabledata.size(); i++) {
             if (tabledata.get(i).getToBeChanged()) {
@@ -46,7 +70,7 @@ public class SalesmanBean implements Serializable {
                 overView.updateDb(tabledata.get(i).getOrder());
             }
         }
-        getFromDb(); 
+        getFromDb();
     }
 
     private void getFromDb() {
@@ -55,37 +79,60 @@ public class SalesmanBean implements Serializable {
         for (int i = 0; i < temp.size(); i++) {
             tabledata.add(new OrderStatus(temp.get(i)));
         }
-        quickSortDate(0, tabledata.size() - 1);
+        if (!tabledata.isEmpty()) {
+            quickSortDate(0, tabledata.size() - 1, tabledata);
+        }
     }
 
-    private void quickSortDate(int low, int high) {
+    private void quickSortDate(int low, int high, List<OrderStatus> table) {
         int i = low;
         int j = high;
-        Date pivot = tabledata.get(low + (high - low) / 2).getOrder().getFullDate();
+        Date pivot = table.get(low + (high - low) / 2).getOrder().getFullDate();
         while (i <= j) {
-            while (tabledata.get(i).getOrder().getFullDate().before(pivot)) {
+            while (table.get(i).getOrder().getFullDate().before(pivot)) {
                 i++;
             }
-            while (tabledata.get(j).getOrder().getFullDate().after(pivot)) {
+            while (table.get(j).getOrder().getFullDate().after(pivot)) {
                 j--;
             }
             if (i <= j) {
-                exchange(i, j);
+                exchange(i, j, table);
                 i++;
                 j--;
             }
         }
         if (low < j) {
-            quickSortDate(low, j);
+            quickSortDate(low, j, table);
         }
         if (i < high) {
-            quickSortDate(i, high);
+            quickSortDate(i, high, table);
         }
     }
 
-    private void exchange(int i, int j) {
-        OrderStatus temp = tabledata.get(i);
-        tabledata.set(i, tabledata.get(j));
-        tabledata.set(j, temp);
+    private void exchange(int i, int j, List<OrderStatus> table) {
+        OrderStatus temp = table.get(i);
+        table.set(i, table.get(j));
+        table.set(j, temp);
+    }
+
+    public void updateUser() {
+        ArrayList<Order> temp = overView.getOrdersUser(username);
+        userTabledata.clear();
+        for (int i = 0; i < temp.size(); i++) {
+            userTabledata.add(new OrderStatus(temp.get(i)));
+        }
+        if (!userTabledata.isEmpty()) {
+            quickSortDate(0, userTabledata.size() - 1, userTabledata);
+        }
+    }
+
+       public int onTabChange(TabChangeEvent event) {   
+        if(event.getTab().getId().equals("tab1")){
+            tabIndex =0;
+        }
+        else{
+            tabIndex =1;
+        }
+        return tabIndex;
     }
 }

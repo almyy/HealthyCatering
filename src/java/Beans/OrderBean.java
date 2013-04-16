@@ -1,12 +1,14 @@
 package Beans;
 
 import DB.Database;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import logikk.Dish;
@@ -37,11 +39,11 @@ public class OrderBean implements Serializable {
         total_price = menuitems.getTotal_price();
     }
 
-    public String confirmOrder() {
+    public void confirmOrder() throws IOException {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         Order order = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
-        String returnvalue = "";
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         if (db.order(order)) {
             MenuItems menuitems = getMenuItems();
             menuitems.getOrderList().clear();
@@ -49,7 +51,7 @@ public class OrderBean implements Serializable {
             if (facesContext != null) {
                 try {
                     if (db.getRole().equals("customer") || db.getRole().equals("salesman")) {
-                        returnvalue = "orderSuccess.xhtml";
+                        ec.redirect(ec.getRequestContextPath() + "/faces/protected/orders/orderSuccess.xhtml");
                     }
                 } catch (Exception e) {
                     System.out.println("IOException");
@@ -58,14 +60,14 @@ public class OrderBean implements Serializable {
         } else {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, try again later.", "Error, try again later.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            returnvalue = "order.xhtml";
+            ec.redirect(ec.getRequestContextPath()+ "/faces/protected/orders/order.xhtml");
         }
-        return returnvalue;
     }
 
-    public String subscribe() {
+    public void subscribe() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         savedOrder = new Order(deliverydate, user.getAddress(), 7, dishes, description, user.getPostnumber(), total_price);
-        return "subscriptionplan.xhtml";
+        ec.redirect(ec.getRequestContextPath() + "/faces/protected/orders/subscriptionplan.xhtml");
     }
 
     public ArrayList<Dish> fillDishes() {
@@ -77,8 +79,8 @@ public class OrderBean implements Serializable {
     public TimeZone getTimeZone() {
         TimeZone tz = TimeZone.getDefault();
         return tz;
-    } 
-
+    }
+    
     public MenuItems getMenuItems() {
         FacesContext context = FacesContext.getCurrentInstance();
         MenuItems menuitems = (MenuItems) context.getApplication().evaluateExpressionGet(context, "#{menuitems}", MenuItems.class);
@@ -91,6 +93,9 @@ public class OrderBean implements Serializable {
             total_price += dishes.get(i).getPrice() * dishes.get(i).getCount();
         }
         return total_price;
+    }
+    public void updatePlans(){
+        db.checkSubscription();
     }
 
     public ArrayList<Dish> getDishes() {
@@ -149,6 +154,4 @@ public class OrderBean implements Serializable {
         currentDate = new Date();
         return currentDate;
     }
-    
-    
 }
