@@ -123,7 +123,6 @@ CREATE TABLE orders(
     timeOfDelivery time,
     deliveryAddress VARCHAR (50),
     status INTEGER,
-    userNameSalesman VARCHAR(20),
     userNameCustomer VARCHAR(20),
     subscriptionId INTEGER,
     postalCode SMALLINT,
@@ -131,10 +130,9 @@ CREATE TABLE orders(
     description varchar(30),
     totalPrice DECIMAL,
     CONSTRAINT orders_pk PRIMARY KEY(orderId),
-    CONSTRAINT orders_fk1 FOREIGN KEY(userNameSalesman) REFERENCES Salesman(username),
-    CONSTRAINT orders_fk2 FOREIGN KEY(userNameCustomer) REFERENCES Customer(username),
-    CONSTRAINT orders_fk3 FOREIGN KEY(subscriptionId) REFERENCES Subscriptionplan(subscriptionid),
-    CONSTRAINT orders_fk4 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)
+    CONSTRAINT orders_fk1 FOREIGN KEY(userNameCustomer) REFERENCES Customer(username),
+    CONSTRAINT orders_fk2 FOREIGN KEY(subscriptionId) REFERENCES Subscriptionplan(subscriptionid),
+    CONSTRAINT orders_fk3 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)
 );
 CREATE TABLE dish(
     dishId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
@@ -154,6 +152,7 @@ CREATE TABLE dishes_ordered(
     dishId INTEGER NOT NULL,
     orderId INTEGER NOT NULL,
     dishCount INTEGER NOT NULL,
+    salesmanusername VARCHAR(20) NOT NULL,
     CONSTRAINT dishes_ordered_fk FOREIGN KEY(orderId) REFERENCES orders(orderID),
     CONSTRAINT dishes_ordered_fk2 FOREIGN KEY(dishId) REFERENCES dish(dishId),
     CONSTRAINT dishes_ordered_pk PRIMARY KEY(orderId,dishId)
@@ -167,6 +166,11 @@ CREATE TABLE dishes_stored(
     postalcode SMALLINT,
     salesmanusername VARCHAR(40),
     CONSTRAINT dishes_stored_fk1 FOREIGN KEY(dishId) REFERENCES dish(dishId),
-    CONSTRAINT dishes_stored_fk2 FOREIGN KEY(orderId) REFERENCES orders(orderId),
     CONSTRAINT dishes_stores_pk PRIMARY KEY(orderId,dishId)
+);
+
+CREATE TABLE message(
+    messageId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
+    message VARCHAR(100),
+    CONSTRAINT message_pk PRIMARY KEY(messageId)
 );
