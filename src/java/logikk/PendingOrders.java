@@ -41,4 +41,7 @@ public class PendingOrders {
         ArrayList<Order> userOrders = database.getPendingOrders("SELECT * FROM orders WHERE usernamecustomer = '" + username + "'");
         return userOrders;
     }
+    public ArrayList<Order> readFromDb(){
+        return database.getOrderOverview();
+    }
 }
