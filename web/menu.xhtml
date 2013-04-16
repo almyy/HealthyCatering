@@ -6,14 +6,17 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
-    <title>Menu</title>
+    <title>Menu</title> 
     <ui:composition template="userTemplate.xhtml">
         <ui:define name="content">
             <h:form id="dishForm">  
                 <p:panelGrid id="panel" columns="2" styleClass="noBackground">
                     <p:fieldset legend="#{lang_auth.Dishes}">  
                         <p:dataTable id="availableDishes" var="items" value="#{menuitems.items}">   
-
+                            <p:column headerText="#{lang_auth.DishName}"> 
+                                <h:graphicImage value="../resources/images/Yellow_button.png" />
+                            </p:column>
+                            
                             <p:column headerText="#{lang_auth.DishName}">  
                                 <h:outputText value="#{items.dishName}" />  
                             </p:column>  
