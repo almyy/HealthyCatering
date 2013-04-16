@@ -5,7 +5,7 @@
 
 div#header {
     position:fixed;
-    background-color: #353535;
+    background-color: #1e1e1e;
     top:0;
     left:0;
     right:0;
@@ -15,7 +15,7 @@ div#header {
 
 div#background {
     position: fixed;
-    background: URL('../pictures/bg.jpg');
+    background: #eeeeee;
     z-index: 100;
     background-size:cover;
     top:70px;
@@ -39,16 +39,15 @@ div#content {
 }
 div#lang {
     position: fixed;
+    padding: 5px;
     top:0;
     right:0;
     z-index:1000;
 }
 div#menu {
     position: fixed;
-    float: right;
     top:0;
-    right: 100px;
-    padding: 20px;
+    left: 350px;
     background-repeat: no-repeat;
     z-index:1000;
 }
@@ -58,8 +57,7 @@ div#login {
     margin-top:30px;
     right: 0;
     padding: 20px;
-    background: URL('../pictures/loginbg.png');
-    background-repeat: no-repeat;
+    background: #b7b7b7;
     z-index:1000;
 }
 
@@ -116,4 +114,18 @@ div#login {
 }
 .headerbutton{
     height:70px;
+    width: 100px;
+    margin-right: 2px;
+    font-family: sans-serif;
+    color: white;
+    font-size: large;
+    border: none;
+    background: #2b2b2b;
+}
+.headerbutton:hover{
+    background: #565656;
+}
+.headerbutton:active{
+    background: #a9a9a9;
+    color: #565656
 }
