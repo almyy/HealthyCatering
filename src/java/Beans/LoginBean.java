@@ -33,7 +33,7 @@ public class LoginBean implements Serializable {
                 externalContext.redirect("faces/protected/driver.xhtml");
             }
             if (db.getRole().equals("admin")) {
-                externalContext.redirect("faces/protected/admin.xhtml");
+                externalContext.redirect("faces/admin.xhtml");
             }
         } catch (IOException e) {
             System.out.println("IOException");

@@ -95,6 +95,9 @@ public class OrderBean implements Serializable {
         }
         return total_price;
     }
+    public void updatePlans(){
+        db.checkSubscription();
+    }
 
     public ArrayList<Dish> getDishes() {
         return dishes;
