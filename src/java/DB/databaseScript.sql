@@ -4,7 +4,7 @@ DROP TABLE sub_dish;
 DROP TABLE private;
 DROP TABLE orders;
 DROP TABLE subscriptionplan;
-DROP TABLE CUSTOMER;
+DROP TABLE customer;
 DROP TABLE dish;
 DROP TABLE salesman;
 DROP TABLE chef;
@@ -53,13 +53,13 @@ CREATE TABLE users(
     CONSTRAINT users_pk PRIMARY KEY(username),
     CONSTRAINT users_fk1 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)
 );
-CREATE TABLE ROLES(
+CREATE TABLE roles(
     roleName VARCHAR(20),
     username VARCHAR(20),
     CONSTRAINT roles_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT roles_pk PRIMARY KEY(username,roleName)
 );
-CREATE TABLE EMPLOYEE(
+CREATE TABLE employee(
     username VARCHAR(20) NOT NULL,
     employee_nr INTEGER NOT NULL,
     CONSTRAINT employee_fk FOREIGN KEY(username) REFERENCES users(username),
@@ -71,13 +71,13 @@ CREATE TABLE worker(
     CONSTRAINT worker_pk PRIMARY KEY(username)
 );
 
-CREATE TABLE Driver(
+CREATE TABLE driver(
     username VARCHAR(20) NOT NULL,
     CONSTRAINT driver_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT driver_pk PRIMARY KEY(username)
 );
 
-CREATE TABLE Salesman(
+CREATE TABLE salesman(
     username VARCHAR(20) NOT NULL,
     CONSTRAINT salesman_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT salesman_pk PRIMARY KEY(username)
@@ -94,7 +94,7 @@ CREATE TABLE administration(
     CONSTRAINT administration_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT administration_pk PRIMARY KEY(username)
 );
-CREATE TABLE CUSTOMER(
+CREATE TABLE customer(
     username VARCHAR(20) NOT NULL,
     CONSTRAINT customer_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT customer_pk PRIMARY KEY(username)
@@ -104,8 +104,8 @@ CREATE TABLE private(
     CONSTRAINT private_fk FOREIGN KEY(username) REFERENCES users(username),
     CONSTRAINT private_pk PRIMARY KEY(username)
 );
-CREATE TABLE Subscriptionplan(
-    subscriptionId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
+CREATE TABLE subscriptionplan(
+    subscriptionId INTEGER AUTO_INCREMENT,
     startDate date,
     endDate date,
     timeofdelivery time,
@@ -119,7 +119,7 @@ CREATE TABLE Subscriptionplan(
 ); 
 
 CREATE TABLE orders(
-    orderId INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
+    orderId INTEGER AUTO_INCREMENT,
     timeOfDelivery time,
     deliveryAddress VARCHAR (50),
     status INTEGER,
@@ -135,9 +135,10 @@ CREATE TABLE orders(
     CONSTRAINT orders_fk3 FOREIGN KEY(postalCode) REFERENCES postal_no(zip)
 );
 CREATE TABLE dish(
-    dishId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
+    dishId INTEGER NOT NULL AUTO_INCREMENT,
     dishName VARCHAR(50) NOT NULL,
     dishPrice DECIMAL NOT NULL,
+    dishImagePath VARCHAR(50),
     CONSTRAINT dish_pk PRIMARY KEY(dishId)
 );
 CREATE TABLE sub_dish(
@@ -170,7 +171,7 @@ CREATE TABLE dishes_stored(
 );
 
 CREATE TABLE message(
-    messageId INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
+    messageId INTEGER NOT NULL AUTO_INCREMENT,
     message VARCHAR(100),
     CONSTRAINT message_pk PRIMARY KEY(messageId)
 );
