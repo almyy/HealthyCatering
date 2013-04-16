@@ -2,6 +2,7 @@ package logikk;
 
 import DB.Database;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -30,7 +31,7 @@ public class PendingOrders {
         return database.getPendingOrders("Select * from ORDERS where STATUS =7");
     }
     public ArrayList<Order> getFirstOrdersDrivers() {
-        return database.getPendingOrders("Select * from ORDERS where STATUS=3 or STATUS=4 or STATUS=5");
+        return database.getPendingOrders("Select * from ORDERS where STATUS=3 or STATUS=4");
     }
 
     public void updateDb(Order s) {

@@ -1,8 +1,9 @@
 package DB;
 
-import java.security.Principal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
@@ -77,6 +78,7 @@ public class Database {
                 int orderId = res.getInt("ORDERID");
                 Order orderToBeAdded = new Order(date, timeOfDelivery, deliveryAddress, status);
                 orderToBeAdded.setOrderId(orderId);
+                orderToBeAdded.setPostalcode(res.getInt("postalcode"));
                 orders.add(orderToBeAdded);
             }
         } catch (SQLException e) {
@@ -90,22 +92,94 @@ public class Database {
 
     //FOR ADMIN
     public void updateOrder(Order s) {
-        PreparedStatement sqlRead = null;
+        PreparedStatement sqlGet = null;
+        PreparedStatement sqlUpdate = null;
+        ResultSet res = null;
         openConnection();
         try {
-            sqlRead = connection.prepareStatement("UPDATE ORDERS set STATUS=? where ORDERID=?");
-            sqlRead.setInt(1, s.getStatusNumeric());
-            sqlRead.setInt(2, s.getOrderId());
-            sqlRead.executeUpdate();
-            connection.commit();
-            System.out.println(s.getStatusNumeric() + ", " + s.getOrderId());
+            if (s.getStatusNumeric() == 5) {
+                connection.setAutoCommit(false);
+                sqlGet = connection.prepareStatement("SELECT * FROM dishes_ordered WHERE orderid=?");
+                sqlGet.setInt(1, s.getOrderId());
+                res = sqlGet.executeQuery();
+                StoredOrders storedOrders = new StoredOrders();
+                while (res.next()) {
+                    storedOrders.setDishId(res.getInt("dishid"));
+                    storedOrders.setDishCount(res.getInt("dishcount"));
+                    storedOrders.setSalesmanUsername(res.getString("salesmanusername"));
+                }
+                storedOrders.setOrderId(s.getOrderId());
+                storedOrders.setTotalPrice(s.getTotalprice());
+                storedOrders.setDate(s.getDate());
+                storedOrders.setPostalcode(s.getPostalcode());
+                insertDishesOrdered(storedOrders);
+                deleteOrder(s);
+            } else {
+                sqlUpdate = connection.prepareStatement("UPDATE ORDERS set STATUS=? where ORDERID=?");
+                sqlUpdate.setInt(1, s.getStatusNumeric());
+                sqlUpdate.setInt(2, s.getOrderId());
+                sqlUpdate.executeUpdate();
+                connection.commit();
+            }
         } catch (Exception e) {
-            System.out.println("lol");
+            e.toString();
         } finally {
-            Cleaner.closeSentence(sqlRead);
+            Cleaner.closeSentence(sqlGet);
+            Cleaner.closeSentence(sqlUpdate);
+            Cleaner.closeResSet(res);
             Cleaner.setAutoCommit(connection);
         }
         closeConnection();
+    }
+
+    private void deleteOrder(Order s) {
+        PreparedStatement ps = null;
+        try {
+            deleteFromDishesOrdered(s);
+            ps = connection.prepareStatement("DELETE FROM orders where orderid=?");
+            ps.setInt(1, s.getOrderId());
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            ex.toString();
+        } finally {
+            Cleaner.closeSentence(ps);
+        }
+    }
+
+    private void deleteFromDishesOrdered(Order s) {
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("DELETE FROM dishes_ordered WHERE orderid=?");
+            ps.setInt(1, s.getOrderId());
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            ex.toString();
+        } finally {
+            Cleaner.closeSentence(ps);
+        }
+    }
+
+    private void insertDishesOrdered(StoredOrders s) {
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("INSERT INTO dishes_stored (dishId,orderId,dishCount,totalPrice,dates,postalcode,salesmanusername) VALUES (?,?,?,?,?,?,?)");
+            ps.setInt(1, s.getDishId());
+            ps.setInt(3, s.getDishCount());
+            ps.setString(7, s.getSalesmanUsername());
+            ps.setInt(2, s.getOrderId());
+            ps.setDouble(4, s.getTotalPrice());
+            java.sql.Date sDate = new java.sql.Date(s.getDate().getTime());
+            ps.setString(5, sDate.toString());
+            ps.setInt(6, s.getPostalcode());
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        } finally {
+            Cleaner.closeSentence(ps);
+        }
     }
 
     public ArrayList<Order> getOrderOverview() {
@@ -196,36 +270,6 @@ public class Database {
         return result;
     }
 
-    //
-    //FOR DRIVER
-    public ArrayList<Order> getDriversList() {
-        ArrayList<Order> orders = new ArrayList();
-        PreparedStatement sqlRead = null;
-        ResultSet res = null;
-        openConnection();
-        try {
-            sqlRead = connection.prepareStatement("SELECT * FROM ORDERS WHERE STATUS = ?");
-            sqlRead.setInt(1, Status.ON_THE_ROAD.getCode());
-            res = sqlRead.executeQuery();
-            while (res.next()) {
-                java.sql.Date date = res.getDate("dates");
-                String deliveryAddress = res.getString("DELIVERYADDRESS");
-                java.sql.Time timeOfDelivery = res.getTime("TIMEOFDELIVERY");
-                int status = res.getInt("STATUS");
-                orders.add(new Order(date, timeOfDelivery, deliveryAddress, status));
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            Cleaner.closeConnection(connection);
-            Cleaner.closeResSet(res);
-            Cleaner.closeSentence(sqlRead);
-        }
-        return orders;
-
-    }
-
     public boolean changePassword(User user) {
         PreparedStatement sqlLogIn = null;
         openConnection();
@@ -286,15 +330,16 @@ public class Database {
         closeConnection();
         return ok;
     }
-    public int getNumberOfSalesmen(){
+
+    public int getNumberOfSalesmen() {
         int result = 0;
         PreparedStatement statement = null;
-        openConnection(); 
+        openConnection();
         try {
             statement = connection.prepareStatement("SELECT COUNT(*) as number FROM SALESMAN");
             ResultSet res = statement.executeQuery();
-            while(res.next()){
-                result = res.getInt("number"); 
+            while (res.next()) {
+                result = res.getInt("number");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -306,22 +351,23 @@ public class Database {
         }
         return result;
     }
-    public ArrayList<StoredOrders> getStoredOrders(String query){
+
+    public ArrayList<StoredOrders> getStoredOrders(String query) {
         ArrayList<StoredOrders> result = new ArrayList();
         PreparedStatement statement = null;
-        openConnection(); 
+        openConnection();
         try {
             statement = connection.prepareStatement(query);
             ResultSet res = statement.executeQuery();
-            while(res.next()){
+            while (res.next()) {
                 int dishId = res.getInt("dishid");
                 int orderId = res.getInt("orderId");
                 int dishCount = res.getInt("dishCount");
                 int totalPrice = res.getInt("totalPrice");
-                int postalCode = res.getInt("postalcode"); 
+                int postalCode = res.getInt("postalcode");
                 String un = res.getString("salesmanusername");
                 Date d = res.getDate("dates");
-                result.add(new StoredOrders(dishId,orderId,dishCount,totalPrice,postalCode,d,un)); 
+                result.add(new StoredOrders(dishId, orderId, dishCount, totalPrice, postalCode, d, un));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -334,6 +380,7 @@ public class Database {
         return result;
     }
 //FOR MENU
+
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();
@@ -824,7 +871,7 @@ public class Database {
         closeConnection();
         return role;
     }
-    
+
     public User emailExist(String inputEmail) {
         PreparedStatement sqlLogIn = null;
         openConnection();
