@@ -8,7 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import logikk.Dish;
+import logikk.Dish; 
 
 /**
  *
