@@ -8,10 +8,10 @@ public class SubscriptionPlan {
     public Date startdate;
     public Date enddate;
     public Time timeofdelivery;
-    public String weekday;
+    public int weekday;
     public String companyusername;
     
-    public SubscriptionPlan(Date startdate, Date enddate, Time timeofdelivery, String weekday, String companyusername){
+    public SubscriptionPlan(Date startdate, Date enddate, Time timeofdelivery, int weekday, String companyusername){
         this.startdate = startdate;
         this.enddate = enddate;
         this.timeofdelivery = timeofdelivery;
@@ -19,7 +19,7 @@ public class SubscriptionPlan {
         this.companyusername = companyusername;
     }
     
-    public SubscriptionPlan(int subid, Date startdate, Date enddate, Time timeofdelivery, String weekday, String companyusername){
+    public SubscriptionPlan(int subid, Date startdate, Date enddate, Time timeofdelivery, int weekday, String companyusername){
         this.subid = subid;
         this.startdate = startdate;
         this.enddate = enddate;
@@ -27,6 +27,12 @@ public class SubscriptionPlan {
         this.weekday = weekday;
         this.companyusername = companyusername;
     }
-    
-    
+
+    public void setSubid(int subid) {
+        this.subid = subid;
+    }
+
+    public int getSubid() {
+        return subid;
+    }
 }

@@ -12,6 +12,7 @@
         <ui:define name="content" >
             <h:body>
                 <p:commandButton value="Delete expired subscriptions" action="#{Admin.deletePlans()}"></p:commandButton>
+                <p:commandButton value="Update subscriptions" action="#{Admin.updatePlans()}"></p:commandButton>
                 <p:dataTable value="#{Admin.deletedplans}" rendered="#{!Admin.deletedExists()}"></p:dataTable>
                 <h:dataTable value="#{Admin.tabledata}" var="OrderStatus" styleClass="orders"
                              headerClass="ordersHeader" rowClasses="oddRow,evenRow" 

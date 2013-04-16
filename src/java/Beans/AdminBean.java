@@ -14,6 +14,7 @@ import logikk.Order;
 import logikk.OrderStatus;
 import logikk.PendingOrders;
 import java.io.Serializable;
+import java.sql.SQLException;
 import logikk.SubscriptionPlan;
 
 /**
@@ -23,7 +24,6 @@ import logikk.SubscriptionPlan;
 @SessionScoped
 @Named("Admin")
 public class AdminBean implements Serializable {
-    private Orders orders = new Orders();
     private Database db = new Database();
     private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
     private Order tempOrder = new Order();
@@ -51,6 +51,9 @@ public class AdminBean implements Serializable {
         for(int i=0; i<temp.size(); i++){
             deletedplans.add(temp.get(i));
         }
+    }
+    public void updatePlans(){
+            db.checkSubscription();
     }
 
     public ArrayList<SubscriptionPlan> getDeletedplans() {

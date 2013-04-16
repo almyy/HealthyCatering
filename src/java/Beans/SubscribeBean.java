@@ -34,12 +34,10 @@ public class SubscribeBean implements Serializable {
 
     public String submitPlan() {
         String returnvalue = "";
-        System.out.println("startdate " +startdate);
-        System.out.println("startdate " +enddate);
         for (int i = 0; i < selectedDays.size(); i++) {
             for (int j = 0; j < weekdays.size(); j++) {
                 if (selectedDays.get(i).equals(weekdays.get(j))) {
-                    SubscriptionPlan subplan = new SubscriptionPlan(startdate, enddate, times.get(j), weekdays.get(j), currentUser);
+                    SubscriptionPlan subplan = new SubscriptionPlan(startdate, enddate, times.get(j), j+1, currentUser);
                     FacesContext context = FacesContext.getCurrentInstance();
                     OrderBean orderbean = (OrderBean) context.getApplication().evaluateExpressionGet(context, "#{orderBean}", OrderBean.class);
                     Order order = orderbean.getSavedOrder();

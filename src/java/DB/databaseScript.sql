@@ -111,7 +111,8 @@ CREATE TABLE Subscriptionplan(
     timeofdelivery time,
     deliveryaddress varchar(30),
     totalprice decimal,
-    weekday varchar(20),
+    weekday smallint,
+    postalcode SMALLINT,
     description varchar(30),
     companyusername varchar(30),
     CONSTRAINT subscriptionplan_pk PRIMARY KEY(subscriptionId)

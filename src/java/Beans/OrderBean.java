@@ -80,15 +80,7 @@ public class OrderBean implements Serializable {
     public TimeZone getTimeZone() {
         TimeZone tz = TimeZone.getDefault();
         return tz;
-    }
-
-    public void handleDateSelect(SelectEvent event) {
-        System.out.println("YOLO");
-        FacesContext facesContext = FacesContext.getCurrentInstance();  
-        SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy");
-        deliverydate = new Date(format.format(event.getObject()));
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));  
-    }  
+    } 
 
     public MenuItems getMenuItems() {
         FacesContext context = FacesContext.getCurrentInstance();
