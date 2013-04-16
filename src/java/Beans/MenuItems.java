@@ -25,6 +25,10 @@ public class MenuItems implements Serializable {
     private Dish selectedDish;
     private double total_price;
 
+    public MenuItems(){
+        updateList(); 
+    }
+    
     public ArrayList<Dish> fillTable() {
         try {
             return db.getDishes();
@@ -41,7 +45,12 @@ public class MenuItems implements Serializable {
     public void setSelectedDish(Dish dish) {
         this.selectedDish = dish;
     }
-
+    public void updateList(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        for(int i = 0; i < items.size(); i++){
+            items.get(i).setImagePath("/faces/" + items.get(i).getImagePath());
+        }
+    }
     public void addDish() {
         boolean newdish = true;
         for (int i = 0; i < orderList.size(); i++) {
