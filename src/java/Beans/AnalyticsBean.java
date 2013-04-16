@@ -211,7 +211,7 @@ class AnalyticsBean implements Serializable {
             } else {
                 for (int u = 0; u < orders.size(); u++) {
                     if (orders.get(u).getDate().getMonth() == i) {
-                        turnOver += orders.get(u).getTotalPrice();
+                        turnOver += orders.get(u).getTotalprice();
                     }
                 }
             }
@@ -235,7 +235,7 @@ class AnalyticsBean implements Serializable {
             } else {
                 for (int u = 0; u < orders.size(); u++) {
                     if (orders.get(u).getDate().getMonth() == i) {
-                        turnOver += orders.get(u).getTotalPrice();
+                        turnOver += orders.get(u).getTotalprice();
                     }
                 }
             }
