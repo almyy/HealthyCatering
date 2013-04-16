@@ -210,14 +210,11 @@ public class Database {
         return orders;
     }
 
-    public ArrayList<SubscriptionPlan> removeOrder() {
+    public ArrayList<SubscriptionPlan> removeExpiredSubs() {
         ArrayList<SubscriptionPlan> result = new ArrayList<SubscriptionPlan>();
         ArrayList<Integer> subremove = new ArrayList<Integer>();
         ArrayList<Integer> orderremove = new ArrayList<Integer>();
         PreparedStatement sqlRead = null;
-        PreparedStatement sqlRemove1 = null;
-        PreparedStatement sqlRemove2 = null;
-        PreparedStatement sqlRemove3 = null;
         ResultSet res = null;
         openConnection();
         try {
@@ -243,20 +240,20 @@ public class Database {
                 result.add(plan);
             }
             for (int i = 0; i < orderremove.size(); i++) {
-                sqlRemove1 = connection.prepareStatement("DELETE FROM dishes_ordered WHERE orderid = ?");
+                PreparedStatement sqlRemove1 = connection.prepareStatement("DELETE FROM dishes_ordered WHERE orderid = ?");
                 sqlRemove1.setInt(1, orderremove.get(i));
                 sqlRemove1.executeUpdate();
 
             }
             for (int i = 0; i < orderremove.size(); i++) {
-                sqlRemove2 = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?");
+                PreparedStatement sqlRemove2 = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?");
                 sqlRemove2.setInt(1, orderremove.get(i));
                 sqlRemove2.executeUpdate();
             }
             System.out.println("Subremovelength: " + subremove.size());
             System.out.println("Orderremovelength: " + orderremove.size());
             for (int i = 0; i < subremove.size(); i++) {
-                sqlRemove3 = connection.prepareStatement("DELETE FROM subscriptionplan WHERE subscriptionid = ?");
+                PreparedStatement sqlRemove3 = connection.prepareStatement("DELETE FROM subscriptionplan WHERE subscriptionid = ?");
                 sqlRemove3.setInt(1, subremove.get(i));
                 sqlRemove3.executeUpdate();
             }
@@ -379,7 +376,7 @@ public class Database {
         }
         return result;
     }
-//FOR MENU
+    //FOR MENU
 
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
@@ -540,34 +537,32 @@ public class Database {
             Cleaner.closeSentence(statement2);
         }
         plan.setSubid(key);
-        checkSubscription();
         closeConnection();
+        checkSubscription();
         return result;
     }
 
     public void checkSubscription() {
         PreparedStatement statement = null;
         java.util.Date current = new java.util.Date();
+        openConnection();
         try {
             statement = connection.prepareStatement("SELECT subscriptionid, weekday FROM subscriptionplan");
             ResultSet res = statement.executeQuery();
             while (res.next()) {
-                System.out.println(res.getInt("weekday")+" og "+current.getDay());
                 if (res.getInt("weekday") == current.getDay()) {
                     int subid = res.getInt("subscriptionid");
-                    System.out.println(subid);
-                    PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM subscriptionplan WHERE subscriptionid =30 AND subscriptionid NOT IN (SELECT s.subscriptionid FROM subscriptionplan s, orders o WHERE s.subscriptionid = o.subscriptionid AND current date=o.dates)");
+                    PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM subscriptionplan WHERE subscriptionid ="+subid+" AND subscriptionid NOT IN (SELECT s.subscriptionid FROM subscriptionplan s, orders o WHERE s.subscriptionid = o.subscriptionid AND current date=o.dates)");
                     ResultSet res2 = statement2.executeQuery();
                     while (res2.next()) {
                         ArrayList<Dish> dishes = new ArrayList<Dish>();
-                        PreparedStatement statement3 = connection.prepareStatement("SELECT s.dishid, d.dishname, s.dishcount, d.dishprice FROM sub_dish s, dish d WHERE sub_dish.subid = "
-                                + subid + " AND sub_dish.dishid = dish.dishid");
+                        PreparedStatement statement3 = connection.prepareStatement("SELECT s.dishid, d.dishname, s.dishcount, d.dishprice FROM sub_dish s, dish d WHERE s.subid = "
+                                + subid + " AND s.dishid = d.dishid");
                         ResultSet res3 = statement3.executeQuery();
                         while (res3.next()) {
                             Dish newdish = new Dish(res3.getInt("dishid"), res3.getString("dishname"),
                                     res3.getInt("dishprice"), res3.getInt("dishcount"));
                             dishes.add(newdish);
-                            System.out.println(newdish.getDishName());
                         }
                         Order order = new Order(current, res2.getString("deliveryaddress"), 7, dishes,
                                 res2.getString("description"), res2.getInt("postalcode"), res2.getDouble("totalprice"));
@@ -588,7 +583,7 @@ public class Database {
                         connection.commit();
                         int key = 0;
                         ResultSet res4 = statement4.getGeneratedKeys();
-                        if (res.next()) {
+                        if (res4.next()) {
                             key = res4.getInt(1);
                         }
 
@@ -609,6 +604,7 @@ public class Database {
 
         } finally {
             Cleaner.closeSentence(statement);
+            closeConnection();
         }
     }
     //
