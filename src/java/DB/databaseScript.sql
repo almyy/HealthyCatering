@@ -17,7 +17,7 @@ DROP TABLE users;
 DROP TABLE postal_no;
 DROP TABLE munincipial_no;
 DROP TABLE county_no;
-
+DROP TABLE message;
 
 CREATE TABLE county_no (
     id SMALLINT,
