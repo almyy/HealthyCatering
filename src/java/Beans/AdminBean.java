@@ -23,7 +23,7 @@ import logikk.SubscriptionPlan;
 @SessionScoped
 @Named("Admin")
 public class AdminBean implements Serializable {
-    private Orders orders = new Orders();
+    private PendingOrders orders = new PendingOrders();
     private Database db = new Database();
     private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
     private Order tempOrder = new Order();
