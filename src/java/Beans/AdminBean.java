@@ -49,7 +49,7 @@ public class AdminBean implements Serializable {
     }
     
     public void deletePlans(){
-        ArrayList<SubscriptionPlan> temp = db.removeOrder();
+        ArrayList<SubscriptionPlan> temp = db.removeExpiredSubs();
         System.out.println("size: " + temp.size());
         for(int i=0; i<temp.size(); i++){
             deletedplans.add(temp.get(i));

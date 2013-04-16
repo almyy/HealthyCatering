@@ -50,6 +50,11 @@ public class SubscribeBean implements Serializable {
 
         return returnvalue;
     }
+    
+    public void updatePlans(){
+        db.removeExpiredSubs();
+        db.checkSubscription();   
+    }
 
     public ArrayList<String> getWeekdays() {
         return weekdays;
