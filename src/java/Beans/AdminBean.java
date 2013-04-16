@@ -29,7 +29,7 @@ public class AdminBean implements Serializable {
     private ArrayList<SubscriptionPlan> deletedplans = new ArrayList<SubscriptionPlan>();
 
      public AdminBean(){
-         orders.readFromDB();
+         orders.readFromDb();
          if(orders.getOrders()!=null){
              for(int i = 0;i<orders.getOrders().size();i++){
                  tabledata.add(new OrderStatus(orders.getOrders().get(i)));

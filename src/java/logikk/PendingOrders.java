@@ -42,4 +42,9 @@ public class PendingOrders {
     public void updateDb(Order s) {
         database.updateOrder(s);
     }
+    
+    public void readFromDb(){
+        this.orders = database.getOrderOverview();
+        
+    }
 }
