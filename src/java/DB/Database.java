@@ -2,8 +2,6 @@ package DB;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
@@ -13,7 +11,6 @@ import javax.sql.DataSource;
 import logikk.AdminMessage;
 import logikk.Dish;
 import logikk.Order;
-import logikk.Status;
 import logikk.StoredOrders;
 import logikk.SubscriptionPlan;
 import logikk.User;
@@ -406,7 +403,9 @@ public class Database {
                 int dishid = res.getInt("DISHID");
                 String dishname = res.getString("DISHNAME");
                 double dishprice = res.getDouble("DISHPRICE");
+                String imagePath = res.getString("DISHIMAGEPATH");
                 Dish newdish = new Dish(dishid, dishname, dishprice, 1);
+                if(imagePath!=null) newdish.setImagePath(imagePath);
                 dishes.add(newdish);
             }
         } catch (SQLException e) {

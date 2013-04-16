@@ -10,6 +10,7 @@ public class Dish {
     private String dishName;
     private double price;
     private int count; 
+    private String imagePath; 
 
     public Dish(int dishId, String dishName, double price) {
         this.dishId = dishId;
@@ -27,8 +28,16 @@ public class Dish {
         this.dishName = dishName;
         this.price = price;
     }
-
+    
     public Dish() {
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
     
 
