@@ -391,7 +391,6 @@ public class Database {
         return result;
     }
     //FOR MENU
-
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();
