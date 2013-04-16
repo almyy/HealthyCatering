@@ -2,11 +2,9 @@ package Beans;
 
 import DB.Database;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -14,7 +12,6 @@ import javax.inject.Named;
 import logikk.Dish;
 import logikk.Order;
 import logikk.User;
-import org.primefaces.event.SelectEvent;
 
 /**
  *

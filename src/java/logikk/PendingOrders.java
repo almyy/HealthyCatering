@@ -24,7 +24,8 @@ public class PendingOrders {
      * 7=awaitingapproval 5 = FINISHED 4= on the road 6 = missing
      */
     public ArrayList<Order> getFirstOrdersChef() {
-        return database.getPendingOrders("Select * from ORDERS where STATUS !=5 and STATUS!=4 and STATUS != 6 and STATUS !=7");
+        ArrayList<Order> result = database.getPendingOrders("Select * from ORDERS where STATUS !=5 and STATUS!=4 and STATUS != 6 and STATUS !=7");
+        
     }
     public ArrayList<Order> getFirstOrdersSalesmen(){
         return database.getPendingOrders("Select * from ORDERS where STATUS =7");
