@@ -942,9 +942,9 @@ public class Database {
         String role = "";
         try {
             statement = connection.prepareStatement("SELECT * FROM roles WHERE username=?");
-            statement.setString(1, getCurrentUser());
+            getCurrentUser();
+            statement.setString(1, this.currentUser);
             ResultSet res = statement.executeQuery();
-            connection.commit();
             while (res.next()) {
                 role = res.getString("rolename");
             }
@@ -953,7 +953,6 @@ public class Database {
             Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
         }
         closeConnection();
