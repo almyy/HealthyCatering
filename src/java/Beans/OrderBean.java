@@ -27,15 +27,14 @@ public class OrderBean implements Serializable {
     private ArrayList<Dish> dishes = fillDishes();
     private User user = db.getUser();
     private Date deliverydate = new Date();
+    private Date currentDate = new Date();
     private int[] hourvalues = {10, 11, 12, 13, 14, 15, 16, 17};
-    private int[] minutevalues = {10, 20, 30, 40, 50};
+    private int[] minutevalues = {00, 10, 20, 30, 40, 50};
     private String description;
     private double total_price;
     private Order savedOrder;
 
     public OrderBean() {
-        deliverydate.setHours(10);
-        deliverydate.setMinutes(00);
         MenuItems menuitems = getMenuItems();
         total_price = menuitems.getTotal_price();
     }
@@ -81,7 +80,7 @@ public class OrderBean implements Serializable {
         TimeZone tz = TimeZone.getDefault();
         return tz;
     }
-
+    
     public MenuItems getMenuItems() {
         FacesContext context = FacesContext.getCurrentInstance();
         MenuItems menuitems = (MenuItems) context.getApplication().evaluateExpressionGet(context, "#{menuitems}", MenuItems.class);
@@ -146,5 +145,10 @@ public class OrderBean implements Serializable {
 
     public Order getSavedOrder() {
         return savedOrder;
+    }
+
+    public Date getCurrentDate() {
+        currentDate = new Date();
+        return currentDate;
     }
 }

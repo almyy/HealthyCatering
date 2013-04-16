@@ -23,6 +23,7 @@ public class Order {
     private double totalprice = 0.0;
 
     public Order() {
+        
     }
 
     public Order(Date date, Time timeOfDelivery, String deliveryAddress) {
@@ -41,29 +42,7 @@ public class Order {
         this.timeOfDelivery = timeOfDelivery;
         this.deliveryAddress = deliveryAddress;
         status_numeric = status;
-        switch (status) {
-            case 1:
-                this.status = Status.PENDING.toString();
-                break;
-            case 2:
-                this.status = Status.UNDER_PREPARATION.toString();
-                break;
-            case 3:
-                this.status = Status.PENDING_DELIVERY.toString();
-                break;
-            case 4:
-                this.status = Status.ON_THE_ROAD.toString();
-                break;
-            case 5:
-                this.status = Status.FINISHED.toString();
-                break;
-            case 6:
-                this.status = Status.MISSING.toString();
-                break;
-            case 7:
-                this.status = Status.NEEDS_APPROVAL.toString();
-                break;
-        }
+        this.status=Status.getStatusName(status);
     }
     public Order(Date date, Time timeOfDelivery, String deliveryAddress, int status,double totalPrice) {
         fullDate = new Date(date.getYear(), date.getMonth(), date.getDate(),
@@ -73,29 +52,7 @@ public class Order {
         this.deliveryAddress = deliveryAddress;
         status_numeric = status;
         this.totalprice = totalPrice; 
-        switch (status) {
-            case 1:
-                this.status = Status.PENDING.toString();
-                break;
-            case 2:
-                this.status = Status.UNDER_PREPARATION.toString();
-                break;
-            case 3:
-                this.status = Status.PENDING_DELIVERY.toString();
-                break;
-            case 4:
-                this.status = Status.ON_THE_ROAD.toString();
-                break;
-            case 5:
-                this.status = Status.FINISHED.toString();
-                break;
-            case 6:
-                this.status = Status.MISSING.toString();
-                break;
-            case 7:
-                this.status = Status.NEEDS_APPROVAL.toString();
-                break;
-        }
+        this.status=Status.getStatusName(status);
     }
 
     public Order(Date date, String deliveryAddress, int status, ArrayList<Dish> dishes, String description, int postalcode, double totalprice) {
@@ -108,10 +65,6 @@ public class Order {
         this.description = description;
         this.postalcode = postalcode;
         this.totalprice = totalprice;
-    }
-
-    public double getTotalPrice() {
-        return totalprice;
     }
     
     public String getStatus() {
@@ -128,14 +81,23 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+        System.out.println(status);
         if (status.equals(Status.PENDING.toString())) {
             this.status_numeric = 1;
         } else if (status.equals(Status.UNDER_PREPARATION.toString())) {
             this.status_numeric = 2;
         } else if (status.equals(Status.PENDING_DELIVERY.toString())) {
             this.status_numeric = 3;
+        } else if (status.equals(Status.ON_THE_ROAD.toString())) {
+            this.status_numeric = 4;
+        } else if (status.equals(Status.FINISHED.toString())) {
+            this.status_numeric = 5;
+        } else if (status.equals(Status.MISSING.toString())) {
+            this.status_numeric = 6;
+        } else if (status.equals(Status.NEEDS_APPROVAL.toString())) {
+            this.status_numeric = 7;
         }
-
+        System.out.println(status_numeric);
     }
 
     public boolean addDish(Dish dish) {
@@ -212,4 +174,5 @@ public class Order {
     public void setTotalPrice(double totalprice) {
         this.totalprice = totalprice;
     }   
+    
 }

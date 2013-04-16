@@ -1,23 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package logikk;
 
-/**
- *
- * @author Rino
- */
-public class OrderStatus {
+public class OrderStatus{
     
     private Order order;
     private boolean toBeChanged;
-    private boolean toBeDeleted; 
+    private boolean toBeDeleted;
     
-    public OrderStatus(){
+    public OrderStatus(){   
         order = new Order();
         toBeChanged=false;
-        toBeDeleted = false; 
+        toBeDeleted = false;
     }
     public OrderStatus(Order order){
         this.order = order;
@@ -44,5 +37,5 @@ public class OrderStatus {
     }
     public void setOrder(Order newOrder){
         this.order = newOrder; 
-    }
+    }    
 }

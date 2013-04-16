@@ -24,27 +24,26 @@ public class SubscribeBean implements Serializable {
             new Time(10, 10, 0), new Time(10, 10, 0), new Time(10, 10, 0)));
     private Date startdate = new Date();
     private Date enddate = new Date();
-    private boolean isEnglish;
+    
+    public SubscribeBean(){
+        startdate.setHours(10);
+        startdate.setMinutes(00);
+        enddate.setHours(10);
+        enddate.setMinutes(00);
+    }
 
     public String submitPlan() {
         String returnvalue = "";
         for (int i = 0; i < selectedDays.size(); i++) {
             for (int j = 0; j < weekdays.size(); j++) {
                 if (selectedDays.get(i).equals(weekdays.get(j))) {
-                    SubscriptionPlan subplan = new SubscriptionPlan(startdate, enddate, times.get(j), weekdays.get(j), currentUser);
+                    SubscriptionPlan subplan = new SubscriptionPlan(startdate, enddate, times.get(j), j+1, currentUser);
                     FacesContext context = FacesContext.getCurrentInstance();
                     OrderBean orderbean = (OrderBean) context.getApplication().evaluateExpressionGet(context, "#{orderBean}", OrderBean.class);
                     Order order = orderbean.getSavedOrder();
                     if(db.subscription(subplan, order)){
-                        System.out.println("5");
                         returnvalue= "orderSuccess.xhtml";
                     }
-                    else{
-                        System.out.println("føkk");
-                    }
-                }
-                else{
-                    System.out.println("lol?");
                 }
             }
         }
@@ -83,12 +82,14 @@ public class SubscribeBean implements Serializable {
     public void setTimes(ArrayList<Time> times) {
         this.times = times;
     }
-    
-    public void setIsEnglish(boolean isEnglish){
-        this.isEnglish = isEnglish;
+
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
+    }
+
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
     }
     
-    public boolean getIsEnglish(){
-        return isEnglish;
-    }
+    
 }

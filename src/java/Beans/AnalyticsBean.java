@@ -5,29 +5,41 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
+import logikk.Dish;
 import logikk.Order;
+import logikk.StoredOrders;
 import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartSeries;
 
-@SessionScoped
+@ManagedBean
+@RequestScoped
 @Named("Analytics")
 class AnalyticsBean implements Serializable {
+
     private Database db = new Database();
     private Date toDate = new Date();
     private Date toDateOriginal = toDate;
     private Date fromDate = new Date(toDate.getYear() - 1, toDate.getMonth(), toDate.getDay());
     private Date fromDateOriginal = fromDate;
     private CartesianChartModel linearModel;
+    private CartesianChartModel categoryModel;
+    private CartesianChartModel categoryModel2;
+    private CartesianChartModel categoryModelSales; 
     private ArrayList<Order> orders = new ArrayList();
     private float turnoverNow = 0;
     private float turnoverLastYear = 0;
     private String[] months = {"January", "February", "March", "April", "Mai", "June", "July", "August", "September",
-            "October", "November", "Descember"};
+        "October", "November", "Descember"};
 
     public AnalyticsBean() {
         createLinearModel();
+        createCategoryModel();
+        createCategoryModel2();
+        createCategoryModelSales(); 
     }
 
     public ArrayList<Order> calculateTurnover(Date fromDate, Date toDate) {
@@ -38,9 +50,19 @@ class AnalyticsBean implements Serializable {
         return orders;
     }
 
+    public CartesianChartModel getCategoryModel() {
+        return categoryModel;
+    }
+
+    public CartesianChartModel getCategoryModelSales() {
+        return categoryModelSales;
+    }
+    
+
     public Date getFromDate() {
         return fromDate;
     }
+
     public Date getFromDateOriginal() {
         return fromDateOriginal;
     }
@@ -69,13 +91,110 @@ class AnalyticsBean implements Serializable {
         return turnoverNow;
     }
 
+    public CartesianChartModel getCategoryModel2() {
+        return categoryModel2;
+    }
+    
     public CartesianChartModel getLinearModel() {
         return linearModel;
     }
+    public void createCategoryModel2(){
+        categoryModel2 = new CartesianChartModel();
+        
+        ArrayList<StoredOrders> sOrders = getStoredInfo();
+        ArrayList<Dish> dishesDb = db.getDishes();
+        
+        ChartSeries moneyGenerated = new ChartSeries();
+        moneyGenerated.setLabel("Income Generated");
+        int moneyGeneratedForDish = 0; 
+        for (int i = 0; i < dishesDb.size(); i++) {
+            for (int u = 0; u < sOrders.size(); u++) {
+                if (sOrders.get(u).getDishId() == dishesDb.get(i).getDishId()) {
+                    moneyGeneratedForDish += sOrders.get(u).getTotalPrice();
+                }
+            }
+            moneyGenerated.set(dishesDb.get(i).getDishName(), moneyGeneratedForDish);
+            moneyGeneratedForDish = 0;
+        }
+        categoryModel2.addSeries(moneyGenerated);
+    }
+    public void createCategoryModelSales(){
+        ArrayList<StoredOrders> sOrders = getStoredInfo(this.fromDate);       
+        
+        for(int i = 0; i < sOrders.size(); i++){
+            if(sOrders.get(i).getSalesmanUsername()==null){
+                sOrders.remove(sOrders.get(i));
+                i--;
+            }
+        }
+        
+        int salesmenCounter = db.getNumberOfSalesmen(); 
+        String salesmanUsername = null; 
+        
+        int[] salesNumbers = new int[salesmenCounter]; 
+        String[] salesmenUsernames = new String[salesmenCounter]; 
+        
+        for(int i = 0; i < salesmenCounter; i++){
+            salesmanUsername = sOrders.get(0).getSalesmanUsername();
+            salesmenUsernames[i] = salesmanUsername; 
+            for(int u = 0; u < sOrders.size();u++){
+                if(sOrders.get(u).getSalesmanUsername().equals(salesmanUsername)){
+                    salesNumbers[i] += sOrders.get(u).getTotalPrice();
+                    sOrders.remove(sOrders.get(u));
+                    u--;
+                }
+            }
+        }
+        categoryModelSales = new CartesianChartModel(); 
+        ChartSeries salesmenPay = new ChartSeries();
+        
+        salesmenPay.setLabel("Commision earned");
+        for(int i = 0; i < salesmenCounter; i++){
+            salesmenPay.set(salesmenUsernames[i],salesNumbers[i]*0.11);
+        }
+        categoryModelSales.addSeries(salesmenPay);
+    }
+    public void createCategoryModel() {
+        categoryModel = new CartesianChartModel();
+        ChartSeries dishesCount = new ChartSeries();
+       
+        dishesCount.setLabel("Dishes sold");
 
+        ArrayList<StoredOrders> sOrders = getStoredInfo();
+        ArrayList<Dish> dishesDb = db.getDishes();
+
+        int numberOfSales = 0;
+
+        for (int i = 0; i < dishesDb.size(); i++) {
+            for (int u = 0; u < sOrders.size(); u++) {
+                if (sOrders.get(u).getDishId() == dishesDb.get(i).getDishId()) {
+                    numberOfSales += sOrders.get(u).getDishCount();
+                }
+            }
+            dishesCount.set(dishesDb.get(i).getDishName(), numberOfSales);
+            numberOfSales = 0;
+        }        
+        categoryModel.addSeries(dishesCount);
+    }
+
+    public ArrayList<StoredOrders> getStoredInfo() {
+        String query = "SELECT * FROM dishes_stored";
+        return db.getStoredOrders(query);
+    }
+    public ArrayList<StoredOrders> getStoredInfo(Date fromDate){
+        java.sql.Date fromDateSql = new java.sql.Date(fromDate.getTime());
+        String query="SELECT * FROM dishes_stored WHERE dates >='" + fromDateSql.toString() + "'";
+        return db.getStoredOrders(query);
+    }
+    public void update(){
+        createLinearModel();
+        createCategoryModel();
+        createCategoryModel2();
+        createCategoryModelSales();
+    }
     public void createLinearModel() {
-        turnoverNow=0;
-        turnoverLastYear=0; 
+        turnoverNow = 0;
+        turnoverLastYear = 0;
         ArrayList<Order> orders = calculateTurnover(this.fromDate, this.toDate);
         linearModel = new CartesianChartModel();
         LineChartSeries series1 = new LineChartSeries();
@@ -87,12 +206,12 @@ class AnalyticsBean implements Serializable {
         float turnOver = 0;
         for (int i = 0; i < spanSize; i++) {
             if (spanSize == 1) {
-                calculateMonthlyTurnover(this.fromDate.getMonth(), series1,orders,true);
+                calculateMonthlyTurnover(this.fromDate.getMonth(), series1, orders, true);
                 break;
             } else {
                 for (int u = 0; u < orders.size(); u++) {
                     if (orders.get(u).getDate().getMonth() == i) {
-                        turnOver += orders.get(u).getTotalPrice();
+                        turnOver += orders.get(u).getTotalprice();
                     }
                 }
             }
@@ -111,13 +230,12 @@ class AnalyticsBean implements Serializable {
         monthCounter = this.fromDate.getMonth();
         for (int i = 0; i < spanSize; i++) {
             if (spanSize == 1) {
-                calculateMonthlyTurnover(this.fromDate.getMonth(),series2,orders,false);
-                break; 
-            }
-            else {
+                calculateMonthlyTurnover(this.fromDate.getMonth(), series2, orders, false);
+                break;
+            } else {
                 for (int u = 0; u < orders.size(); u++) {
                     if (orders.get(u).getDate().getMonth() == i) {
-                        turnOver += orders.get(u).getTotalPrice();
+                        turnOver += orders.get(u).getTotalprice();
                     }
                 }
             }
@@ -131,25 +249,25 @@ class AnalyticsBean implements Serializable {
         }
         linearModel.addSeries(series1);
         linearModel.addSeries(series2);
-        
+
     }
 
-    private void calculateMonthlyTurnover(int month, LineChartSeries series,ArrayList<Order>orders, boolean now) {
+    private void calculateMonthlyTurnover(int month, LineChartSeries series, ArrayList<Order> orders, boolean now) {
         Calendar calendar = Calendar.getInstance();
         int turnover = 0;
         if (month == 1) {
             for (int i = 0; i < 28; i++) {
                 for (int u = 0; u < orders.size(); u++) {
                     calendar.setTime(orders.get(u).getDate());
-                    if (calendar.get(Calendar.DAY_OF_MONTH)==i) {
+                    if (calendar.get(Calendar.DAY_OF_MONTH) == i) {
                         turnover += orders.get(u).getTotalprice();
                     }
                 }
-                series.set(i + 1+" ", turnover);
-                if(now){
+                series.set(i + 1 + " ", turnover);
+                if (now) {
                     turnoverNow += turnover;
-                }else{
-                    turnoverLastYear += turnover; 
+                } else {
+                    turnoverLastYear += turnover;
                 }
                 turnover = 0;
             }
@@ -157,15 +275,15 @@ class AnalyticsBean implements Serializable {
             for (int i = 0; i < 31; i++) {
                 for (int u = 0; u < orders.size(); u++) {
                     calendar.setTime(orders.get(u).getDate());
-                    if (calendar.get(Calendar.DAY_OF_MONTH)==i) {
+                    if (calendar.get(Calendar.DAY_OF_MONTH) == i) {
                         turnover += orders.get(u).getTotalprice();
                     }
                 }
-                series.set(i + 1+" ", turnover);
-                if(now){
+                series.set(i + 1 + " ", turnover);
+                if (now) {
                     turnoverNow += turnover;
-                }else{
-                    turnoverLastYear += turnover; 
+                } else {
+                    turnoverLastYear += turnover;
                 }
                 turnover = 0;
             }
@@ -173,15 +291,15 @@ class AnalyticsBean implements Serializable {
             for (int i = 0; i < 30; i++) {
                 for (int u = 0; u < orders.size(); u++) {
                     calendar.setTime(orders.get(u).getDate());
-                    if (calendar.get(Calendar.DAY_OF_MONTH)==i) {
+                    if (calendar.get(Calendar.DAY_OF_MONTH) == i) {
                         turnover += orders.get(u).getTotalprice();
                     }
                 }
-                series.set(i + 1+" ", turnover);
-                if(now){
+                series.set(i + 1 + " ", turnover);
+                if (now) {
                     turnoverNow += turnover;
-                }else{
-                    turnoverLastYear += turnover; 
+                } else {
+                    turnoverLastYear += turnover;
                 }
                 turnover = 0;
             }

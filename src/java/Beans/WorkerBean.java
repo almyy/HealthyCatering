@@ -5,7 +5,6 @@
 package Beans;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -76,7 +75,6 @@ public class WorkerBean implements Serializable {
     public void statusChanged(ValueChangeEvent e) {
         for (int i = 0; i < tabledata.size(); i++) {
             if (tabledata.get(i).getToBeChanged()) {
-                tabledata.get(i).getOrder().setStatus((String) e.getNewValue());
                 overView.updateDb(tabledata.get(i).getOrder());
             }
         }

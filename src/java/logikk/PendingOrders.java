@@ -1,18 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package logikk;
 
 import DB.Database;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Rino
  */
-public class PendingOrders implements Serializable {
+public class PendingOrders {
 
     private Database database = new Database();
     private ArrayList<Order> orders = new ArrayList();
@@ -33,6 +28,9 @@ public class PendingOrders implements Serializable {
     }
     public ArrayList<Order> getFirstOrdersSalesmen(){
         return database.getPendingOrders("Select * from ORDERS where STATUS =7");
+    }
+    public ArrayList<Order> getFirstOrdersDrivers() {
+        return database.getPendingOrders("Select * from ORDERS where STATUS=3 or STATUS=4");
     }
 
     public void updateDb(Order s) {
