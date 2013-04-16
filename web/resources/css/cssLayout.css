@@ -5,7 +5,7 @@
 
 div#header {
     position:fixed;
-    background: URL('../pictures/headerbg.png');
+    background-color: #353535;
     top:0;
     left:0;
     right:0;
@@ -46,13 +46,13 @@ div#lang {
 div#menu {
     position: fixed;
     float: right;
-    margin-top:0;
+    top:0;
     right: 100px;
     padding: 20px;
-    background: URL('../pictures/menubg.png');
     background-repeat: no-repeat;
     z-index:1000;
 }
+
 div#login {
     position: fixed;
     margin-top:30px;
@@ -113,4 +113,7 @@ div#login {
 .noBackground tr, .noBackground td {
     background: none !important;
     width: 100%;
+}
+.headerbutton{
+    height:70px;
 }
