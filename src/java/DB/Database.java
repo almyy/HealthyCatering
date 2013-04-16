@@ -403,9 +403,8 @@ public class Database {
         openConnection();
         ArrayList<Dish> dishes = new ArrayList<Dish>();
         try {
-            sentence = connection.prepareStatement("select * from DISH");
+            sentence = connection.prepareStatement("select * from dish");
             ResultSet res = sentence.executeQuery();
-            connection.commit();
             while (res.next()) {
                 int dishid = res.getInt("DISHID");
                 String dishname = res.getString("DISHNAME");
@@ -418,7 +417,6 @@ public class Database {
             Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sentence);
         }
         closeConnection();
@@ -636,16 +634,13 @@ public class Database {
         try {
             sqlLogIn = connection.prepareStatement("SELECT * FROM users WHERE username = '" + username + "'");
             ResultSet res = sqlLogIn.executeQuery();
-            connection.commit();
             if (res.next()) {
                 exist = true;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sqlLogIn);
         }
         closeConnection();
