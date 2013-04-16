@@ -19,21 +19,21 @@ public class LoginBean implements Serializable {
     public void redirect() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
                 System.out.println(db.getRole()); 
-                String l = db.getRole();
+                String roleName = db.getRole();
         try {
-            if (db.getRole().equals("customer")) {
+            if (roleName.equals("customer")) {
                 externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/customer/customer.xhtml");
             }
-            if (db.getRole().equals("chef")) {
+            if (roleName.equals("chef")) {
                 externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/worker/chef.xhtml");
             }
-            if (db.getRole().equals("salesman")) {
+            if (roleName.equals("salesman")) {
                 externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/worker/salesman.xhtml");
             }
-            if (db.getRole().equals("driver")) {
+            if (roleName.equals("driver")) {
                 externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/worker/driver.xhtml");
             }
-            if (db.getRole().equals("admin")) {
+            if (roleName.equals("admin")) {
                 externalContext.redirect(externalContext.getRequestContextPath()+ "/faces/protected/admin/admin.xhtml");
             }
         } catch (IOException e) {
