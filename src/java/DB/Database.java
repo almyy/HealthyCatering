@@ -159,7 +159,6 @@ public class Database {
             ps = connection.prepareStatement("DELETE FROM orders where orderid=?");
             ps.setInt(1, s.getOrderId());
             ps.executeUpdate();
-            connection.commit();
         } catch (SQLException ex) {
             ex.toString();
         } finally {
@@ -173,7 +172,6 @@ public class Database {
             ps = connection.prepareStatement("DELETE FROM dishes_ordered WHERE orderid=?");
             ps.setInt(1, s.getOrderId());
             ps.executeUpdate();
-            connection.commit();
         } catch (SQLException ex) {
             ex.toString();
         } finally {
@@ -194,7 +192,6 @@ public class Database {
             ps.setString(5, sDate.toString());
             ps.setInt(6, s.getPostalcode());
             ps.executeUpdate();
-            connection.commit();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         } finally {
@@ -292,14 +289,13 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
+            connection.setAutoCommit(false);
             sqlLogIn = connection.prepareStatement("UPDATE users SET PASSWORD = ? WHERE username = ?");
             sqlLogIn.setString(1, user.getPassword());
             sqlLogIn.setString(2, user.getUsername());
             sqlLogIn.executeUpdate();
             connection.commit();
             ok = true;
-
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Cleaner.rollback(connection);
@@ -318,6 +314,7 @@ public class Database {
         openConnection();
         boolean ok = false;
         try {
+            connection.setAutoCommit(false);
             sqlRegNewuser = connection.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             sqlRegNewuser.setString(1, user.getUsername());
             sqlRegNewuser.setString(2, user.getPassword());
@@ -360,10 +357,8 @@ public class Database {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
         }
         return result;
@@ -374,8 +369,10 @@ public class Database {
         PreparedStatement statement = null;
         openConnection();
         try {
+            connection.setAutoCommit(false);
             statement = connection.prepareStatement(query);
             ResultSet res = statement.executeQuery();
+            connection.commit(); 
             while (res.next()) {
                 int dishId = res.getInt("dishid");
                 int orderId = res.getInt("orderId");
@@ -597,7 +594,6 @@ public class Database {
                         statement4.setString(8, order.getDescription());
                         statement4.setDouble(9, order.getTotalprice());
                         statement4.executeUpdate();
-                        connection.commit();
                         int key = 0;
                         ResultSet res4 = statement4.getGeneratedKeys();
                         if (res4.next()) {
@@ -611,7 +607,6 @@ public class Database {
                             statement5.setInt(3, order.getOrderedDish().get(i).getCount());
                             statement5.executeUpdate();
                         }
-                        connection.commit();
                     }
                 }
             }
@@ -653,7 +648,6 @@ public class Database {
         try {
             statement = connection.prepareStatement("SELECT * FROM users WHERE username = '" + getCurrentUser() + "'");
             ResultSet res = statement.executeQuery();
-            connection.commit();
             while (res.next()) {
                 String username = res.getString("username");
                 String password = res.getString("password");
@@ -671,14 +665,12 @@ public class Database {
             Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
         }
         try {
             statement = connection.prepareStatement("SELECT * FROM POSTAL_NO WHERE zip=?");
             statement.setInt(1, newUser.getPostnumber());
             ResultSet res = statement.executeQuery();
-            connection.commit();
             while (res.next()) {
                 String postalArea = res.getString("place");
                 newUser.setCity(postalArea);
@@ -688,7 +680,6 @@ public class Database {
             Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
         }
         closeConnection();
@@ -729,7 +720,6 @@ public class Database {
             sqlUpdProfile.setString(8, getCurrentUser());
             ok = true;
             sqlUpdProfile.executeUpdate();
-            connection.commit();
         } catch (SQLException e) {
             Cleaner.writeMessage(e, "changeData()");
         } finally {
@@ -749,7 +739,6 @@ public class Database {
             sqlRegNew.setDouble(2, dish.getPrice());
             sqlRegNew.executeUpdate();
 
-            connection.commit();
 
             /*
              * Transaksjon slutt
@@ -758,10 +747,8 @@ public class Database {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sqlRegNew);
         }
         closeConnection();
@@ -776,7 +763,6 @@ public class Database {
             sqlDel = connection.prepareStatement("DELETE FROM DISH WHERE dishid = ?");
             sqlDel.setInt(1, dish.getDishId());
             sqlDel.executeUpdate();
-            connection.commit();
             ok = true;
 
         } catch (SQLException e) {
@@ -801,7 +787,6 @@ public class Database {
 
             ok = true;
             sqlUpdDish.executeUpdate();
-            connection.commit();
         } catch (SQLException e) {
             Cleaner.writeMessage(e, "changeData()");
         } finally {
@@ -818,15 +803,12 @@ public class Database {
             sentence = connection.prepareStatement("DELETE from message WHERE messageid = ?");
             sentence.setInt(1, message.getID());
             sentence.executeUpdate();
-            connection.commit();
             ok = true;
          
         }catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sentence);
         }
         closeConnection();
@@ -840,15 +822,12 @@ public class Database {
             sentence = connection.prepareStatement("INSERT into message(message)VALUES(?)");
             sentence.setString(1, message.getMessage());
             sentence.executeUpdate();
-            connection.commit();
             ok = true;
          
         }catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sentence);
         }
         closeConnection();
@@ -863,15 +842,12 @@ public class Database {
             sentence.setString(1, message.getMessage());
             sentence.setInt(2, message.getID());
             sentence.executeUpdate();
-            connection.commit();
             ok = true;
          
         }catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sentence);
         }
         closeConnection();
@@ -884,7 +860,6 @@ public class Database {
         try{
             sentence = connection.prepareStatement("Select * from Message");
             ResultSet res = sentence.executeQuery();
-            connection.commit();
             while(res.next()){
                 String message = res.getString("message");
                 int ID = res.getInt("MESSAGEID");
@@ -892,10 +867,8 @@ public class Database {
             }
         }catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sentence);
         }
         closeConnection();
@@ -909,7 +882,6 @@ public class Database {
         try {
             sentence = connection.prepareStatement("select * from DISH");
             ResultSet res = sentence.executeQuery();
-            connection.commit();
             while (res.next()) {
                 int dishid = res.getInt("DISHID");
                 String dishname = res.getString("DISHNAME");
@@ -920,10 +892,7 @@ public class Database {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
-
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sentence);
         }
         closeConnection();
@@ -960,7 +929,6 @@ public class Database {
         try {
             sqlLogIn = connection.prepareStatement("SELECT * FROM users WHERE email = '" + inputEmail + "'");
             ResultSet res = sqlLogIn.executeQuery();
-            connection.commit();
             while (res.next()) {
                 String username = res.getString("username");
                 String password = res.getString("password");
@@ -975,10 +943,8 @@ public class Database {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(sqlLogIn);
         }
         closeConnection();
