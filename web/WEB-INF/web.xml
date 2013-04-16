@@ -34,7 +34,7 @@
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping> -->
     <welcome-file-list>
-        <welcome-file>faces/protected/passValid.xhtml</welcome-file>
+        <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -50,9 +50,38 @@
     </context-param>
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Protected pages</web-resource-name>
-            <url-pattern>/faces/protected/*</url-pattern>
-            <url-pattern>/protected/*</url-pattern>
+            <web-resource-name>Worker pages</web-resource-name>
+            <url-pattern>/faces/protected/worker/*</url-pattern>
+            <url-pattern>/faces/protected/orders/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Allowed resources</web-resource-name>
+            <url-pattern>/javax.faces.resources/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>salesman</role-name>
+            <role-name>chef</role-name>
+            <role-name>driver</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin pages</web-resource-name>
+            <url-pattern>/faces/protected/admin/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Allowed resources</web-resource-name>
+            <url-pattern>/javax.faces.resources/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Customer pages</web-resource-name>
+            <url-pattern>/faces/protected/customer/*</url-pattern>
+            <url-pattern>/faces/protected/orders/*</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>Allowed resources</web-resource-name>
@@ -60,17 +89,13 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>customer</role-name>
-            <role-name>salesman</role-name>
-            <role-name>admin</role-name>
-            <role-name>chef</role-name>
-            <role-name>driver</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>hc_realm</realm-name>
         <form-login-config>
-            <form-login-page>/faces/index.xhtml</form-login-page>
+            <form-login-page>/faces/passValid.xhtml</form-login-page>
             <form-error-page>/faces/noauth.xhtml</form-error-page>
         </form-login-config>
     </login-config>

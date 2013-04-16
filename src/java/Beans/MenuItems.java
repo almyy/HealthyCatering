@@ -18,10 +18,10 @@ import logikk.Dish;
 @SessionScoped
 public class MenuItems implements Serializable {
 
-    Database db = new Database();
-    ArrayList<Dish> items = fillTable();
-    ArrayList<Dish> orderList = new ArrayList<Dish>();
-    int count;
+    private Database db = new Database();
+    private ArrayList<Dish> items = fillTable();
+    private ArrayList<Dish> orderList = new ArrayList<Dish>();
+    private int count;
     private Dish selectedDish;
     private double total_price;
 
@@ -89,12 +89,11 @@ public class MenuItems implements Serializable {
         this.total_price = total_price;
     }
 
-    public String order() {
-        String returnvalue = "";
-        if (db.getRole().equals("customer")||db.getRole().equals("salesman")) {
-            returnvalue = "faces/protected/order.xhtml";
+    public void order() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        if (db.getRole().equals("customer") || db.getRole().equals("salesman")) {
+            ec.redirect(ec.getRequestContextPath()+ "/faces/protected/orders/order.xhtml");
         }
-        return returnvalue;
     }
 
     public boolean isLoggedIn() {

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="../../serviceTemplate.xhtml"> 
+        <h:head>
+            <title>Facelet Title</title>
+        </h:head>
+        <ui:define name="content" >
+            <h:body>
+                <h:dataTable value="#{Admin.tabledata}" var="OrderStatus" styleClass="orders"
+                             headerClass="ordersHeader" rowClasses="oddRow,evenRow" 
+                             columnClasses="orderId,textFiel,textFiel,textFiel,textFiel,textFiel"
+                             footerClass="footerRow" cellpadding="2" cellspacing="0"
+                             rendered =" #{Admin.dataExist}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        #{OrderStatus.order.orderId}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Date"/>
+                        </f:facet>
+                        #{OrderStatus.order.date}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Time of Delivery"/>
+                        </f:facet>
+                        #{OrderStatus.order.timeOfDelivery}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Delivery Address"/>
+                        </f:facet>
+                        #{OrderStatus.order.deliveryAddress}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Ordered dish"/>
+                        </f:facet>
+                        #{OrderStatus.order.orderedDish}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Status"/>
+                        </f:facet>
+                        #{OrderStatus.order.status}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Price"/>
+                        </f:facet>
+                        #{OrderStatus.order.orderPrice}
+                    </h:column>
+                    <f:facet name="footer">
+                        
+                    </f:facet>
+                </h:dataTable>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+

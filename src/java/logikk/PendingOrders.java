@@ -37,8 +37,8 @@ public class PendingOrders {
         database.updateOrder(s);
     }
     
-    public void readFromDb(){
-        this.orders = database.getOrderOverview();
-        
+    public ArrayList<Order> getOrdersUser(String username){
+        ArrayList<Order> userOrders = database.getPendingOrders("SELECT * FROM orders WHERE usernamecustomer = '" + username + "'");
+        return userOrders;
     }
 }

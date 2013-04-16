@@ -21,19 +21,19 @@ public class LoginBean implements Serializable {
                 System.out.println(db.getRole());
         try {
             if (db.getRole().equals("customer")) {
-                externalContext.redirect("faces/protected/customer.xhtml");
+                externalContext.redirect("faces/protected/customer/customer.xhtml");
             }
             if (db.getRole().equals("chef")) {
-                externalContext.redirect("faces/protected/chef.xhtml");
+                externalContext.redirect("faces/protected/worker/chef.xhtml");
             }
             if (db.getRole().equals("salesman")) {
-                externalContext.redirect("faces/protected/salesman.xhtml");
+                externalContext.redirect("faces/protected/worker/salesman.xhtml");
             }
             if (db.getRole().equals("driver")) {
-                externalContext.redirect("faces/protected/driver.xhtml");
+                externalContext.redirect("faces/protected/worker/driver.xhtml");
             }
             if (db.getRole().equals("admin")) {
-                externalContext.redirect("faces/admin.xhtml");
+                externalContext.redirect("faces/protected/admin/admin.xhtml");
             }
         } catch (IOException e) {
             System.out.println("IOException");
@@ -46,7 +46,7 @@ public class LoginBean implements Serializable {
         httpSession.invalidate();
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            externalContext.redirect("../faces/index.xhtml");
+            externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
         } catch (IOException e) {
             System.out.println("IOException");
         }

@@ -672,7 +672,6 @@ public class Database {
             while (res.next()) {
                 String postalArea = res.getString("place");
                 newUser.setCity(postalArea);
-                System.out.println(postalArea);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
