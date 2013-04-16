@@ -88,6 +88,26 @@ public class Database {
             Cleaner.closeSentence(stm);
         }
         return orders;
+    } 
+    public ArrayList<Order> initializeDishes(ArrayList order){
+        ResultSet res = null;
+        Statement stm = null;
+        openConnection();
+        try {
+            stm = connection.createStatement();
+            res = stm.executeQuery("SELECT * from dishes_orders");
+            while (res.next()) {
+                for(int i = 0; i < order.size();i++){
+                    
+                }
+            }
+        } catch (SQLException e) {
+        } finally {
+            Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(stm);
+        }
+        return order;
     }
 
     //FOR ADMIN

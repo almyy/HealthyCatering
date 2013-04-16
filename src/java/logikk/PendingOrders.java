@@ -25,7 +25,7 @@ public class PendingOrders {
      */
     public ArrayList<Order> getFirstOrdersChef() {
         ArrayList<Order> result = database.getPendingOrders("Select * from ORDERS where STATUS !=5 and STATUS!=4 and STATUS != 6 and STATUS !=7");
-        
+        return database.initializeDishes(result); 
     }
     public ArrayList<Order> getFirstOrdersSalesmen(){
         return database.getPendingOrders("Select * from ORDERS where STATUS =7");
