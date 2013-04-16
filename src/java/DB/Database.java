@@ -510,7 +510,7 @@ public class Database {
             statement.setDate(2, sqldate2);
             statement.setTime(3, plan.timeofdelivery);
             statement.setString(4, order.getDeliveryAddress());
-            statement.setDouble(5, order.getTotalPrice());
+            statement.setDouble(5, order.getTotalprice());
             statement.setInt(6, plan.weekday);
             statement.setInt(7, order.getPostalcode());
             statement.setString(8, order.getDescription());
