@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:head>
-    </h:head>
+    <title>Healthy Catering</title>
     <h:body> 
         <ui:composition template="userTemplate.xhtml">
             <ui:define name="content">
@@ -21,7 +20,7 @@
                         <p><p:commandLink value="#{lang_auth.ForgottenPassword}" action="./forgotpassword.xhtml" style="color: white;"></p:commandLink></p>
                     </h:form>
                 </div>
-                    <input type="hidden" id="refreshed" value="no"/>            
+                <input type="hidden" id="refreshed" value="no"/>            
                 <script type="text/javascript">
                     onload=function(){
                         var e=document.getElementById("refreshed");
@@ -29,6 +28,10 @@
                         else{e.value="no";location.reload();}
                     }
                 </script>
+
+                <p:galleria value="#{galleria.images}" var="image" panelWidth="900" panelHeight="500" showCaption="true" autoPlay="true" transitionInterval="6000">  
+                    <p:graphicImage value="/faces/resources/pictures/#{image.picpath}" alt="#{image.description}" title="#{image.name}" style="width: 100%"/>  
+                </p:galleria>  
             </ui:define>
         </ui:composition>
     </h:body>

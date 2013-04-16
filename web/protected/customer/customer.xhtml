@@ -5,11 +5,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <title>Facelet Title</title>
+    <title>Healthy Catering</title>
     <ui:composition template="../../userTemplate.xhtml">
         <ui:define name="content">
-            #{lang_auth.LoggedInAs} #{request.remoteUser}!
-            <p:commandButton value="sub" action="#{subBean.updatePlans()}"></p:commandButton>
+            <p>#{lang_auth.LoggedInAs} #{request.remoteUser}!</p>
+            <p:galleria value="#{galleria.images}" var="image" panelWidth="900" panelHeight="500" showCaption="true" autoPlay="true" transitionInterval="6000">  
+                    <p:graphicImage value="/faces/resources/pictures/#{image.picpath}" alt="#{image.description}" title="#{image.name}" style="width: 100%"/>  
+                </p:galleria> 
         </ui:define>
     </ui:composition>
 </html>

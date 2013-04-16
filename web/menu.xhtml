@@ -6,9 +6,20 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
-    <title>Menu</title> 
+    <title>Healthy Catering</title>
     <ui:composition template="userTemplate.xhtml">
         <ui:define name="content">
+            <div id="login" class="login">
+                <h:form id="login1" onsubmit="document.getElementById('login1').action = 'j_security_check';" prependId="false" rendered="#{!Frontpage.isLoggedIn()}">
+                    <p><p:outputLabel value="#{lang_auth.Username}" style="color: white;"/></p>
+                    <p><p:inputText id="j_username"/></p>
+                    <p><p:outputLabel value="#{lang_auth.Password}" style="color: white;"/></p>
+                    <p><p:inputText id="j_password" type="password"/></p>
+                    <p><p:commandButton id="submit" value="#{lang_auth.LogIn}" ajax="false"/></p>
+                    <p><p:commandLink value="#{lang_auth.Register}" action="./register.xhtml" style="color: white;"></p:commandLink></p>
+                    <p><p:commandLink value="#{lang_auth.ForgottenPassword}" action="./forgotpassword.xhtml" style="color: white;"></p:commandLink></p>
+                </h:form>
+            </div>
             <h:form id="dishForm">  
                 <p:panelGrid id="panel" columns="2" styleClass="noBackground">
                     <p:fieldset legend="#{lang_auth.Dishes}">  
@@ -16,7 +27,7 @@
                             <p:column headerText="#{lang_auth.DishName}"> 
                                 <h:graphicImage value="../resources/images/Yellow_button.png" />
                             </p:column>
-                            
+
                             <p:column headerText="#{lang_auth.DishName}">  
                                 <h:outputText value="#{items.dishName}" />  
                             </p:column>  
