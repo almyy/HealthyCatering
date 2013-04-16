@@ -88,6 +88,26 @@ public class Database {
             Cleaner.closeSentence(stm);
         }
         return orders;
+    } 
+    public ArrayList<Order> initializeDishes(ArrayList order){
+        ResultSet res = null;
+        Statement stm = null;
+        openConnection();
+        try {
+            stm = connection.createStatement();
+            res = stm.executeQuery("SELECT * from dishes_orders");
+            while (res.next()) {
+                for(int i = 0; i < order.size();i++){
+                    
+                }
+            }
+        } catch (SQLException e) {
+        } finally {
+            Cleaner.closeConnection(connection);
+            Cleaner.closeResSet(res);
+            Cleaner.closeSentence(stm);
+        }
+        return order;
     }
 
     //FOR ADMIN
@@ -922,9 +942,9 @@ public class Database {
         String role = "";
         try {
             statement = connection.prepareStatement("SELECT * FROM roles WHERE username=?");
-            statement.setString(1, getCurrentUser());
+            getCurrentUser();
+            statement.setString(1, this.currentUser);
             ResultSet res = statement.executeQuery();
-            connection.commit();
             while (res.next()) {
                 role = res.getString("rolename");
             }
@@ -933,7 +953,6 @@ public class Database {
             Cleaner.rollback(connection);
 
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
         }
         closeConnection();
