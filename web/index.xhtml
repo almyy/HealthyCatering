@@ -9,6 +9,7 @@
     <h:body>
         <ui:composition template="userTemplate.xhtml">
             <ui:define name="content">
+                #{Frontpage.redirect()}
                 <div id="login" class="login">
                     <h:form id="login1" onsubmit="document.getElementById('login1').action = 'j_security_check';" prependId="false" rendered="#{!Frontpage.isLoggedIn()}">
                         <table>

@@ -38,4 +38,9 @@ public class PendingOrders implements Serializable {
     public void updateDb(Order s) {
         database.updateOrder(s);
     }
+    
+    public ArrayList<Order> getOrdersUser(String username){
+        ArrayList<Order> userOrders = database.getPendingOrders("SELECT * FROM orders WHERE usernamecustomer = '" + username + "'");
+        return userOrders;
+    }
 }

@@ -36,7 +36,7 @@
                         </p:dataTable>  
                     </p:fieldset>  
 
-                    <p:fieldset id="selectedDishes" legend="#{lang_auth.SelectDishes}" rendered="#{menuitems.loggedIn}">  
+                    <p:fieldset id="selectedDishes" legend="#{lang_auth.SelectedDishes}" rendered="#{menuitems.loggedIn}">  
                         <p:outputPanel id="dropArea">   
                             <p:dataTable var="item" value="#{menuitems.orderList}" emptyMessage="#{lang_auth.NoDishesOrdered}">  
                                 <p:column headerText="Count" style="width:18px" >  

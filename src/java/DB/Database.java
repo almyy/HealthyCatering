@@ -92,7 +92,7 @@ public class Database {
         ResultSet res = null;
         openConnection();
         try {
-            sqlRead = connection.prepareStatement("UPDATE ASD.ORDERS set STATUS=? where ORDERID=?");
+            sqlRead = connection.prepareStatement("UPDATE ORDERS set STATUS=? where ORDERID=?");
             sqlRead.setInt(1, s.getStatusNumeric());
             sqlRead.setInt(2, s.getOrderId());
             sqlRead.executeUpdate();
@@ -359,7 +359,6 @@ public class Database {
             ResultSet res = statement.getGeneratedKeys();
             if (res.next()) {
                 key = res.getInt(1);
-                System.out.println("Key: "+key);
             }
             statement2 = connection.prepareStatement("insert into orders(timeofdelivery,"
                     + " deliveryaddress, status, usernamecustomer, subscriptionid, postalcode, dates, totalprice) "
@@ -464,7 +463,6 @@ public class Database {
             while (res.next()) {
                 String postalArea = res.getString("place");
                 newUser.setCity(postalArea);
-                System.out.println(postalArea);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
