@@ -5,8 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
-    <h:form id ="form1">
-        <p:growl id="messages" showDetail="true"/>
+    <h:form id="message">
         <p:contextMenu for="messageTable" widgetVar="cMenu">     
                     <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="messagelist.showCellEditor();
                             return false;"/>    
@@ -33,14 +32,14 @@
             <p:column >
                 <h:selectBooleanCheckbox value="#{list.delete}"/>
                 <f:facet name ="footer">
-                    <p:commandButton id="deleteButton" value="#{lang_auth.DeleteMessage}" update="messageTable" action="#{AdminStart.delete()}" ajax="true"/>  
+                    <p:commandButton value="#{lang_auth.DeleteMessage}" update="messageTable" action="#{AdminStart.delete()}" ajax="true"/>  
                 </f:facet>
             </p:column>
         </p:dataTable>
         <p:dialog header="#{lang_auth.AddMessage}" widgetVar="dlg" position="center">
             <p:editor id="editor" value="#{AdminStart.message}" width="600"/>  
             <br></br>
-            <p:commandButton id="addButton" value="#{lang_auth.AddMessage}" update="messageTable" action ="#{AdminStart.add()}" ajax="true"
+            <p:commandButton id="addButton" value="#{lang_auth.AddMessage}" update="message:messageTable" action ="#{AdminStart.add()}" ajax="true"
                              onclick="dlg.hide()"/>
 
         </p:dialog>
