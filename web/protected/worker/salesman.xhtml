@@ -78,8 +78,8 @@
                     <p:tab id="tab2" title="Orders for user">
                         <h:panelGrid columns="2" cellpadding="10">  
                             <h:form>
-                                <p:outputLabel value="Username"/>
-                                <p><h:inputText value="#{Sales.username}"/></p>
+                                <p:outputLabel value="ID"/>
+                                <p><h:inputText value="#{Sales.id}"/></p>
                                 <p:dataTable value="#{Sales.userTabledata}" var="OrderStatus" styleClass="orders" id="userDataTable_id">    
                                     <p:column>
                                         <f:facet name="header">
@@ -126,7 +126,7 @@
                                     <f:facet name="footer">
                                     </f:facet>
                                 </p:dataTable>
-                                <p:commandButton id="submit" value="Submit" ajax="false" update="userDataTable_id"/>
+                                <p:commandButton id="submit" value="Search" ajax="false" update="userDataTable_id" action="#{Sales.updateUser()}"/>
                             </h:form>
                         </h:panelGrid>  
                     </p:tab>   

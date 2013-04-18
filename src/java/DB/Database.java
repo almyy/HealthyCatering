@@ -537,14 +537,11 @@ public class Database {
                 statement2.setInt(3, order.getOrderedDish().get(i).getCount());
                 statement2.executeUpdate();
             }
-            connection.commit();
             result = true;
         } catch (SQLException e) {
             System.out.println(e);
-            Cleaner.rollback(connection);
             result = false;
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
             Cleaner.closeSentence(statement2);
         }
