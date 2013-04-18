@@ -6,7 +6,9 @@
       xmlns:p="http://primefaces.org/ui">
         <ui:composition template ="../../serviceTemplate.xhtml">
             <ui:define name ="content">
-                       <p:tabView>
+                <h:form>
+                       <p:tabView dynamic="true" activeIndex="#{AdminIndex.tabIndex}">
+                           <p:ajax event="tabChange" listener="#{AdminIndex.onTabChange}" />
                            <p:tab id ="messages" title="#{lang_auth.Message}">
                                <ui:include src="adminStart.xhtml"></ui:include>
                            </p:tab>
@@ -21,6 +23,7 @@
                                 <ui:include src ="analytics.xhtml"></ui:include>
                            </p:tab>
                        </p:tabView>
+                </h:form>
             </ui:define>
         </ui:composition>
 </html>

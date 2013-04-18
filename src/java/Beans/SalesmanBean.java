@@ -17,10 +17,6 @@ import logikk.OrderStatus;
 import logikk.PendingOrders;
 import org.primefaces.event.TabChangeEvent;
 
-/**
- *
- * @author Rino
- */
 @SessionScoped
 @Named("Sales")
 public class SalesmanBean implements Serializable {
@@ -127,12 +123,11 @@ public class SalesmanBean implements Serializable {
         }
     }
 
-       public int onTabChange(TabChangeEvent event) {   
-        if(event.getTab().getId().equals("tab1")){
-            tabIndex =0;
-        }
-        else{
-            tabIndex =1;
+    public int onTabChange(TabChangeEvent event) {
+        if (event.getTab().getId().equals("tab1")) {
+            tabIndex = 0;
+        } else {
+            tabIndex = 1;
         }
         return tabIndex;
     }
