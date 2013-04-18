@@ -132,7 +132,7 @@ public class Database {
                 insertDishesOrdered(storedOrders);
                 deleteOrder(s);
             } else {
-                sqlUpdate = connection.prepareStatement("UPDATE ORDERS set STATUS=? where ORDERID=?");
+                sqlUpdate = connection.prepareStatement("UPDATE orders set STATUS=? where ORDERID=?");
                 sqlUpdate.setInt(1, s.getStatusNumeric());
                 sqlUpdate.setInt(2, s.getOrderId());
                 sqlUpdate.executeUpdate();
@@ -203,7 +203,7 @@ public class Database {
         openConnection();
 
         try {
-            sqlRead = connection.prepareStatement("SELECT * FROM ORDERS");
+            sqlRead = connection.prepareStatement("SELECT * FROM orders");
             res = sqlRead.executeQuery();
             while (res.next()) {
                 java.sql.Date date = res.getDate("dates");
@@ -233,7 +233,7 @@ public class Database {
         openConnection();
         try {
             sqlRead = connection.prepareStatement("SELECT subscriptionplan.*, orders.orderid "
-                    + "FROM ORDERS, SUBSCRIPTIONPLAN WHERE orders.subscriptionid = "
+                    + "FROM orders, SUBSCRIPTIONPLAN WHERE orders.subscriptionid = "
                     + "subscriptionplan.subscriptionid AND subscriptionplan.enddate <= CURRENT DATE");
             res = sqlRead.executeQuery();
             while (res.next()) {
@@ -347,7 +347,7 @@ public class Database {
         PreparedStatement statement = null;
         openConnection();
         try {
-            statement = connection.prepareStatement("SELECT COUNT(*) as number FROM SALESMAN");
+            statement = connection.prepareStatement("SELECT COUNT(*) as number FROM salesman");
             ResultSet res = statement.executeQuery();
             while (res.next()) {
                 result = res.getInt("number");
@@ -458,20 +458,19 @@ public class Database {
             }
 
             for (int i = 0; i < order.getOrderedDish().size(); i++) {
-                statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount) values(?, ?, ?)");
+                statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount,salesmanusername) values(?, ?, ?, ?)");
                 statement2.setInt(1, getDishId(order.getOrderedDish().get(i).getDishName()));
                 statement2.setInt(2, key);
                 statement2.setInt(3, order.getOrderedDish().get(i).getCount());
+                statement2.setString(4, "");
                 statement2.executeUpdate();
             }
-            connection.commit();
             result = true;
         } catch (SQLException e) {
             System.out.println(e);
             Cleaner.rollback(connection);
             result = false;
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
             Cleaner.closeSentence(statement2);
         }
@@ -667,7 +666,7 @@ public class Database {
             Cleaner.closeSentence(statement);
         }
         try {
-            statement = connection.prepareStatement("SELECT * FROM POSTAL_NO WHERE zip=?");
+            statement = connection.prepareStatement("SELECT * FROM postal_no WHERE zip=?");
             statement.setInt(1, newUser.getPostnumber());
             ResultSet res = statement.executeQuery();
             while (res.next()) {
@@ -759,7 +758,7 @@ public class Database {
         PreparedStatement sqlDel = null;
         openConnection();
         try {
-            sqlDel = connection.prepareStatement("DELETE FROM DISH WHERE dishid = ?");
+            sqlDel = connection.prepareStatement("DELETE FROM dish WHERE dishid = ?");
             sqlDel.setInt(1, dish.getDishId());
             sqlDel.executeUpdate();
             ok = true;
@@ -857,7 +856,7 @@ public class Database {
         openConnection();
         ArrayList<AdminMessage>messages = new ArrayList<AdminMessage>();
         try{
-            sentence = connection.prepareStatement("Select * from Message");
+            sentence = connection.prepareStatement("Select * from message");
             ResultSet res = sentence.executeQuery();
             while(res.next()){
                 String message = res.getString("message");
@@ -879,7 +878,7 @@ public class Database {
         openConnection();
         ArrayList<Dish> dishes = new ArrayList<Dish>();
         try {
-            sentence = connection.prepareStatement("select * from DISH");
+            sentence = connection.prepareStatement("select * from dish");
             ResultSet res = sentence.executeQuery();
             while (res.next()) {
                 int dishid = res.getInt("DISHID");

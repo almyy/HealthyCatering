@@ -3,6 +3,7 @@ package logikk;
  * Class for generating orders from customerinput.
  */
 
+import DB.Database;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,11 +17,13 @@ public class Order {
     private String deliveryAddress;
     private String status;
     private int status_numeric;
-    private ArrayList<Dish> orderedDish = new ArrayList();
+    private ArrayList<Dish> orderedDishes = new ArrayList();
     private double orderPrice = 0.0;
     private String description;
     private int postalcode; 
     private double totalprice = 0.0;
+    private Database DB;
+    
 
     public Order() {
         
@@ -61,7 +64,7 @@ public class Order {
         this.date = date;
         this.deliveryAddress = deliveryAddress;
         status_numeric = status;
-        this.orderedDish = dishes;
+        this.orderedDishes = dishes;
         this.description = description;
         this.postalcode = postalcode;
         this.totalprice = totalprice;
@@ -105,7 +108,7 @@ public class Order {
             return false;
         }
         for (int i = 0; i < dish.getCount(); i++) {
-            orderedDish.add(dish);
+            orderedDishes.add(dish);
             orderPrice += dish.getPrice();
         }
         return true;
@@ -116,7 +119,7 @@ public class Order {
     }
 
     public ArrayList<Dish> getOrderedDish() {
-        return orderedDish;
+        return orderedDishes;
     }
 
     public Date getDate() {
