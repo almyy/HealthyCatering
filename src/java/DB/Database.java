@@ -87,8 +87,9 @@ public class Database {
         }
         closeConnection();
         return orders;
-    } 
-    public ArrayList<Order> initializeDishes(ArrayList order){
+    }
+
+    public ArrayList<Order> initializeDishes(ArrayList order) {
         ResultSet res = null;
         Statement stm = null;
         openConnection();
@@ -96,8 +97,7 @@ public class Database {
             stm = connection.createStatement();
             res = stm.executeQuery("SELECT * from dishes_orders");
             while (res.next()) {
-                for(int i = 0; i < order.size();i++){
-                    
+                for (int i = 0; i < order.size(); i++) {
                 }
             }
         } catch (SQLException e) {
@@ -377,7 +377,7 @@ public class Database {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement(query);
             ResultSet res = statement.executeQuery();
-            connection.commit(); 
+            connection.commit();
             while (res.next()) {
                 int dishId = res.getInt("dishid");
                 int orderId = res.getInt("orderId");
@@ -400,6 +400,7 @@ public class Database {
         return result;
     }
     //FOR MENU
+
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();
@@ -413,7 +414,9 @@ public class Database {
                 double dishprice = res.getDouble("DISHPRICE");
                 String imagePath = res.getString("DISHIMAGEPATH");
                 Dish newdish = new Dish(dishid, dishname, dishprice, 1);
-                if(imagePath!=null) newdish.setImagePath(imagePath);
+                if (imagePath != null) {
+                    newdish.setImagePath(imagePath);
+                }
                 dishes.add(newdish);
             }
         } catch (SQLException e) {
@@ -465,25 +468,26 @@ public class Database {
             if (res.next()) {
                 key = res.getInt(1);
             }
-
+            closeConnection();
             for (int i = 0; i < order.getOrderedDish().size(); i++) {
+                openConnection();
                 statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount,salesmanusername) values(?, ?, ?, ?)");
                 statement2.setInt(1, getDishId(order.getOrderedDish().get(i).getDishName()));
                 statement2.setInt(2, key);
                 statement2.setInt(3, order.getOrderedDish().get(i).getCount());
                 statement2.setString(4, "");
                 statement2.executeUpdate();
+                closeConnection();
             }
             result = true;
         } catch (SQLException e) {
             System.out.println(e);
-            Cleaner.rollback(connection);
             result = false;
         } finally {
             Cleaner.closeSentence(statement);
             Cleaner.closeSentence(statement2);
+            closeConnection();
         }
-        closeConnection();
         return result;
     }
 
@@ -554,9 +558,10 @@ public class Database {
         } finally {
             Cleaner.closeSentence(statement);
             Cleaner.closeSentence(statement2);
+            plan.setSubid(key);
+            closeConnection();
+
         }
-        plan.setSubid(key);
-        closeConnection();
         checkSubscription();
         return result;
     }
@@ -571,7 +576,7 @@ public class Database {
             while (res.next()) {
                 if (res.getInt("weekday") == current.getDay()) {
                     int subid = res.getInt("subscriptionid");
-                    PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM subscriptionplan WHERE subscriptionid ="+subid+" AND subscriptionid NOT IN (SELECT s.subscriptionid FROM subscriptionplan s, orders o WHERE s.subscriptionid = o.subscriptionid AND current date=o.dates)");
+                    PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM subscriptionplan WHERE subscriptionid =" + subid + " AND subscriptionid NOT IN (SELECT s.subscriptionid FROM subscriptionplan s, orders o WHERE s.subscriptionid = o.subscriptionid AND current date=o.dates)");
                     ResultSet res2 = statement2.executeQuery();
                     while (res2.next()) {
                         ArrayList<Dish> dishes = new ArrayList<Dish>();
@@ -586,8 +591,8 @@ public class Database {
                         Order order = new Order(current, res2.getString("deliveryaddress"), 7, dishes,
                                 res2.getString("description"), res2.getInt("postalcode"), res2.getDouble("totalprice"));
                         PreparedStatement statement4 = connection.prepareStatement("insert into orders(timeofdelivery,"
-                            + " deliveryaddress, status, usernamecustomer, subscriptionid, postalcode, dates, description, totalprice)"
-                            + "values(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                                + " deliveryaddress, status, usernamecustomer, subscriptionid, postalcode, dates, description, totalprice)"
+                                + "values(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                         statement4.setTime(1, res2.getTime("timeofdelivery"));
                         statement4.setString(2, order.getDeliveryAddress());
                         statement4.setInt(3, 7);
@@ -800,17 +805,18 @@ public class Database {
         closeConnection();
         return ok;
     }
-    public boolean deleteMessage(AdminMessage message){
-         boolean ok = false;
-         PreparedStatement sentence = null;
+
+    public boolean deleteMessage(AdminMessage message) {
+        boolean ok = false;
+        PreparedStatement sentence = null;
         openConnection();
-         try{
+        try {
             sentence = connection.prepareStatement("DELETE from message WHERE messageid = ?");
             sentence.setInt(1, message.getID());
             sentence.executeUpdate();
             ok = true;
-         
-        }catch (SQLException e) {
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         } finally {
@@ -819,17 +825,18 @@ public class Database {
         closeConnection();
         return ok;
     }
-    public boolean addMessage(AdminMessage message){
+
+    public boolean addMessage(AdminMessage message) {
         boolean ok = false;
-         PreparedStatement sentence = null;
+        PreparedStatement sentence = null;
         openConnection();
-         try{
+        try {
             sentence = connection.prepareStatement("INSERT into message(message)VALUES(?)");
             sentence.setString(1, message.getMessage());
             sentence.executeUpdate();
             ok = true;
-         
-        }catch (SQLException e) {
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         } finally {
@@ -838,18 +845,19 @@ public class Database {
         closeConnection();
         return ok;
     }
-    public boolean changeMessage(AdminMessage message){
-           boolean ok = false;
-         PreparedStatement sentence = null;
+
+    public boolean changeMessage(AdminMessage message) {
+        boolean ok = false;
+        PreparedStatement sentence = null;
         openConnection();
-         try{
+        try {
             sentence = connection.prepareStatement("update message set message = ? where messageid = ?");
             sentence.setString(1, message.getMessage());
             sentence.setInt(2, message.getID());
             sentence.executeUpdate();
             ok = true;
-         
-        }catch (SQLException e) {
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         } finally {
@@ -858,19 +866,20 @@ public class Database {
         closeConnection();
         return ok;
     }
-    public ArrayList<AdminMessage>getMessages(){
+
+    public ArrayList<AdminMessage> getMessages() {
         PreparedStatement sentence = null;
         openConnection();
-        ArrayList<AdminMessage>messages = new ArrayList<AdminMessage>();
-        try{
+        ArrayList<AdminMessage> messages = new ArrayList<AdminMessage>();
+        try {
             sentence = connection.prepareStatement("Select * from message");
             ResultSet res = sentence.executeQuery();
-            while(res.next()){
+            while (res.next()) {
                 String message = res.getString("message");
                 int ID = res.getInt("MESSAGEID");
-                messages.add(new AdminMessage(message,ID));
+                messages.add(new AdminMessage(message, ID));
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
         } finally {
