@@ -458,20 +458,19 @@ public class Database {
             }
 
             for (int i = 0; i < order.getOrderedDish().size(); i++) {
-                statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount) values(?, ?, ?)");
+                statement2 = connection.prepareStatement("insert into dishes_ordered(dishid, orderid, dishcount,salesmanusername) values(?, ?, ?, ?)");
                 statement2.setInt(1, getDishId(order.getOrderedDish().get(i).getDishName()));
                 statement2.setInt(2, key);
                 statement2.setInt(3, order.getOrderedDish().get(i).getCount());
+                statement2.setString(4, "");
                 statement2.executeUpdate();
             }
-            connection.commit();
             result = true;
         } catch (SQLException e) {
             System.out.println(e);
             Cleaner.rollback(connection);
             result = false;
         } finally {
-            Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
             Cleaner.closeSentence(statement2);
         }
