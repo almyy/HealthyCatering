@@ -56,6 +56,7 @@ public class Database {
             Cleaner.closeResSet(res);
             Cleaner.closeSentence(stm);
         }
+        closeConnection();
         return orders;
     }
 
@@ -84,6 +85,7 @@ public class Database {
             Cleaner.closeResSet(res);
             Cleaner.closeSentence(stm);
         }
+        closeConnection();
         return orders;
     } 
     public ArrayList<Order> initializeDishes(ArrayList order){
@@ -104,6 +106,7 @@ public class Database {
             Cleaner.closeResSet(res);
             Cleaner.closeSentence(stm);
         }
+        closeConnection();
         return order;
     }
 
@@ -161,6 +164,7 @@ public class Database {
         } finally {
             Cleaner.closeSentence(ps);
         }
+        closeConnection();
     }
 
     private void deleteFromDishesOrdered(Order s) {
@@ -174,6 +178,7 @@ public class Database {
         } finally {
             Cleaner.closeSentence(ps);
         }
+        closeConnection();
     }
 
     private void insertDishesOrdered(StoredOrders s) {
@@ -194,6 +199,7 @@ public class Database {
         } finally {
             Cleaner.closeSentence(ps);
         }
+        closeConnection();
     }
 
     public ArrayList<Order> getOrderOverview() {
@@ -221,6 +227,7 @@ public class Database {
             Cleaner.closeResSet(res);
             Cleaner.closeSentence(sqlRead);
         }
+        closeConnection();
         return orders;
     }
 
@@ -358,6 +365,7 @@ public class Database {
         } finally {
             Cleaner.closeSentence(statement);
         }
+        closeConnection();
         return result;
     }
 
@@ -388,6 +396,7 @@ public class Database {
             Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
         }
+        closeConnection();
         return result;
     }
     //FOR MENU
@@ -498,6 +507,7 @@ public class Database {
             Cleaner.setAutoCommit(connection);
             Cleaner.closeSentence(statement);
         }
+        closeConnection();
         return result;
     }
 
