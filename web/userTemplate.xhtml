@@ -18,23 +18,23 @@
         </div>
 
         <div id="header" class="fullwidth">
-            <h:graphicImage value="/resources/pictures/title.png"></h:graphicImage>
+            <h:graphicImage value="/resources/pictures/logo.png"></h:graphicImage>
         </div>
 
         <div id="menu" class="menu">
             <div align="right">
                 <h:form>
-                    <p:commandButton value="#{lang_auth.Home}" action="/faces/index.xhtml"></p:commandButton>
-                    <p:commandButton value="#{lang_auth.Menu}" action="/faces/menu.xhtml"></p:commandButton>
-                    <p:commandButton value="#{lang_auth.Contact}" action="/faces/contact.xhtml"></p:commandButton>
-                    <p:commandButton value="#{lang_auth.Profile}" action="/faces/profile.xhtml" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
-                    <p:commandButton value="#{lang_auth.LogOut}" action="#{Frontpage.logout()}" rendered="#{Frontpage.isLoggedIn()}"></p:commandButton>
+                    <h:commandButton value="#{lang_auth.Home}" action="/faces/index.xhtml" class="headerbutton"/>
+                    <h:commandButton value="#{lang_auth.Menu}" action="/faces/menu.xhtml" class="headerbutton"/>
+                    <h:commandButton value="#{lang_auth.Contact}" action="/faces/contact.xhtml" class="headerbutton"/>
+                    <h:commandButton value="#{lang_auth.Profile}" action="/faces/protected/customer/profile.xhtml" rendered="#{Frontpage.isLoggedIn()}" class="headerbutton"/>
+                    <h:commandButton value="#{lang_auth.LogOut}" action="#{Frontpage.logout()}" rendered="#{Frontpage.isLoggedIn()}" class="headerbutton"/>
                 </h:form>
             </div>
         </div>
         <div id="lang" class="lang">
             <h:form>
-                <p> <h:commandLink action="#{Lang.setEng()}"><h:graphicImage value = "/resources/pictures/uk.png"/> </h:commandLink> 
+                <p> <h:commandLink action="#{Lang.setEng()}"><h:graphicImage value = "/resources/pictures/uk.png" style="margin-right:5px;"/> </h:commandLink> 
                     <h:commandLink action="#{Lang.setNo()}" ><h:graphicImage value = "/resources/pictures/nor.png"/></h:commandLink></p>
             </h:form>
         </div>

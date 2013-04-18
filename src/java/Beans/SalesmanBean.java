@@ -117,7 +117,7 @@ public class SalesmanBean implements Serializable {
 
     public void updateUser() {
         ArrayList<Order> temp = overView.getOrdersUser(username);
-        userTabledata.clear();
+        userTabledata.clear(); 
         for (int i = 0; i < temp.size(); i++) {
             userTabledata.add(new OrderStatus(temp.get(i)));
         }
