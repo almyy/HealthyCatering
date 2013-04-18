@@ -19,7 +19,6 @@ public class LoginBean implements Serializable {
 
     public void redirect() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        System.out.println(db.getRole());
         String roleName = db.getRole();
         try {
             if (roleName != null) {

@@ -1,12 +1,14 @@
 package Beans;
 
 import DB.Database;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import logikk.Order;
@@ -32,8 +34,8 @@ public class SubscribeBean implements Serializable {
         enddate.setMinutes(00);
     }
 
-    public String submitPlan() {
-        String returnvalue = "";
+    public void submitPlan() throws IOException {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         for (int i = 0; i < selectedDays.size(); i++) {
             for (int j = 0; j < weekdays.size(); j++) {
                 if (selectedDays.get(i).equals(weekdays.get(j))) {
@@ -42,13 +44,11 @@ public class SubscribeBean implements Serializable {
                     OrderBean orderbean = (OrderBean) context.getApplication().evaluateExpressionGet(context, "#{orderBean}", OrderBean.class);
                     Order order = orderbean.getSavedOrder();
                     if(db.subscription(subplan, order)){
-                        returnvalue= "orderSuccess.xhtml";
+                        externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/orders/orderSuccess.xhtml");
                     }
                 }
             }
         }
-
-        return returnvalue;
     }
     
     public void updatePlans(){
