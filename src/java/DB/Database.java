@@ -312,11 +312,10 @@ public class Database {
         return ok;
     }
 
-    public boolean newUser(User user) {
+    public String newUser(User user) {
         PreparedStatement sqlRegNewuser = null;
         PreparedStatement sqlRegNewRole = null;
         openConnection();
-        boolean ok = false;
         try {
             connection.setAutoCommit(false);
             sqlRegNewuser = connection.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
@@ -331,11 +330,14 @@ public class Database {
             sqlRegNewuser.executeUpdate();
 
             sqlRegNewRole = connection.prepareStatement("INSERT INTO roles VALUES(?,?)");
-            sqlRegNewRole.setString(1, "customer");
+            if(user.getRole() == null || user.getRole().equals("")) {
+                sqlRegNewRole.setString(1, "customer");
+            } else{
+                sqlRegNewRole.setString(1, user.getRole());
+            }
             sqlRegNewRole.setString(2, user.getUsername());
             sqlRegNewRole.executeUpdate();
             connection.commit();
-            ok = true;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -346,7 +348,7 @@ public class Database {
             Cleaner.closeSentence(sqlRegNewuser);
         }
         closeConnection();
-        return ok;
+        return user.getRole();
     }
 
     public int getNumberOfSalesmen() {
