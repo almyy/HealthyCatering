@@ -28,7 +28,7 @@ class AnalyticsBean implements Serializable {
     private CartesianChartModel linearModel;
     private CartesianChartModel categoryModel;
     private CartesianChartModel categoryModel2;
-    private CartesianChartModel categoryModelSales; 
+    private CartesianChartModel categoryModelSales;
     private ArrayList<Order> orders = new ArrayList();
     private float turnoverNow = 0;
     private float turnoverLastYear = 0;
@@ -39,7 +39,7 @@ class AnalyticsBean implements Serializable {
         createLinearModel();
         createCategoryModel();
         createCategoryModel2();
-        createCategoryModelSales(); 
+        createCategoryModelSales();
     }
 
     public ArrayList<Order> calculateTurnover(Date fromDate, Date toDate) {
@@ -57,7 +57,6 @@ class AnalyticsBean implements Serializable {
     public CartesianChartModel getCategoryModelSales() {
         return categoryModelSales;
     }
-    
 
     public Date getFromDate() {
         return fromDate;
@@ -94,19 +93,20 @@ class AnalyticsBean implements Serializable {
     public CartesianChartModel getCategoryModel2() {
         return categoryModel2;
     }
-    
+
     public CartesianChartModel getLinearModel() {
         return linearModel;
     }
-    public void createCategoryModel2(){
+
+    public void createCategoryModel2() {
         categoryModel2 = new CartesianChartModel();
-        
+
         ArrayList<StoredOrders> sOrders = getStoredInfo();
         ArrayList<Dish> dishesDb = db.getDishes();
-        
+
         ChartSeries moneyGenerated = new ChartSeries();
         moneyGenerated.setLabel("Income Generated");
-        int moneyGeneratedForDish = 0; 
+        int moneyGeneratedForDish = 0;
         for (int i = 0; i < dishesDb.size(); i++) {
             for (int u = 0; u < sOrders.size(); u++) {
                 if (sOrders.get(u).getDishId() == dishesDb.get(i).getDishId()) {
@@ -118,46 +118,49 @@ class AnalyticsBean implements Serializable {
         }
         categoryModel2.addSeries(moneyGenerated);
     }
-    public void createCategoryModelSales(){
-        ArrayList<StoredOrders> sOrders = getStoredInfo(this.fromDate);       
-        
-        for(int i = 0; i < sOrders.size(); i++){
-            if(sOrders.get(i).getSalesmanUsername()==null){
-                sOrders.remove(sOrders.get(i));
-                i--;
-            }
-        }
-        
-        int salesmenCounter = db.getNumberOfSalesmen(); 
-        String salesmanUsername = null; 
-        
-        int[] salesNumbers = new int[salesmenCounter]; 
-        String[] salesmenUsernames = new String[salesmenCounter]; 
-        
-        for(int i = 0; i < salesmenCounter; i++){
-            salesmanUsername = sOrders.get(0).getSalesmanUsername();
-            salesmenUsernames[i] = salesmanUsername; 
-            for(int u = 0; u < sOrders.size();u++){
-                if(sOrders.get(u).getSalesmanUsername().equals(salesmanUsername)){
-                    salesNumbers[i] += sOrders.get(u).getTotalPrice();
-                    sOrders.remove(sOrders.get(u));
-                    u--;
+
+    public void createCategoryModelSales() {
+        ArrayList<StoredOrders> sOrders = getStoredInfo(this.fromDate);
+        if (!sOrders.isEmpty() && sOrders != null) {
+            for (int i = 0; i < sOrders.size(); i++) {
+                if (sOrders.get(i).getSalesmanUsername() == null) {
+                    sOrders.remove(sOrders.get(i));
+                    i--;
                 }
             }
+
+            int salesmenCounter = db.getNumberOfSalesmen();
+            String salesmanUsername = null;
+
+            int[] salesNumbers = new int[salesmenCounter];
+            String[] salesmenUsernames = new String[salesmenCounter];
+
+            for (int i = 0; i < salesmenCounter; i++) {
+                salesmanUsername = sOrders.get(0).getSalesmanUsername();
+                salesmenUsernames[i] = salesmanUsername;
+                for (int u = 0; u < sOrders.size(); u++) {
+                    if (sOrders.get(u).getSalesmanUsername().equals(salesmanUsername)) {
+                        salesNumbers[i] += sOrders.get(u).getTotalPrice();
+                        sOrders.remove(sOrders.get(u));
+                        u--;
+                    }
+                }
+            }
+            categoryModelSales = new CartesianChartModel();
+            ChartSeries salesmenPay = new ChartSeries();
+
+            salesmenPay.setLabel("Commision earned");
+            for (int i = 0; i < salesmenCounter; i++) {
+                salesmenPay.set(salesmenUsernames[i], salesNumbers[i] * 0.11);
+            }
+            categoryModelSales.addSeries(salesmenPay);
         }
-        categoryModelSales = new CartesianChartModel(); 
-        ChartSeries salesmenPay = new ChartSeries();
-        
-        salesmenPay.setLabel("Commision earned");
-        for(int i = 0; i < salesmenCounter; i++){
-            salesmenPay.set(salesmenUsernames[i],salesNumbers[i]*0.11);
-        }
-        categoryModelSales.addSeries(salesmenPay);
     }
+
     public void createCategoryModel() {
         categoryModel = new CartesianChartModel();
         ChartSeries dishesCount = new ChartSeries();
-       
+
         dishesCount.setLabel("Dishes sold");
 
         ArrayList<StoredOrders> sOrders = getStoredInfo();
@@ -173,7 +176,7 @@ class AnalyticsBean implements Serializable {
             }
             dishesCount.set(dishesDb.get(i).getDishName(), numberOfSales);
             numberOfSales = 0;
-        }        
+        }
         categoryModel.addSeries(dishesCount);
     }
 
@@ -181,17 +184,20 @@ class AnalyticsBean implements Serializable {
         String query = "SELECT * FROM dishes_stored";
         return db.getStoredOrders(query);
     }
-    public ArrayList<StoredOrders> getStoredInfo(Date fromDate){
+
+    public ArrayList<StoredOrders> getStoredInfo(Date fromDate) {
         java.sql.Date fromDateSql = new java.sql.Date(fromDate.getTime());
-        String query="SELECT * FROM dishes_stored WHERE dates >='" + fromDateSql.toString() + "'";
+        String query = "SELECT * FROM dishes_stored WHERE dates >='" + fromDateSql.toString() + "'";
         return db.getStoredOrders(query);
     }
-    public void update(){
+
+    public void update() {
         createLinearModel();
         createCategoryModel();
         createCategoryModel2();
         createCategoryModelSales();
     }
+
     public void createLinearModel() {
         turnoverNow = 0;
         turnoverLastYear = 0;

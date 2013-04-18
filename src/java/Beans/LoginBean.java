@@ -35,7 +35,7 @@ public class LoginBean implements Serializable {
                     externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/driver/driverMobile.xhtml");
                 }
                 if (roleName.equals("admin")) {
-                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/admin/admin.xhtml");
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/admin/adminIndex.xhtml");
                 }
             }
         } catch (IOException e) {

@@ -5,58 +5,48 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
-    <title>Healthy Catering</title>
-    <h:body>
-        <ui:composition template ="userTemplate.xhtml">
-            <ui:define name ="content">
-                <h:form id ="form1">
-                    <p:growl id="messages" showDetail="true"/>
-                    <p:contextMenu for="messageTable" widgetVar="cMenu">     
-                        <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="messagelist.showCellEditor();
-                                return false;"/>    
-                        <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="cMenu.hide()"/>    
-                    </p:contextMenu>
+    <h:form id ="form1">
+        <p:growl id="messages" showDetail="true"/>
+        <p:contextMenu for="messageTable" widgetVar="cMenu">     
+                    <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="messagelist.showCellEditor();
+                            return false;"/>    
+            <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="cMenu.hide()"/>    
+        </p:contextMenu>
 
-                    <p:dataTable value="#{AdminStart.tabledata}" var="list" styleClass="messages" editable="true" editMode="cell" id="messageTable" widgetVar="messagelist" 
-                                 emptyMessage="#{lang_auth.NoMessages}">
+        <p:dataTable value="#{AdminStart.tabledata}" var="list" styleClass="messages" editable="true" editMode="cell" id="messageTable" widgetVar="messagelist" 
+                     emptyMessage="#{lang_auth.NoMessages}">
 
-                        <p:ajax event ="cellEdit" listener="#{AdminStart.onCellEdit}" update =":form1:messages"/>
-                        
-                        <p:column id ="messageColumn" headerText="#{lang_auth.Message}" >
-                            <p:cellEditor>
-                                <f:facet name ="output">
-                                    <h:outputText value ="#{list.message.message}"/>
-                                    
-                                </f:facet>
-                                <f:facet name ="input">
-                                    <p:inputText value ="#{list.message.message}"/>
-                                </f:facet>
-                            </p:cellEditor>
+            <p:ajax event ="cellEdit" listener="#{AdminStart.onCellEdit}"/>
 
-                        </p:column>
-                        <p:column >
-                            <h:selectBooleanCheckbox value="#{list.delete}"/>
-                            <f:facet name ="footer">
-                                <p:commandButton id="deleteButton" value="#{lang_auth.DeleteMessage}" update=":form1:messageTable" action="#{AdminStart.delete()}" ajax="true"/>  
-                            </f:facet>
-                        </p:column>
-                    </p:dataTable>
-                    <p:dialog header="#{lang_auth.AddMessage}" widgetVar="dlg" position="center">
-                        <p:editor id="editor" value="#{AdminStart.message}" width="600"/>  
-                        <br></br>
-                        <p:commandButton id="addButton" value="#{lang_auth.AddMessage}" update=":form1:messageTable" action ="#{AdminStart.add()}" ajax="true"
-                                         onclick="dlg.hide()"/>
+            <p:column id ="messageColumn" headerText="#{lang_auth.Message}" >
+                <p:cellEditor>
+                    <f:facet name ="output">
+                        <h:outputText value ="#{list.message.message}"/>
 
-                    </p:dialog>
-                    <p:commandButton value="#{lang_auth.AddMessage}" type="button" onclick="dlg.show()"/>
+                    </f:facet>
+                    <f:facet name ="input">
+                        <p:inputText value ="#{list.message.message}"/>
+                    </f:facet>
+                </p:cellEditor>
+
+            </p:column>
+            <p:column >
+                <h:selectBooleanCheckbox value="#{list.delete}"/>
+                <f:facet name ="footer">
+                    <p:commandButton id="deleteButton" value="#{lang_auth.DeleteMessage}" update="messageTable" action="#{AdminStart.delete()}" ajax="true"/>  
+                </f:facet>
+            </p:column>
+        </p:dataTable>
+        <p:dialog header="#{lang_auth.AddMessage}" widgetVar="dlg" position="center">
+            <p:editor id="editor" value="#{AdminStart.message}" width="600"/>  
+            <br></br>
+            <p:commandButton id="addButton" value="#{lang_auth.AddMessage}" update="messageTable" action ="#{AdminStart.add()}" ajax="true"
+                             onclick="dlg.hide()"/>
+
+        </p:dialog>
+        <p:commandButton value="#{lang_auth.AddMessage}" type="button" onclick="dlg.show()"/>
 
 
-                </h:form>
-
-
-            </ui:define>
-        </ui:composition>
-
-    </h:body>
+    </h:form>
 </html>
 
