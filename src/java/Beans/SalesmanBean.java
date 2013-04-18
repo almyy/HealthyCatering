@@ -6,14 +6,15 @@ package Beans;
 
 import DB.Database;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import logikk.Order;
 import logikk.OrderStatus;
 import logikk.PendingOrders;
-import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.TabChangeEvent;
 
 /**
@@ -28,8 +29,8 @@ public class SalesmanBean implements Serializable {
     private PendingOrders overView = new PendingOrders();
     private List<OrderStatus> tabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
     private List<OrderStatus> userTabledata = Collections.synchronizedList(new ArrayList<OrderStatus>());
-    private String username;
     private int tabIndex;
+    private String id;
 
     public void setTabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
@@ -39,12 +40,12 @@ public class SalesmanBean implements Serializable {
         return tabIndex;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getId() {
+        return id;
     }
 
     public synchronized List<OrderStatus> getTabledata() {
@@ -116,7 +117,7 @@ public class SalesmanBean implements Serializable {
     }
 
     public void updateUser() {
-        ArrayList<Order> temp = overView.getOrdersUser(username);
+        ArrayList<Order> temp = overView.getOrdersUser(Integer.parseInt(id));
         userTabledata.clear(); 
         for (int i = 0; i < temp.size(); i++) {
             userTabledata.add(new OrderStatus(temp.get(i)));
