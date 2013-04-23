@@ -134,6 +134,7 @@ public class Database {
                 storedOrders.setPostalcode(s.getPostalcode());
                 insertDishesOrdered(storedOrders);
                 deleteOrder(s);
+                connection.commit();
             } else {
                 sqlUpdate = connection.prepareStatement("UPDATE orders set STATUS=? where ORDERID=?");
                 sqlUpdate.setInt(1, s.getStatusNumeric());

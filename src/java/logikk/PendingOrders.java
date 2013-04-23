@@ -2,6 +2,7 @@ package logikk;
 
 import DB.Database;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -30,7 +31,15 @@ public class PendingOrders {
         return database.getPendingOrders("Select * from orders where STATUS =7");
     }
     public ArrayList<Order> getFirstOrdersDrivers() {
-        return database.getPendingOrders("Select * from orders where STATUS=3 or STATUS=4");
+        ArrayList<Order> driverOrders = database.getPendingOrders("Select * from orders where STATUS=3 or STATUS=4");
+        ArrayList<Order> ordersToday = new ArrayList<Order>();
+        Date today = new Date();
+        for(int i = 0; i < driverOrders.size(); i++) {
+            if(driverOrders.get(i).getDate().getMonth() == today.getMonth() && driverOrders.get(i).getDate().getDate() == today.getDate() && driverOrders.get(i).getDate().getYear() == today.getYear()) {
+                ordersToday.add(driverOrders.get(i));
+            }
+        }
+        return ordersToday;
     }
 
     public void updateDb(Order s) {
