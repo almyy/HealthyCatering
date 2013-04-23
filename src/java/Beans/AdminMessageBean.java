@@ -21,13 +21,13 @@ import org.primefaces.event.CellEditEvent;
  */
 @SessionScoped
 @Named("AdminStart")
-public class AdminStartBean implements Serializable {
+public class AdminMessageBean implements Serializable {
 
     private AdminMessages messages = new AdminMessages();
     private List<MessageStatus> tabledata = Collections.synchronizedList(new ArrayList<MessageStatus>());
     private AdminMessage tempMessage = new AdminMessage();
 
-    public AdminStartBean() {
+    public AdminMessageBean() {
         if (messages.getList() != null) {
             for (int i = 0; i < messages.getList().size(); i++) {
                 tabledata.add(new MessageStatus(messages.getList().get(i)));

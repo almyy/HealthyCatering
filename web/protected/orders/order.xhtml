@@ -75,8 +75,8 @@
                         
                     </p:panel>
                 </p:panelGrid>
-                <p:commandButton value="Send" action="#{orderBean.confirmOrder()}"></p:commandButton>
-                <p:commandButton value="Subscribe" action ="#{orderBean.subscribe()}"></p:commandButton>
+                <p:commandButton value="#{lang_auth.send}" action="#{orderBean.confirmOrder()}"></p:commandButton>
+                <p:commandButton value="#{lang_auth.subscribe}" action ="#{orderBean.subscribe()}"></p:commandButton>
             </h:form>
         </ui:define>
     </ui:composition>

@@ -6,71 +6,72 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
 
-                <h:form id="dish">
+    <h:form id="dish" >
 
-                    <p:contextMenu for="dishTable" widgetVar="cMenu">     
-                        <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="dishlist.showCellEditor();
-                                return false;"/>    
-                        <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="cMenu.hide()"/>    
-                    </p:contextMenu>
-
-
-                    <p:dataTable value ="#{Dish.tableData}" var ="list" styleClass ="dishes" editable="true" editMode="cell" id="dishTable" widgetVar="dishlist"
-                                 emptyMessage="#{lang_auth.DishCriteria}"  >
-
-                        <p:ajax event="cellEdit" listener="#{Dish.onCellEdit}"/>   
-
-                        <p:column id="nameColumn" sortBy="#{list.dish.dishName}"  style="width:50%" 
-                                  headerText ="#{lang_auth.DishName}">
-                            <p:cellEditor>
-                                <f:facet name ="output">
-                                    <h:outputText value ="#{list.dish.dishName}"/>
-                                </f:facet>
-                                <f:facet name ="input">
-                                    <p:inputText value ="#{list.dish.dishName}" style="width:96%"/>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
-                        <p:column id="priceColumn" sortBy="#{list.dish.price}" 
-                                  headerText ="#{lang_auth.Price}" style="width:50%">
-                            <p:cellEditor>
-                                <f:facet name ="output">
-                                    <h:outputText value ="#{list.dish.price}"/>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:inputText value ="#{list.dish.price}" style="width:96%"/>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
+        <p:contextMenu for="dishTable" widgetVar="cMenu">     
+            <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="dishlist.showCellEditor();
+                    return false;"/>    
+            <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="cMenu.hide()"/>    
+        </p:contextMenu>
 
 
-                        <p:column  headerText ="#{lang_auth.Delete}">
+        <p:dataTable value ="#{Dish.tableData}" var ="list" styleClass ="dishes" editable="true" editMode="cell" id="dishTable" widgetVar="dishlist"
+                     emptyMessage="#{lang_auth.DishCriteria}"  >
 
-                            <h:selectBooleanCheckbox value="#{list.delete}"/>
+            <p:ajax event="cellEdit" listener="#{Dish.onCellEdit}"/>   
 
-                            <f:facet name ="footer">
-                                <p:commandButton value ="#{lang_auth.Delete}" action ="#{Dish.delete()}"  update="dishTable" ajax="false" />
-                            </f:facet>
-                        </p:column>
+            <p:column id="nameColumn" sortBy="#{list.dish.dishName}"  style="width:50%" 
+                      headerText ="#{lang_auth.DishName}">
+                <p:cellEditor>
+                    <f:facet name ="output">
+                        <h:outputText value ="#{list.dish.dishName}"/>
+                    </f:facet>
+                    <f:facet name ="input">
+                        <p:inputText value ="#{list.dish.dishName}" style="width:96%"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column id="priceColumn" sortBy="#{list.dish.price}" 
+                      headerText ="#{lang_auth.Price}" style="width:50%">
+                <p:cellEditor>
+                    <f:facet name ="output">
+                        <h:outputText value ="#{list.dish.price}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value ="#{list.dish.price}" style="width:96%"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
 
 
-                    </p:dataTable>
+            <p:column  headerText ="#{lang_auth.Delete}">
 
-                    <p:dialog header ="#{lang_auth.AddDish}"  widgetVar="dlg" position="center">
+                <h:selectBooleanCheckbox value="#{list.delete}"/>
 
-                        <h:outputText value="#{lang_auth.DishName}"/>
-                        <p/>
-                        <p:inputText value="#{Dish.dishName}"/>
-                        <br></br>
-                        <h:outputText value="#{lang_auth.Price}"/>
-                        <p/>
-                        <p:inputText value ="#{Dish.price}" />  
-                        <p:commandButton value="#{lang_auth.AddDish}" action="#{Dish.add()}" onclick="dlg.hide()"  update="dish:dishTable" ajax="false"/>
-                    </p:dialog>
+                <f:facet name ="footer">
+                    <p:commandButton value ="#{lang_auth.Delete}" action ="#{Dish.delete()}"  update="dishTable" ajax="false" />
+                </f:facet>
+            </p:column>
 
-                    <p:commandButton value="#{lang_auth.AddDish}"  type="button" onclick="dlg.show()"/>
 
-                </h:form>
+        </p:dataTable>
+
+        <p:dialog header ="#{lang_auth.AddDish}"  widgetVar="dlg1" position="center">
+
+            <h:outputText value="#{lang_auth.DishName}"/>
+            <p/>
+            <p:inputText value="#{Dish.dishName}"/>
+            <br></br>
+            <h:outputText value="#{lang_auth.Price}"/>
+            <p/>
+            <p:inputText value ="#{Dish.price}" />  
+            <p:commandButton id="addButton" value="#{lang_auth.AddMessage}" update="dish:dishTable" action ="#{Dish.add()}" ajax="false"
+                             onclick="dlg1.hide()"/>
+        </p:dialog>
+
+        <p:commandButton value="#{lang_auth.AddDish}"  onclick="dlg1.show()" />
+
+    </h:form>
 
 
 </html>

@@ -113,7 +113,7 @@ class AnalyticsBean implements Serializable {
                     moneyGeneratedForDish += sOrders.get(u).getTotalPrice();
                 }
             }
-            moneyGenerated.set(dishesDb.get(i).getDishName(), moneyGeneratedForDish);
+            moneyGenerated.set(dishesDb.get(i).getDishId(), moneyGeneratedForDish);
             moneyGeneratedForDish = 0;
         }
         categoryModel2.addSeries(moneyGenerated);
@@ -136,13 +136,15 @@ class AnalyticsBean implements Serializable {
             String[] salesmenUsernames = new String[salesmenCounter];
 
             for (int i = 0; i < salesmenCounter; i++) {
-                salesmanUsername = sOrders.get(0).getSalesmanUsername();
-                salesmenUsernames[i] = salesmanUsername;
-                for (int u = 0; u < sOrders.size(); u++) {
-                    if (sOrders.get(u).getSalesmanUsername().equals(salesmanUsername)) {
-                        salesNumbers[i] += sOrders.get(u).getTotalPrice();
-                        sOrders.remove(sOrders.get(u));
-                        u--;
+                if (!sOrders.isEmpty()) {
+                    salesmanUsername = sOrders.get(0).getSalesmanUsername();
+                    salesmenUsernames[i] = salesmanUsername;
+                    for (int u = 0; u < sOrders.size(); u++) {
+                        if (sOrders.get(u).getSalesmanUsername().equals(salesmanUsername)) {
+                            salesNumbers[i] += sOrders.get(u).getTotalPrice();
+                            sOrders.remove(sOrders.get(u));
+                            u--;
+                        }
                     }
                 }
             }
@@ -174,7 +176,7 @@ class AnalyticsBean implements Serializable {
                     numberOfSales += sOrders.get(u).getDishCount();
                 }
             }
-            dishesCount.set(dishesDb.get(i).getDishName(), numberOfSales);
+            dishesCount.set(dishesDb.get(i).getDishId(), numberOfSales);
             numberOfSales = 0;
         }
         categoryModel.addSeries(dishesCount);
