@@ -26,10 +26,10 @@ public class LoginBean implements Serializable {
                     externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/customer/customer.xhtml");
                 }
                 if (roleName.equals("chef")) {
-                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/worker/chef.xhtml");
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/worker/chefIndex.xhtml");
                 }
                 if (roleName.equals("salesman")) {
-                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/worker/salesman.xhtml");
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/worker/salesmanIndex.xhtml");
                 }
                 if (roleName.equals("driver")) {
                     externalContext.redirect(externalContext.getRequestContextPath() + "/faces/protected/driver/driverMobile.xhtml");
