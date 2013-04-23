@@ -54,9 +54,9 @@
                             <p:outputLabel value="#{OrderList.order.status}" rendered="#{!OrderList.toBeChanged}"/>
                             <p:selectOneMenu  rendered="#{OrderList.toBeChanged}" value="#{OrderList.order.status}"
                                              onchange="submit" valueChangeListener="#{Worker.statusChanged}">
-                                <f:selectItem itemValue="PENDING" itemLabel="PENDING"/>
-                                <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="UNDER_PREPARATION"/>
-                                <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>                               
+                                <f:selectItem itemValue="PENDING" itemLabel="#{lang_auth.pending}"/>
+                                <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="#{lang_auth.underPreparation}"/>
+                                <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="#{lang_auth.pendingDelivery}"/>                               
                             </p:selectOneMenu>                            
                         </p:column>
                         <p:column>

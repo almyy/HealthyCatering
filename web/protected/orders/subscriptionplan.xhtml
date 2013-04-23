@@ -9,11 +9,11 @@
     <ui:composition template="../../userTemplate.xhtml">
         <ui:define name="content">
             <h:form> 
-                <h2>Setup subscription plan</h2>
+                <h2>#{lang_auth.SetupSubscriptionPlan}</h2>
                 <table>
                     <tr>
                         <td>
-                            <h3>Start</h3>
+                            <h3>#{lang_auth.start}</h3>
                         </td>
                         <td>
                             <p:calendar effect="drop" value="#{subBean.startdate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <h3>End</h3>
+                            <h3>#{lang_auth.End}</h3>
                         </td>
                         <td>
                             <p:calendar effect="drop" value="#{subBean.enddate}" readonly="true" timeZone="#{orderBean.timeZone}" mindate="#{orderBean.deliverydate}"/>
@@ -29,13 +29,13 @@
                     </tr>
 
                     <tr>
-                        <td><h3>Days:</h3></td>
-                        <td><h3>Time:</h3></td>
+                        <td><h3>#{lang_auth.Days}:</h3></td>
+                        <td><h3>#{lang_auth.Time}:</h3></td>
                     </tr>
                     <tr>
                         <td>  
                             <p:selectManyCheckbox id="days" value="#{subBean.selectedDays}"  
-                                                  layout="pageDirection" required="true" requiredMessage="Please choose a day.">  
+                                                  layout="pageDirection" required="true" requiredMessage="#{lang_auth.dayChoose}">  
                                 <f:selectItems value="#{subBean.weekdays}" />  
                             </p:selectManyCheckbox>
 
@@ -60,7 +60,7 @@
                     </tr>
                 </table>
 
-                <p:commandButton value="Send" action="#{subBean.submitPlan()}" ajax="false"></p:commandButton>
+                <p:commandButton value="#{lang_auth.send}" action="#{subBean.submitPlan()}" ajax="false"></p:commandButton>
             </h:form>
         </ui:define>
     </ui:composition>
