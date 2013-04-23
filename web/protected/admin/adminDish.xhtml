@@ -49,7 +49,7 @@
                             <h:selectBooleanCheckbox value="#{list.delete}"/>
 
                             <f:facet name ="footer">
-                                <p:commandButton value ="#{lang_auth.Delete}" action ="#{Dish.delete()}"  update="dishTable" ajax="true" />
+                                <p:commandButton value ="#{lang_auth.Delete}" action ="#{Dish.delete()}"  update="dishTable" ajax="false" />
                             </f:facet>
                         </p:column>
 
@@ -65,7 +65,7 @@
                         <h:outputText value="#{lang_auth.Price}"/>
                         <p/>
                         <p:inputText value ="#{Dish.price}" />  
-                        <p:commandButton value="#{lang_auth.AddDish}" action="#{Dish.add()}" onclick="dlg.hide()"  update="dish:dishTable" ajax="true"/>
+                        <p:commandButton value="#{lang_auth.AddDish}" action="#{Dish.add()}" onclick="dlg.hide()"  update="dish:dishTable" ajax="false"/>
                     </p:dialog>
 
                     <p:commandButton value="#{lang_auth.AddDish}"  type="button" onclick="dlg.show()"/>

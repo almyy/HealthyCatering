@@ -6,7 +6,6 @@
       xmlns:p="http://primefaces.org/ui">
         <ui:composition template ="../../serviceTemplate.xhtml">
             <ui:define name ="content">
-                <h:form>
                        <p:tabView dynamic="true" activeIndex="#{AdminIndex.tabIndex}">
                            <p:ajax event="tabChange" listener="#{AdminIndex.onTabChange}" />
                            <p:tab id ="messages" title="#{lang_auth.Message}">
@@ -26,7 +25,6 @@
                                <ui:include src = "adminRegister.xhtml"/>
                            </p:tab>
                        </p:tabView>
-                </h:form>
             </ui:define>
         </ui:composition>
 </html>

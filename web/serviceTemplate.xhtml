@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <title>Healthy Catering</title>
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,28 +13,29 @@
     </h:head>
 
     <h:body>
-        <div id="background" class="background"> 
-        </div>
-        
-        <div id="header" class="fullwidth">
-                <h:graphicImage value="/resources/pictures/logo.png"></h:graphicImage>
-        </div>
-        <div id="menu" class="menu">
-            <h:form>
-                <h:commandButton value="#{lang_auth.LogOut}" action="#{Frontpage.logout()}" rendered="#{Frontpage.isLoggedIn()}" class="headerbutton"/>
-            </h:form>
-        </div>
-        <div id="lang" class="lang">
-            <h:form>
-                <p><h:commandLink action="#{Lang.setEng()}"><h:graphicImage value="/resources/pictures/uk.png" style="margin-right:5px;"/> </h:commandLink> 
-                    <h:commandLink action="#{Lang.setNo()}" ><h:graphicImage value="/resources/pictures/nor.png"/></h:commandLink></p>
-            </h:form>
-        </div>
-        
-        <div id="content" class="content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
+        <f:view lang="#{Lang.locale}">
+            <div id="background" class="background"> 
+            </div>
 
+            <div id="header" class="fullwidth">
+                <h:graphicImage value="/resources/pictures/logo.png"></h:graphicImage>
+            </div>
+            <div id="menu" class="menu">
+                <h:form>
+                    <h:commandButton value="#{lang_auth.LogOut}" action="#{Frontpage.logout()}" rendered="#{Frontpage.isLoggedIn()}" class="headerbutton"/>
+                </h:form>
+            </div>
+            <div id="lang" class="lang">
+                <h:form>
+                    <p><h:commandLink action="#{Lang.setEng()}"><h:graphicImage value="/resources/pictures/uk.png" style="margin-right:5px;"/> </h:commandLink> 
+                        <h:commandLink action="#{Lang.setNo()}" ><h:graphicImage value="/resources/pictures/nor.png"/></h:commandLink></p>
+                </h:form>
+            </div>
+
+            <div id="content" class="content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </f:view>
     </h:body>
 
 </html>

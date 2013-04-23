@@ -1,13 +1,15 @@
 package Language;
 
+import java.io.Serializable;
 import java.util.Locale;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
-@Named("Lang")
-@Dependent
-public class LangChange {
+@ManagedBean(name="Lang")
+@SessionScoped
+
+public class LangChange implements Serializable{
 
     private FacesContext context = FacesContext.getCurrentInstance();
     private Locale locale =  context.getViewRoot().getLocale();

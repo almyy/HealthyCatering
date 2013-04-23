@@ -3,6 +3,7 @@ package Beans;
 import DB.Database;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Locale;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
@@ -18,8 +19,8 @@ public class LoginBean implements Serializable {
     private Database db = new Database();
 
     public void redirect() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         String roleName = db.getRole();
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
             if (roleName != null) {
                 if (roleName.equals("customer")) {
@@ -61,5 +62,11 @@ public class LoginBean implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public void locale() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Locale locale = context.getViewRoot().getLocale();
+        System.out.println(context.getViewRoot().getLocale());
     }
 }
