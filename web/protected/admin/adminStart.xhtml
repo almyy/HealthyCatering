@@ -38,7 +38,7 @@
         </p:dataTable>
         <p:dialog header="#{lang_auth.AddMessage}" widgetVar="dlg" position="center">
             <p:editor id="editor" value="#{AdminStart.message}" width="600"/>  
-            <br></br>
+            <br/>
             <p:commandButton id="addButton" value="#{lang_auth.AddMessage}" update="message:messageTable" action ="#{AdminStart.add()}" ajax="true"
                              onclick="dlg.hide()"/>
 
