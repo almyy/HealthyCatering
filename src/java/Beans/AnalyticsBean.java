@@ -136,13 +136,15 @@ class AnalyticsBean implements Serializable {
             String[] salesmenUsernames = new String[salesmenCounter];
 
             for (int i = 0; i < salesmenCounter; i++) {
-                salesmanUsername = sOrders.get(0).getSalesmanUsername();
-                salesmenUsernames[i] = salesmanUsername;
-                for (int u = 0; u < sOrders.size(); u++) {
-                    if (sOrders.get(u).getSalesmanUsername().equals(salesmanUsername)) {
-                        salesNumbers[i] += sOrders.get(u).getTotalPrice();
-                        sOrders.remove(sOrders.get(u));
-                        u--;
+                if (!sOrders.isEmpty()) {
+                    salesmanUsername = sOrders.get(0).getSalesmanUsername();
+                    salesmenUsernames[i] = salesmanUsername;
+                    for (int u = 0; u < sOrders.size(); u++) {
+                        if (sOrders.get(u).getSalesmanUsername().equals(salesmanUsername)) {
+                            salesNumbers[i] += sOrders.get(u).getTotalPrice();
+                            sOrders.remove(sOrders.get(u));
+                            u--;
+                        }
                     }
                 }
             }

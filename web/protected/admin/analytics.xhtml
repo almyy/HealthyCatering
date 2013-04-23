@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"> 
     <h:form>
-        <p:fieldset id="frame" legend="Analytics">
+        <p:fieldset id="frame" legend="Analytics2">
             <p:panelGrid id="dateGrid" columns="2">
                 <p:outputLabel value="From"/>
                 <p:calendar value="#{Analytics.fromDate}" mindate="#{Analytics.fromDateOriginal}" maxdate="#{Analytics.toDateOriginal}" id="from" showOn="button" effect="drop" required="true"/>
@@ -40,15 +40,16 @@ and open the template in the editor.
                              title="Linear Chart" minY="0" minX="0" style="width:970px;" widgetVar="chart"
                              legendCols="12" xaxisLabel="Month" fill="true" seriesColors="1ABDF8, 9111C7"/> 
             </p:panelGrid> 
-            <p:panelGrid columns="1">
+            <p:panelGrid columns="2">
                 <p:barChart id="basic" value="#{Analytics.categoryModel}" legendPosition="ne"  
-            title="Basic Bar Chart" min="0" max="200" style="height:300px"/> 
+                            title="Basic Bar Chart" min="0" max="200" style="height:450px"/> 
                 <p:barChart id="basic2" value="#{Analytics.categoryModel2}" legendPosition="ne"  
-            title="Basic Bar Chart" min="0" max="200" style="height:300px"/> 
-                <p:barChart id="basic3" value="#{Analytics.categoryModelSales}" legendPosition="ne"  
-            title="Basic Bar Chart" min="0" max="200" style="height:300px"/> 
+                            title="Basic Bar Chart" min="0" max="200" style="height:450px"/> 
             </p:panelGrid> 
-
+            <p:panelGrid>
+                <p:barChart id="basic3" value="#{Analytics.categoryModelSales}" legendPosition="ne"  
+                            title="Basic Bar Chart" min="0" max="200" style="height:900px"/> 
+            </p:panelGrid>
         </p:fieldset>
     </h:form>
 </html>
