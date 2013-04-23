@@ -6,12 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <ui:composition template="../../serviceTemplate.xhtml">
-        <h:head> 
-            <title>Facelet Title</title>
-        </h:head>
-        <ui:define name="content">
-            <h:body>
+    
                 #{Worker.update()}
                 <h:form>
                     <p:dataTable value="#{Worker.tabledata}" var="OrderList" styleClass="orders" id="dataTable_id"
@@ -54,9 +49,9 @@
                             <p:outputLabel value="#{OrderList.order.status}" rendered="#{!OrderList.toBeChanged}"/>
                             <p:selectOneMenu  rendered="#{OrderList.toBeChanged}" value="#{OrderList.order.status}"
                                              onchange="submit" valueChangeListener="#{Worker.statusChanged}">
-                                <f:selectItem itemValue="PENDING" itemLabel="#{lang_auth.pending}"/>
-                                <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="#{lang_auth.underPreparation}"/>
-                                <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="#{lang_auth.pendingDelivery}"/>                               
+                                <f:selectItem itemValue="PENDING" itemLabel="PENDING"/>
+                                <f:selectItem itemValue="UNDER_PREPARATION" itemLabel="UNDER_PREPARATION"/>
+                                <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>                               
                             </p:selectOneMenu>                            
                         </p:column>
                         <p:column>
@@ -76,10 +71,6 @@
                         </f:facet>
                     </p:dataTable>
                 </h:form>
-
-            </h:body>
-        </ui:define>
-    </ui:composition>
 
 </html>
 

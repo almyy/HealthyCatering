@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Beans; 
+package Beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,13 +21,13 @@ import org.primefaces.event.CellEditEvent;
  */
 @SessionScoped
 @Named("AdminStart")
-public class AdminStartBean implements Serializable {
+public class AdminMessageBean implements Serializable {
 
     private AdminMessages messages = new AdminMessages();
     private List<MessageStatus> tabledata = Collections.synchronizedList(new ArrayList<MessageStatus>());
     private AdminMessage tempMessage = new AdminMessage();
 
-    public AdminStartBean() {
+    public AdminMessageBean() {
         if (messages.getList() != null) {
             for (int i = 0; i < messages.getList().size(); i++) {
                 tabledata.add(new MessageStatus(messages.getList().get(i)));

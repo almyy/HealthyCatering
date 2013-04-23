@@ -32,14 +32,14 @@
             <p:column >
                 <h:selectBooleanCheckbox value="#{list.delete}"/>
                 <f:facet name ="footer">
-                    <p:commandButton value="#{lang_auth.DeleteMessage}" update="messageTable" action="#{AdminStart.delete()}" ajax="true"/>  
+                    <p:commandButton value="#{lang_auth.DeleteMessage}" update="messageTable" action="#{AdminStart.delete()}" ajax ="false"/>  
                 </f:facet>
             </p:column>
         </p:dataTable>
         <p:dialog header="#{lang_auth.AddMessage}" widgetVar="dlg" position="center">
             <p:editor id="editor" value="#{AdminStart.message}" width="600"/>  
-            <br/>
-            <p:commandButton id="addButton" value="#{lang_auth.AddMessage}" update="message:messageTable" action ="#{AdminStart.add()}" ajax="true"
+            <br></br>
+            <p:commandButton id="addButton" value="#{lang_auth.AddMessage}" update="message:messageTable" action ="#{AdminStart.add()}" ajax="false"
                              onclick="dlg.hide()"/>
 
         </p:dialog>
