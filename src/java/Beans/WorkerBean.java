@@ -14,6 +14,7 @@ import javax.inject.Named;
 import logikk.Order;
 import logikk.OrderStatus;
 import logikk.PendingOrders;
+
 /**
  *
  * @author Rino
@@ -40,7 +41,7 @@ public class WorkerBean implements Serializable {
             for (int i = 0; i < temp.size(); i++) {
                 tabledata.add(new OrderStatus(temp.get(i)));
             }
-            quickSortDate(0,tabledata.size()-1);
+            quickSortDate(0, tabledata.size() - 1);
         }
     }
 
@@ -56,7 +57,9 @@ public class WorkerBean implements Serializable {
                 j--;
             }
             if (i <= j) {
-                exchange(i, j);i++;j--;
+                exchange(i, j);
+                i++;
+                j--;
             }
         }
         if (low < j) {
@@ -66,18 +69,16 @@ public class WorkerBean implements Serializable {
             quickSortDate(i, high);
         }
     }
+
     private void exchange(int i, int j) {
         OrderStatus temp = tabledata.get(i);
         tabledata.set(i, tabledata.get(j));
-        tabledata.set(j,temp);
+        tabledata.set(j, temp);
     }
 
-    public void statusChanged(ValueChangeEvent e) {
+    public void statusChanged() {
         for (int i = 0; i < tabledata.size(); i++) {
-            if (tabledata.get(i).getToBeChanged()) {
-                System.out.println(tabledata.get(i).getOrder().getStatus());
-                overView.updateDb(tabledata.get(i).getOrder());
-            }
+            overView.updateDb(tabledata.get(i).getOrder());
         }
     }
 }
