@@ -4,28 +4,28 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-        <ui:composition template ="../../serviceTemplate.xhtml">
-            <ui:define name ="content">
-                       <p:tabView dynamic="true" activeIndex="#{AdminIndex.tabIndex}">
-                           <p:ajax event="tabChange" listener="#{AdminIndex.onTabChange}" />
-                           <p:tab id ="messages" title="#{lang_auth.Message}">
-                               <ui:include src="adminMessage.xhtml"></ui:include>
-                           </p:tab>
-                           <p:tab id ="orders" title="#{lang_auth.Orders}">
-                               <ui:include src="adminOrder.xhtml"></ui:include>
-                           </p:tab>
-                           
-                            <p:tab id="dishes" title="#{lang_auth.Dishes}">
-                                <ui:include src ="adminDish.xhtml"></ui:include>
-                           </p:tab>
-                           <p:tab id="analytics" title="#{lang_auth.Analytics}">
-                                <ui:include src ="adminAnalytics.xhtml"></ui:include>
-                           </p:tab>
-                           <p:tab id="register" title="User registration">
-                               <ui:include src = "adminRegister.xhtml"/>
-                           </p:tab>
-                       </p:tabView>
-            </ui:define>
-        </ui:composition>
+    <ui:composition template ="../../serviceTemplate.xhtml">
+        <ui:define name ="content">
+            <p:tabView dynamic="true" activeIndex="#{AdminIndex.tabIndex}">
+                <p:ajax event="tabChange" listener="#{AdminIndex.onTabChange}" />
+                <p:tab id ="messages" title="#{lang_auth.Message}">
+                    <ui:include src="adminStart.xhtml"></ui:include>
+                </p:tab>
+                <p:tab id ="orders" title="#{lang_auth.Orders}">
+                    <ui:include src="admin.xhtml"></ui:include>
+                </p:tab>
+
+                <p:tab id="dishes" title="#{lang_auth.Dishes}">
+                    <ui:include src ="adminDish.xhtml"></ui:include>
+                </p:tab>
+                <p:tab id="analytics" title="#{lang_auth.Analytics}">
+                    <ui:include src ="analytics.xhtml"></ui:include>
+                </p:tab>
+                <p:tab id="register" title="User registration">
+                    <ui:include src = "adminRegister.xhtml"/>
+                </p:tab>
+            </p:tabView>
+        </ui:define>
+    </ui:composition>
 </html>
 
