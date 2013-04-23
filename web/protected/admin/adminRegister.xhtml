@@ -49,13 +49,13 @@ and open the template in the editor.
                         <f:validateLength minimum="8" maximum="16"/>
                     </p:inputText> 
                     <p:message for="phone" showDetail="false" showSummary="true"/>
-                    <p:outputLabel value="Role"/>
+                    <p:outputLabel value="#{lang_auth.Role}"/>
                     <p:selectOneMenu id="roleSelect" value="#{Register.user.role}">
-                        <f:selectItem itemValue="customer" itemLabel="Customer"/>
-                        <f:selectItem itemValue="chef" itemLabel="Chef"/>
-                        <f:selectItem itemValue="driver" itemLabel="Driver"/>
-                        <f:selectItem itemValue="salesman" itemLabel="Salesman"/>
-                        <f:selectItem itemValue="admin" itemLabel="Administrator"/>
+                        <f:selectItem itemValue="customer" itemLabel="#{lang_auth.customer}"/>
+                        <f:selectItem itemValue="chef" itemLabel="#{lang_auth.chef}"/>
+                        <f:selectItem itemValue="driver" itemLabel="#{lang_auth.driver}"/>
+                        <f:selectItem itemValue="salesman" itemLabel="#{lang_auth.salesman}"/>
+                        <f:selectItem itemValue="admin" itemLabel="#{lang_auth.admin}"/>
                     </p:selectOneMenu>
                 </p:panelGrid>
                 <p:commandButton action="#{Register.apply()}" type="submit" id="submitButton" value="#{lang_auth.Submit}" update="grid" />

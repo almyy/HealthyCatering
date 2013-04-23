@@ -15,10 +15,10 @@ and open the template in the editor.
         <pm:view id="main">
             <pm:header title="Order overview">
                 <f:facet name="left">
-                    <p:commandButton value="Update" icon="refresh" action="#{Driver.update()}"/>
+                    <p:commandButton value="#{lang_auth.Update}" icon="refresh" action="#{Driver.update()}"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandLink value="Logout" action="#{Frontpage.logout()}"/>
+                    <p:commandLink value="#{lang_auth.LogOut}" action="#{Frontpage.logout()}"/>
                 </f:facet>
             </pm:header>
             <pm:content id="content">
@@ -34,9 +34,9 @@ and open the template in the editor.
                                     </p:column>
                                     <p:column>
                                         <h:selectOneMenu  value="#{List.order.status}">
-                                            <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="PENDING_DELIVERY"/>
-                                            <f:selectItem itemValue="ON_THE_ROAD" itemLabel="ON_THE_ROAD"/>
-                                            <f:selectItem itemValue="FINISHED" itemLabel="FINISHED"/>
+                                            <f:selectItem itemValue="PENDING_DELIVERY" itemLabel="#{lang_auth.pendingDelivery}"/>
+                                            <f:selectItem itemValue="ON_THE_ROAD" itemLabel="#{lang_auth.onTheRoad}"/>
+                                            <f:selectItem itemValue="FINISHED" itemLabel="#{lang_auth.finished}"/>
                                             <p:ajax listener="#{Driver.statusChanged}" update="list" />
                                         </h:selectOneMenu>
                                     </p:column>
