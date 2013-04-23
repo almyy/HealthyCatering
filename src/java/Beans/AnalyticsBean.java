@@ -113,7 +113,7 @@ class AnalyticsBean implements Serializable {
                     moneyGeneratedForDish += sOrders.get(u).getTotalPrice();
                 }
             }
-            moneyGenerated.set(dishesDb.get(i).getDishName(), moneyGeneratedForDish);
+            moneyGenerated.set(dishesDb.get(i).getDishId(), moneyGeneratedForDish);
             moneyGeneratedForDish = 0;
         }
         categoryModel2.addSeries(moneyGenerated);
@@ -176,7 +176,7 @@ class AnalyticsBean implements Serializable {
                     numberOfSales += sOrders.get(u).getDishCount();
                 }
             }
-            dishesCount.set(dishesDb.get(i).getDishName(), numberOfSales);
+            dishesCount.set(dishesDb.get(i).getDishId(), numberOfSales);
             numberOfSales = 0;
         }
         categoryModel.addSeries(dishesCount);
