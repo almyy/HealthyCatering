@@ -402,7 +402,31 @@ public class Database {
         return result;
     }
     //FOR MENU
+    public ArrayList<Dish> getDishesOrdered() {
+        PreparedStatement sentence = null;
+        openConnection();
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
+        try {
+            sentence = connection.prepareStatement("select d.dishname, do.orderid, do.dishcount from dish d, dishes_ordered do where do.dishid = d.dishid");
+            ResultSet res = sentence.executeQuery();
+            while (res.next()) {
+                int orderid = res.getInt("ORDERID");
+                String dishname = res.getString("DISHNAME");
+                int dishCount = res.getInt("DISHCOUNT");
+                Dish newdish = new Dish(dishname, orderid, dishCount);
+                dishes.add(newdish);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            Cleaner.rollback(connection);
 
+        } finally {
+            Cleaner.closeSentence(sentence);
+        }
+        closeConnection();
+        return dishes;
+    }
+    
     public ArrayList<Dish> getDishes() {
         PreparedStatement sentence = null;
         openConnection();

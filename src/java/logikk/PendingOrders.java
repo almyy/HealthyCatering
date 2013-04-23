@@ -24,10 +24,36 @@ public class PendingOrders {
      * 7=awaitingapproval 5 = FINISHED 4= on the road 6 = missing
      */
     public ArrayList<Order> getFirstOrdersChef() {
-        return database.getPendingOrders("Select * from orders where STATUS !=5 and STATUS!=4 and STATUS != 6 and STATUS !=7");
+        ArrayList<Order> result = database.getPendingOrders("Select * from orders where STATUS !=5 and STATUS!=4 and STATUS != 6 and STATUS !=7");
+        ArrayList<Dish> dishesOrdered = database.getDishesOrdered();
+        //Adding the correct dishes to the orders. 
+        if(!result.isEmpty() && !dishesOrdered.isEmpty()){
+            for(int i = 0; i < result.size(); i++){
+                int orderId = result.get(i).getOrderId();
+                for(int u = 0; u < dishesOrdered.size();u++){
+                    if(dishesOrdered.get(u).getOrderId()==orderId){
+                        result.get(i).addDish(dishesOrdered.get(u));
+                    }
+                }
+            }
+        }
+        return result; 
     }
     public ArrayList<Order> getFirstOrdersSalesmen(){
-        return database.getPendingOrders("Select * from orders where STATUS =7");
+        ArrayList<Order> result = database.getPendingOrders("Select * from orders where STATUS =7");
+        ArrayList<Dish> dishesOrdered = database.getDishesOrdered();
+        //Adding the correct dishes to the orders. 
+        if(!result.isEmpty() && !dishesOrdered.isEmpty()){
+            for(int i = 0; i < result.size(); i++){
+                int orderId = result.get(i).getOrderId();
+                for(int u = 0; u < dishesOrdered.size();u++){
+                    if(dishesOrdered.get(u).getOrderId()==orderId){
+                        result.get(i).addDish(dishesOrdered.get(u));
+                    }
+                }
+            }
+        }
+        return result;
     }
     public ArrayList<Order> getFirstOrdersDrivers() {
         return database.getPendingOrders("Select * from orders where STATUS=3 or STATUS=4");

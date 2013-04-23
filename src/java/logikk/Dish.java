@@ -11,7 +11,14 @@ public class Dish {
     private double price;
     private int count; 
     private String imagePath; 
-
+    private int orderId; 
+    
+    public Dish(String dishName, int orderId, int count){
+        this.dishName = dishName;
+        this.orderId = orderId;
+        this.count=count; 
+    }
+    
     public Dish(int dishId, String dishName, double price) {
         this.dishId = dishId;
         this.dishName = dishName;
@@ -38,6 +45,10 @@ public class Dish {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public int getOrderId() {
+        return orderId;
     }
     
 
