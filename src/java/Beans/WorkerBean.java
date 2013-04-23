@@ -75,6 +75,7 @@ public class WorkerBean implements Serializable {
     public void statusChanged(ValueChangeEvent e) {
         for (int i = 0; i < tabledata.size(); i++) {
             if (tabledata.get(i).getToBeChanged()) {
+                System.out.println(tabledata.get(i).getOrder().getStatus());
                 overView.updateDb(tabledata.get(i).getOrder());
             }
         }

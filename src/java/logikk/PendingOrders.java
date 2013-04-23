@@ -35,11 +35,12 @@ public class PendingOrders {
         ArrayList<Order> ordersToday = new ArrayList<Order>();
         Date today = new Date();
         for(int i = 0; i < driverOrders.size(); i++) {
+            System.out.println("today: " + today.toString() + "\nthat day: " + driverOrders.get(i).getDate().toString());
             if(driverOrders.get(i).getDate().getMonth() == today.getMonth() && driverOrders.get(i).getDate().getDate() == today.getDate() && driverOrders.get(i).getDate().getYear() == today.getYear()) {
                 ordersToday.add(driverOrders.get(i));
             }
         }
-        return ordersToday;
+        return driverOrders;
     }
 
     public void updateDb(Order s) {

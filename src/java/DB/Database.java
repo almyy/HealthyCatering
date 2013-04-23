@@ -117,8 +117,8 @@ public class Database {
         ResultSet res = null;
         openConnection();
         try {
+            connection.setAutoCommit(false);
             if (s.getStatusNumeric() == 5) {
-                connection.setAutoCommit(false);
                 sqlGet = connection.prepareStatement("SELECT * FROM dishes_ordered WHERE orderid=?");
                 sqlGet.setInt(1, s.getOrderId());
                 res = sqlGet.executeQuery();
